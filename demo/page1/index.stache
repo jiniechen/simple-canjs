@@ -1,0 +1,12 @@
+<view title="我的信息">
+	<text name="field1" label="姓名"/>
+	<switch name="field2" label="出生日期"/>
+</view>
+
+<view title="详细信息">
+	<text name="field1" label="姓名"/>
+	<switch name="field2" label="出生日期"/>
+</view>
+
+<command text="递交"/>
+<command text="取消" size="btn-lg" type="gray"/>

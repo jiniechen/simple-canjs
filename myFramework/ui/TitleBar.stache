@@ -1,0 +1,13 @@
+<header class="heading affix dock-top">
+  {{#if window.showLeftButton}}
+  <nav class="nav" id="back">
+    <a><i class="icon-chevron-left"></i></a>
+  </nav>
+  {{/if}}
+  <div class="title text-center">{{window.barTitleText}}</div>
+  {{#if window.showMenuButton}}
+  <nav class="nav" id="menu">
+    <a><i class="icon-ellipsis-h"></i></a>
+  </nav>
+  {{/if}}
+</header>
