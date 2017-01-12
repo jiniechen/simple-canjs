@@ -16,8 +16,10 @@ define(
 				if (properties.window) {
 					_window.barTitleText = properties.window.barTitleText ? properties.window.barTitleText
 							: undefined;
-					// _window.showLeftButton=properties.window.showLeftButton;
-					// _window.showMenuButton=properties.window.showMenuButton;
+					if (properties.window.showLeftButton!=undefined)
+						_window.showLeftButton=properties.window.showLeftButton;
+					if (properties.window.showMenuButton!=undefined)
+						_window.showMenuButton=properties.window.showMenuButton;
 				}
 
 				var _tabBar = {

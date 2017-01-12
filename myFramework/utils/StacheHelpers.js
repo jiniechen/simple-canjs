@@ -5,21 +5,29 @@ define([], function() {
 			var _page = this.page||this.scope.attr("page");
 			var _name = this.name || "";
 			return function(el) {
-				var name = "on" + _name.substring(0, 1).toUpperCase()
-						+ _name.substring(1, _name.length)
-						+ type.substring(0, 1).toUpperCase()
-						+ type.substring(1, type.length);
-				// 构建事件列表 元素/事件名称/响应函数
-				if (_page) {
-					var _handler = _page[name];
-					if (_DEBUG || _handler)
-						_page.addEvent({
-							el : el,
-							name : name,
-							type : type,
-							handler : _handler
-						});
-				}
+				var eventName = "on";
+				var nameLength=_name?_name.length:0;
+				if (nameLength>0)
+					eventName = eventName + _name.substring(0, 1).toUpperCase();
+				if (nameLength>1)
+					eventName = eventName + _name.substring(1, nameLength);
+				var typeLength = type?type.length:0;
+				if (typeLength>0){
+					eventName = eventName + type.substring(0, 1).toUpperCase();
+					if (typeLength>1)
+						eventName = eventName + type.substring(1, typeLength);
+					// 构建事件列表 元素/事件名称/响应函数
+					if (_page) {
+						var _handler = _page[eventName];
+						if (_DEBUG || _handler)
+							_page.addEvent({
+								el : el,
+								name : eventName,
+								type : type,
+								handler : _handler
+							});
+					}
+				};
 			}
 		},
 		formValue : function() {

@@ -9,5 +9,8 @@ define([ "myFramework/Application", "myFramework/utils/Navigator" ], function(
 	 * ds.attr(_name,this.value); }; el.value=ds.attr(_name); } });
 	 */
 	MF.Navigator = Navigator;
+	MF.getCurrentPage=Navigator.getCurrentPage;
+	MF.getPages=Navigator.getPages;
+	MF.getPage=Navigator.getPage;
 	window.MF = MF;
 });

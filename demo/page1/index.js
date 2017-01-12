@@ -16,8 +16,5 @@ Page({
 	},
 	onField1Click:function(){
 		//alert("onField1Click");
-	},
-	onClick:function(){
-		MF.getCurrentPage().viewModel.data.attr("field1","123456");
 	}
 });

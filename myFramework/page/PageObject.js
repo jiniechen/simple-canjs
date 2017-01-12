@@ -36,12 +36,13 @@ define([],
 				var _stache = undefined;
 
 				// 复制其它方法到当前对象,构建viewModel
-				var _cache = true;
-				var _helpers ={};
-				var _onCreate = undefined;// parameter:page
-				var _onShow = undefined;// parameter:page,dom
-				var _onHide = undefined// parameter:page,dom
-				var _ControlEvents = undefined;
+				this.cache = true;
+				this.helpers ={};
+				this.onLoad = undefined;// parameter:page
+				this.onShow = undefined;// parameter:page,dom
+				this.onHide = undefined// parameter:page,dom
+				this.events = [];
+				this.name = undefined;
 				var _self = this;
 				can.each(options, function(value, key) {
 					//除data 外，全部注入到page对象
@@ -51,13 +52,15 @@ define([],
 
 				});
 				this.viewModel = {
-					data : new can.Map(options.data || {}),
+					data : new can.Map(options.data==undefined?{}:
+								(can.isFunction(options.data) ? options.data()
+										: options.data)),
 					page : this
 				};
 				//增加组件注入的事件列表
-				this.events=[];
+				this.elementEvents=[];
 				this.addEvent=function(event){
-					this.events.push(event);
+					this.elementEvents.push(event);
 					if (event.handler){
 						var $el=$(event.el);
 						$el.off(event.handler);
@@ -65,67 +68,59 @@ define([],
 					}
 				}
 				
-				var _visible =false;
-				this.visible =function(){return _visible};
 				this._appendTo = function($el) {
-					if (_cache) {
+					if (this.cache) {
 						_dom.appendTo($el);
-						_visible=true;
-						if (_onShow)
-							_onShow(this);
+						if (this.onShow)
+							this.onShow(this);
 					} else {
 						_dom = new MF.Template.Stache(_stache, this.viewModel,
-								_helpers);
-						setControl(_dom,_ControlEvents);
-						if (_onCreate) {
-							_onCreate(this);
+								this.helpers);
+						if (this.events&&this.events.length>0)
+							setControl(_dom,_ControlEvents);
+						if (this.onLoad) {
+							this.onLoad(this);
 						}
 						_dom.appendTo($el);
-						_visible=true;
-						if (_onShow)
-							_onShow(this);
+						if (this.onShow)
+							this.onShow(this);
 					}
 				}
 
 				this._remove = function() {
-					if (!_cache) {
+					if (!this.cache) {
 						var _result = true;
-						if (_onHide) {
-							_result = _onHide(this);
+						if (this.onHide) {
+							_result = this.onHide(this);
 							if (_result == undefined)
 								_result = true;
 						}
 						if (_result) {
 							_dom.remove();
 							_dom = undefined;
-							_visible=false;
 						}
 					} else {
 						var _result = true;
-						if (_onHide) {
-							_result = _onHide(this);
+						if (this.onHide) {
+							_result = this.onHide(this);
 							if (_result == undefined)
 								_result = true;
 						}
 						if (_result) {
 							_dom.detach();
-							_visible=false;
 						}
 					}
 				}
 
-				this.name = undefined;
-				this.data = can.isFunction(options.data) ? options.data()
-						: options.data;
-
 				this.setStache = function(template) {
-					if (_cache) {
+					if (this.cache) {
 						_dom = new MF.Template.Stache(template, this.viewModel,
-								_helpers);
-						setControl(_dom,_ControlEvents);
+								this.helpers);
+						if (this.events)
+							setControl(_dom,this.events);
 						_stache = undefined;
-						if (_onCreate) {
-							_onCreate(this);
+						if (this.onLoad) {
+							this.onLoad(this);
 						}
 					} else {
 						_dom = undefined;
@@ -135,11 +130,12 @@ define([],
 
 				this.setHtml = function(html) {
 					_dom = new MF.Template.Html(html);
-					setControl(_dom,_ControlEvents);
+					if (this.events)
+						setControl(_dom,this.events);
 					_stache = undefined;
-					_cache = true;
-					if (_onCreate) {
-						_onCreate(this);
+					cache = true;
+					if (this.onLoad) {
+						this.onLoad(this);
 					}
 				}
 
