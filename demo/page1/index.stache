@@ -1,4 +1,4 @@
-<view title="我的信息">
+<view name="view1" title="我的信息">
 	<text name="field1" label="姓名"/>
 	<switch name="field2" label="出生日期"/>
 </view>

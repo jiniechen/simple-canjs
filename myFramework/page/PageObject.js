@@ -41,7 +41,7 @@ define([],
 				this.onLoad = undefined;// parameter:page
 				this.onShow = undefined;// parameter:page,dom
 				this.onHide = undefined// parameter:page,dom
-				this.events = [];
+				this.events = undefined;
 				this.name = undefined;
 				var _self = this;
 				can.each(options, function(value, key) {
@@ -172,6 +172,17 @@ define([],
 						_window.backList.push(this);
 						_window.attr("showLeftButton", true);
 					}
+				};
+				this.getViewModel=function(selector){
+					if (selector==undefined||selector=="")
+						return this.viewModel;
+					var _$dom=this.getDom().$dom;
+					var _els=_$dom.find(selector);
+					var result=[];
+					_els.each(function(index,el){
+						result.push($(el).viewModel());
+					});
+					return result;
 				}
 			}
 

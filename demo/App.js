@@ -43,6 +43,13 @@ App({
 				action : function(){
 					MF.Navigator.redirect("../poc/index.html");
 				}
+			},
+			{
+				text : "Toast",
+				icon : "icon-home",
+				action : function(){
+					;
+				}
 			}]
 		},
 	pages : [ "page1/index", "page2/index", "html!page2/test" ],

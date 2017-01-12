@@ -9,6 +9,7 @@ requirejs([ "text!myFramework/ui/View.stache" ], function(tpl) {
 				_scope=_scope.scope;
 			}
 			return {
+				name:undefined,
 				title:undefined,
 				scope:_scope
 			}
