@@ -1,4 +1,4 @@
-define(["text!myFramework/page/Dialog.stache"],function(tpl){
+define(["text!myFramework/ui/Dialog.stache"],function(tpl){
 	can.Component.extend({
 		tag:"dialog",
 		template:can.stache(tpl),

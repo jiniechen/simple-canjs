@@ -1,4 +1,4 @@
-define([ "myFramework/page/Dialog" ],
+define([ "myFramework/ui/Dialog" ],
 		function() {
 
 			function setControl(dom, events) {
