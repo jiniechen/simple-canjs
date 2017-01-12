@@ -1,6 +1,7 @@
-define([],
+define([ "myFramework/page/Dialog" ],
 		function() {
-			function setControl(dom,events){
+
+			function setControl(dom, events) {
 				if (dom.getData("control"))
 					return;
 				var _Control = can.Control.extend(events);
@@ -29,7 +30,8 @@ define([],
 						_self.on(event, func);
 					});
 				};
-			};
+			}
+			;
 
 			function PageObject(options) {
 				var _dom = undefined;
@@ -37,7 +39,8 @@ define([],
 
 				// 复制其它方法到当前对象,构建viewModel
 				this.cache = true;
-				this.helpers ={};
+				this.helpers = {};
+				this.dailog = false;
 				this.onLoad = undefined;// parameter:page
 				this.onShow = undefined;// parameter:page,dom
 				this.onHide = undefined// parameter:page,dom
@@ -45,43 +48,49 @@ define([],
 				this.name = undefined;
 				var _self = this;
 				can.each(options, function(value, key) {
-					//除data 外，全部注入到page对象
+					// 除data 外，全部注入到page对象
 					if (key == "data")
 						return;
 					_self[key] = value;
 
 				});
 				this.viewModel = {
-					data : new can.Map(options.data==undefined?{}:
-								(can.isFunction(options.data) ? options.data()
-										: options.data)),
+					data : new can.Map(options.data == undefined ? {} : (can
+							.isFunction(options.data) ? options.data()
+							: options.data)),
 					page : this
 				};
-				//增加组件注入的事件列表
-				this.elementEvents=[];
-				this.addEvent=function(event){
+				// 增加组件注入的事件列表
+				this.elementEvents = [];
+				this.addEvent = function(event) {
 					this.elementEvents.push(event);
-					if (event.handler){
-						var $el=$(event.el);
+					if (event.handler) {
+						var $el = $(event.el);
 						$el.off(event.handler);
-						$el.on(event.type,event.handler);
+						$el.on(event.type, event.handler);
 					}
 				}
-				
+
 				this._appendTo = function($el) {
 					if (this.cache) {
-						_dom.appendTo($el);
+						if (this.dialog)
+							_dom.appendTo($("body"));
+						else
+							_dom.appendTo($el);
 						if (this.onShow)
 							this.onShow(this);
 					} else {
 						_dom = new MF.Template.Stache(_stache, this.viewModel,
 								this.helpers);
-						if (this.events&&this.events.length>0)
-							setControl(_dom,_ControlEvents);
+						if (this.events && this.events.length > 0)
+							setControl(_dom, _ControlEvents);
 						if (this.onLoad) {
 							this.onLoad(this);
 						}
-						_dom.appendTo($el);
+						if (this.dialog)
+							_dom.appendTo($("body"));
+						else
+							_dom.appendTo($el);
 						if (this.onShow)
 							this.onShow(this);
 					}
@@ -113,29 +122,36 @@ define([],
 				}
 
 				this.setStache = function(template) {
+					var _template = this.dialog ? "<dialog>" + template
+							+ "</dialog>" : template;
 					if (this.cache) {
-						_dom = new MF.Template.Stache(template, this.viewModel,
-								this.helpers);
+						_dom = new MF.Template.Stache(_template,
+								this.viewModel, this.helpers);
 						if (this.events)
-							setControl(_dom,this.events);
+							setControl(_dom, this.events);
 						_stache = undefined;
 						if (this.onLoad) {
 							this.onLoad(this);
 						}
 					} else {
 						_dom = undefined;
-						_stache = template;
+						_stache = _template;
 					}
 				}
 
 				this.setHtml = function(html) {
-					_dom = new MF.Template.Html(html);
-					if (this.events)
-						setControl(_dom,this.events);
-					_stache = undefined;
-					cache = true;
-					if (this.onLoad) {
-						this.onLoad(this);
+					if (this.dialog) {
+						this.cache = false;
+						this.setStache(html);
+					} else {
+						_dom = new MF.Template.Html(html);
+						if (this.events)
+							setControl(_dom, this.events);
+						_stache = undefined;
+						cache = true;
+						if (this.onLoad) {
+							this.onLoad(this);
+						}
 					}
 				}
 
@@ -149,13 +165,17 @@ define([],
 
 				this.show = function() {
 					var _page = $("#page");
-					if (_page) {
-						if (_page.attr("data-page") != this.name) {
-							_page.attr("data-page", this.name);
-							this._appendTo(_page);
-						}
+					if (this.dialog) {
+						this._appendTo(_page);
 					} else {
+						if (_page) {
+							if (_page.attr("data-page") != this.name) {
+								_page.attr("data-page", this.name);
+								this._appendTo(_page);
+							}
+						} else {
 
+						}
 					}
 				};
 				this.backPageHide = function() {
@@ -166,20 +186,24 @@ define([],
 					this._remove();
 				};
 				this.hide = function() {
-					this.backPageHide();
-					var _window = getApp().viewModel.window;
-					if (_window.backList) {
-						_window.backList.push(this);
-						_window.attr("showLeftButton", true);
+					if (this.dialog) {
+						this._remove();
+					} else {
+						this.backPageHide();
+						var _window = getApp().viewModel.window;
+						if (_window.backList) {
+							_window.backList.push(this);
+							_window.attr("showLeftButton", true);
+						}
 					}
 				};
-				this.getViewModel=function(selector){
-					if (selector==undefined||selector=="")
+				this.getViewModel = function(selector) {
+					if (selector == undefined || selector == "")
 						return this.viewModel;
-					var _$dom=this.getDom().$dom;
-					var _els=_$dom.find(selector);
-					var result=[];
-					_els.each(function(index,el){
+					var _$dom = this.getDom().$dom;
+					var _els = _$dom.find(selector);
+					var result = [];
+					_els.each(function(index, el) {
 						result.push($(el).viewModel());
 					});
 					return result;

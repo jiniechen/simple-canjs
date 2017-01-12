@@ -1,6 +1,6 @@
 define([], function() {
 	var _pages = [];
-	
+
 	function getPages() {
 		return _pages;
 	}
@@ -19,12 +19,15 @@ define([], function() {
 		if (_p && _p.name == name)
 			return;
 		MF.Mask.show();
-		if (_p)
-			_p.hide();
-		_p = getPage(name);
-		if (_p) {
-			_p.show();
+		var _newPage = getPage(name);
+		if (!_newPage.dialog) {
+			if (_p)
+				_p.hide();
 		}
+		;
+		if (_newPage) {
+			_newPage.show();
+		};
 		MF.Mask.hide();
 	}
 	;
@@ -39,7 +42,7 @@ define([], function() {
 	}
 
 	function redirectTo(url) {
-		location.href=url;
+		location.href = url;
 	}
 
 	return {

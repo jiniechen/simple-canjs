@@ -1,0 +1,9 @@
+<div class="page" style="overflow: hidden">
+  <div class="dock blur-lg" style="background-size: cover; top: -2rem; right: -2rem; bottom: -2rem; left: -2rem"></div>
+  <div class="dock flex flex-center">
+    <div class="modal rounded">
+      <content></content>
+    </div>    
+  </div>
+  <a id="_closeBtn_" class="btn dock dock-top dock-right text-white"><i class="icon icon-remove muted"></i></a>
+</div>

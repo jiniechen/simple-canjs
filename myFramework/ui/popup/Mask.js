@@ -17,10 +17,10 @@ function toast(message) {
 		placement : "center",
 		backdrop : true,
 		display : "modal",
-		backdropDismiss : false,
-		autoHide : false,
-		animate:0,//不执行动画
-		duration:0//不执行动画
+		backdropDismiss : true,
+		autoHide : 1000,
+		animate:100,//执行动画
+		duration:100//执行动画
 	});
 };
 

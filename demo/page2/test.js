@@ -1,4 +1,5 @@
 Page({
+	dialog:true,
 	onShow:function(page){
 		page.doIt();
 	},
