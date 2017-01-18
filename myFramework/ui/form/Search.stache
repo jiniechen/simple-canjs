@@ -1,0 +1,19 @@
+<div class="heading  ">
+
+	<div class="title" >
+
+		<input {{formValue}} type="text" style="border:0;width:100%" placeholder={{tip}} class="text-gray" name={{name}}>
+
+	</div>
+
+	<div class="nav">
+
+		<a><i class="icon-search"></i></a>
+
+	</div>
+	{{#if error.flag}}
+		<div class="errorText" style="left:0.5rem !important">
+		{{error.message}}
+		</div>
+	{{/if}}
+</div>

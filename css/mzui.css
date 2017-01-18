@@ -180,6 +180,10 @@ textarea
     /* 2 */
     outline: none;
 }
+input{
+    border:0;
+    -webkit-appearance:none;
+}
 /**
  * Restore the font weight unset by the previous rule.
  */
@@ -3081,6 +3085,15 @@ a .icon.spin
 .heading.affix > .nav
 {
     margin: .2rem;
+
+}
+.backnav{
+    position: absolute;
+    left: 0;
+}
+.menunav{
+    position: absolute;
+    right: 0;
 }
 .heading-lg > .title,
 .heading.affix > .title
@@ -3902,6 +3915,7 @@ body[class*=' display-show-']
         -ms-flex: auto;
             flex: auto;
 }
+
 .modal.in-scroll > .heading
 {
     border: none;
@@ -4913,7 +4927,6 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
 }
 .pl10{padding-left: 10px}
 
-
 .switch{
     position: relative;
     width: 48px;
@@ -5025,3 +5038,55 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
     font-size: 20px;
     color: #999;
 }
+.getvcode{
+    height:42px;
+    line-height:42px;
+    width: 100%;
+    text-align:center;
+}
+.errorText{
+    position: absolute;
+    bottom: -2px;
+    left: 34.5%;
+    color: #ff4400;
+    font-size: 12px;
+}
+.btnspace{
+    margin:20px 15px;
+}
+select+input{
+    border:0
+}
+.activeClass{
+    
+   
+    border-radius: 5px;
+    text-align: center;
+    padding: 15px 20px;
+}
+.content {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+
+}
+.big{
+    display: block;
+    width: 91%;
+    margin: 0;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    padding: 20px 10px;
+    line-height: 0;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+.darkgray{
+    background: #cacaca !important;
+}
+
+
