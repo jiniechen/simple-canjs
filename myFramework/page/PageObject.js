@@ -82,7 +82,7 @@ define([ "myFramework/ui/Dialog" ],
 					} else {
 						_dom = new MF.Template.Stache(_stache, this.viewModel,
 								this.helpers);
-						if (this.events && this.events.length > 0)
+						if (!can.isEmptyObject(this.events))
 							setControl(_dom, _ControlEvents);
 						if (this.onLoad) {
 							this.onLoad(this);
@@ -127,7 +127,7 @@ define([ "myFramework/ui/Dialog" ],
 					if (this.cache) {
 						_dom = new MF.Template.Stache(_template,
 								this.viewModel, this.helpers);
-						if (this.events)
+						if (!can.isEmptyObject(this.events))
 							setControl(_dom, this.events);
 						_stache = undefined;
 						if (this.onLoad) {
@@ -145,7 +145,7 @@ define([ "myFramework/ui/Dialog" ],
 						this.setStache(html);
 					} else {
 						_dom = new MF.Template.Html(html);
-						if (this.events)
+						if (!can.isEmptyObject(this.events))
 							setControl(_dom, this.events);
 						_stache = undefined;
 						cache = true;
