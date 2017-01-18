@@ -7,7 +7,8 @@ requirejs.config({
 		myFramework : "../myFramework",
 		text : "../requirejs/text",// 文本加载器
 		template : "../requirejs/loadTemplate", // 自定义加载器
-		html : "../requirejs/loadHtml" // 自定义加载器
+		html : "../requirejs/loadHtml" ,// 自定义加载器
+		mobiscroll: "../lib/mobiscroll.custom-3.0.0-beta6.min"
 	},
 	config : {
 		text : {
@@ -29,11 +30,12 @@ requirejs(
 					[ "canjs" ],
 					function() {
 						requirejs(
-								[ "stache", "myFramework/Engine"],
-								function() {
+								[ "mobiscroll","stache", "myFramework/Engine"],
+								function(mobiscroll) {
 									window._DEBUG = true;
 									window.App = MF.App;
 									window.getApp = MF.getApp;
+									window.mobiscroll=mobiscroll;
 									requirejs(
 											[
 											 		"myFramework/utils/Import",

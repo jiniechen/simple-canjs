@@ -1,0 +1,9 @@
+<label class="flex  divider has-padding no-margin">
+	<input {{formValue}} class="checkbox" type="checkbox" >
+	<span>{{label}}</span>
+	{{#if error.flag}}
+		<div class="help-text text-important has-padding">
+		{{error.message}}
+		</div>
+	{{/if}}
+</label>

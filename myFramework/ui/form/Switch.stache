@@ -1,8 +1,8 @@
-<div class="row has-padding no-margin divider flex space-between">
+<div class="row has-padding no-margin divider flex space-between relative">
 	<label class="cell-6">{{label}}</label>
 	<input id="sw" {{formValue}} class="switch" type="checkbox" name={{name}}>
 	{{#if error.flag}}
-		<div class="help-text text-important has-padding">
+		<div class="errorText">
 		{{error.message}}
 		</div>
 	{{/if}}

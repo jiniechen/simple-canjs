@@ -124,7 +124,10 @@ define(
 			function _defaultImports(extra){
 				var result=[ "myFramework/ui/popup/Menu", "myFramework/ui/View",
 								"myFramework/ui/form/Form", "myFramework/ui/TitleBar",
-								"myFramework/ui/TabBar" ];
+								"myFramework/ui/TabBar","myFramework/ui/form/Dropdown","myFramework/ui/form/Dropdown_mobi","myFramework/ui/form/Vcode","myFramework/ui/form/Search",
+			"myFramework/ui/form/Date","myFramework/ui/form/Multitext",
+			"myFramework/ui/form/Dropdown","myFramework/ui/form/Dropdown_mobi","myFramework/ui/form/Radio","myFramework/ui/form/Checkbox",
+			"myFramework/ui/form/Groupopt"];
 				if (extra){
 					result.push(extra);
 				}

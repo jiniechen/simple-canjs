@@ -20,7 +20,9 @@ function toast(message) {
 		backdropDismiss : true,
 		autoHide : 1000,
 		animate:100,//执行动画
-		duration:100//执行动画
+		duration:100,//执行动画
+		targetClass:"activeClass flex justify-center align-middle"
+
 	});
 };
 
