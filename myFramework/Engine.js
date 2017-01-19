@@ -1,5 +1,5 @@
-define([ "myFramework/Application", "myFramework/utils/Navigator" ], function(
-		MF, Navigator) {
+define([ "myFramework/Application", "myFramework/utils/Navigator", "myFramework/data/Remote"], function(
+		MF, Navigator, Remote) {
 	// 增加表单值绑定的Helper
 	/*
 	 * can.stache.registerHelper('formValue',function(viewModel){ return
@@ -12,5 +12,6 @@ define([ "myFramework/Application", "myFramework/utils/Navigator" ], function(
 	MF.getCurrentPage=Navigator.getCurrentPage;
 	MF.getPages=Navigator.getPages;
 	MF.getPage=Navigator.getPage;
+	window.Remote=Remote;
 	window.MF = MF;
 });
