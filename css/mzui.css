@@ -5088,5 +5088,16 @@ select+input{
 .darkgray{
     background: #cacaca !important;
 }
-
+.dialog{
+    height: 100%;
+    width: 100%;
+    padding-top: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.dialog-close{
+    color: #333;
+    top:8px;
+    right:8px;
+}
 
