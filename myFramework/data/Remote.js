@@ -86,6 +86,7 @@ define([], function() {
 						url : _url,
 						type : _type,
 						dataType : "json",
+						contentType : "application/json",
 						data:JSON.stringify(attrs)
 					});
 				}
@@ -105,6 +106,7 @@ define([], function() {
 						url : _url,
 						type : _type,
 						dataType : "json",
+						contentType : "application/json",
 						data:JSON.stringify(attrs)
 					});
 				}
@@ -123,6 +125,7 @@ define([], function() {
 					return can.ajax({
 						url : _url,
 						type : _type,
+						contentType : "application/json",
 						dataType : "json"
 					});
 				}
@@ -141,6 +144,7 @@ define([], function() {
 					return can.ajax({
 						url : _url,
 						type : _type,
+						contentType : "application/json",
 						dataType : "json"
 					});
 				}
@@ -158,6 +162,7 @@ define([], function() {
 					return can.ajax({
 						url : _url,
 						type : _type,
+						contentType : "application/json",
 						dataType : "json",
 						data:JSON.stringify(params)
 					});
