@@ -83,7 +83,7 @@ define([ "myFramework/ui/Dialog" ],
 						_dom = new MF.Template.Stache(_stache, this.viewModel,
 								this.helpers);
 						if (!can.isEmptyObject(this.events))
-							setControl(_dom, _ControlEvents);
+							setControl(_dom, this.events);
 						if (this.onLoad) {
 							this.onLoad(this);
 						}
