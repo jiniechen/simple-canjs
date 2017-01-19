@@ -3,6 +3,19 @@ requirejs([ "text!myFramework/ui/TitleBar.stache" ], function(tpl) {
 		tag : "titlebar",
 		template : can.stache(tpl),
 		events:{
+			inserted:function(){
+				$("input").focus(function(event) {
+
+					$(".affix").css("position","absolute !important");
+					
+				});
+
+				$("input").blur(function(event) {
+
+					$(".affix").css("position","fixed !important");
+					
+				});
+			},
 			"#menu click":function(){
 				var _menu=getApp().menu;
 				if (can.isFunction(_menu)){
