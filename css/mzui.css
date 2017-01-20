@@ -5100,4 +5100,15 @@ select+input{
     top:8px;
     right:8px;
 }
+.dialog-tit{
+    position: absolute;
+    top:0;
+    width:100%;
+    z-index: 1031;
+    height: 40px;
+    background: #3280fc ;
+}
+.dialog-tit .dock-right{
+    top:3px;
+}
 

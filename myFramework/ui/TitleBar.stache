@@ -1,13 +1,30 @@
-<header class="heading affix dock-top primary">
-  {{#if window.showLeftButton}}
-  <nav class="nav backnav" id="back">
-    <a><i class="icon-chevron-left"></i></a>
-  </nav>
-  {{/if}}
-  <div class="title text-center">{{window.barTitleText}}</div>
-  {{#if window.showMenuButton}}
-  <nav class="nav menunav" id="menu">
-    <a><i class="icon-ellipsis-h"></i></a>
-  </nav>
-  {{/if}}
-</header>
+{{#if position}}
+      <header class="heading {{position}} dock-top primary">
+       {{#if window.showLeftButton}}
+        <nav class="nav backnav" id="back">
+          <a><i class="icon-chevron-left"></i></a>
+        </nav>
+        {{/if}}
+        <div class="title text-center">{{window.barTitleText}}</div>
+        {{#if window.showMenuButton}}
+        <nav class="nav menunav" id="menu">
+          <a><i class="icon-ellipsis-h"></i></a>
+        </nav>
+        {{/if}}
+      </header>
+   {{else}}
+      <header class="heading affix dock-top primary">
+       {{#if window.showLeftButton}}
+      <nav class="nav backnav" id="back">
+        <a><i class="icon-chevron-left"></i></a>
+      </nav>
+      {{/if}}
+      <div class="title text-center">{{window.barTitleText}}</div>
+      {{#if window.showMenuButton}}
+      <nav class="nav menunav" id="menu">
+        <a><i class="icon-ellipsis-h"></i></a>
+      </nav>
+      {{/if}}
+    </header>
+{{/if}}
+ 

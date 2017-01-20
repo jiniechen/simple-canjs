@@ -2,6 +2,17 @@ requirejs([ "text!myFramework/ui/TitleBar.stache" ], function(tpl) {
 	can.Component.extend({
 		tag : "titlebar",
 		template : can.stache(tpl),
+		viewModel:function(attrs,parentScope,el){
+			var _scope=parentScope;
+			while (_scope.scope){
+				_scope=_scope.scope;
+			};
+			return {
+
+				positions:"",
+				scope:_scope,
+			}
+		},
 		events:{
 			"#menu click":function(){
 				var _menu=getApp().menu;

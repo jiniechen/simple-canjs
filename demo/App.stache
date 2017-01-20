@@ -1,4 +1,4 @@
-<titlebar>
+<titlebar position="dock">
 </titlebar>
 <div id="page"></div>
 <tabbar>
