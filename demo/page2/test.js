@@ -1,7 +1,9 @@
 Page({
 	dialog:true,
+	title:"这是我的Dialog标题",
+	//closeBtn:false,
 	onShow:function(page){
-		page.doIt();
+		//page.doIt();
 	},
 	onHide:function(page){
 		//alert("hide:"+page.name);

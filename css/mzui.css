@@ -5096,19 +5096,22 @@ select+input{
     padding-right: 15px;
 }
 .dialog-close{
-    color: #333;
+    color: #000;
     top:8px;
     right:8px;
 }
+.dialog-close .icon-remove-circle{
+    font-size: 28px
+}
 .dialog-tit{
     position: absolute;
-    top:0;
-    width:100%;
+    top: 0;
+    width: 100%;
     z-index: 1031;
-    height: 40px;
-    background: #3280fc ;
-}
-.dialog-tit .dock-right{
-    top:3px;
+    height: 45px;
+    line-height: 45px;
+    background: #3280fc;    
+    text-align: center;
+    color: #000;
 }
 

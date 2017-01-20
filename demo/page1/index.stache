@@ -50,8 +50,6 @@
 	<groupopt  name="card"  group="go"  id="gp" />
 </view>
 
-
-
 <command text="递交"/>
 <command text="取消"  type="gray"/>
 <command name="sure" text="确认"  size="big" type="success"/>

@@ -4,12 +4,12 @@ requirejs([ "text!myFramework/ui/TitleBar.stache" ], function(tpl) {
 		template : can.stache(tpl),
 		viewModel:function(attrs,parentScope,el){
 			var _scope=parentScope;
+			var	fixed = attrs.fixed == "false" ? "dock":"affix";
 			while (_scope.scope){
 				_scope=_scope.scope;
 			};
 			return {
-
-				positions:"",
+				position:fixed,
 				scope:_scope,
 			}
 		},
