@@ -1,5 +1,6 @@
+{{#each options}}
 <label class="flex  divider has-padding no-margin">
-	<input {{formValue}} class="checkbox" type="checkbox" >
+	<input  class="checkbox" type="checkbox"  value={{value}} name={{name}}>
 	<span>{{label}}</span>
 	{{#if error.flag}}
 		<div class="help-text text-important has-padding">
@@ -7,3 +8,4 @@
 		</div>
 	{{/if}}
 </label>
+{{/each}}

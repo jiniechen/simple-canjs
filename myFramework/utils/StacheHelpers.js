@@ -39,7 +39,8 @@ define([], function() {
 			return function(el) {
 				function _isCheckbox(){
 
-					return el.getAttribute("type")=="checkbox"?true:false;
+					var type = el.getAttribute("type");
+					return type =="checkbox" ||type =="radio"? true:false;
 				}
 				
 				_data.bind(_name, function(ev, newVal, oldVal) {

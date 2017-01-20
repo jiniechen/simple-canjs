@@ -13,8 +13,8 @@ Page({
 	},
 	colors:new can.List([
 
-			{label:"红色",checked:"false",value:"1"},
-			{label:"蓝色",checked:"true",value:"2"}
+			{label:"红色",checked:"checked",value:"1"},
+			{label:"蓝色",checked:"",value:"2"}
 
 		]),
 	fruits:new can.List([

@@ -5,7 +5,7 @@
 	
 		{{#if options}}
 
-			<select  {{formValue}} class="cell-12 no-border " >
+			<select class="cell-12 no-border " >
 				{{#each options}}
 					<optgroup label={{value}}>  
 						{{#each opt}}

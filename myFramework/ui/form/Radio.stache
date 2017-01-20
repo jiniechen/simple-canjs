@@ -1,7 +1,7 @@
 {{#each options}}
 	<label class="flex space-between  divider has-padding no-margin">
 		<span>{{label}}</span>
-		<input {{formValue}} class="radio" name={{name}}  type="radio" checked = {{checked}} value={{value}}>
+		<input class="radio" name={{name}}  type="radio"  value={{value}}>
 		{{#if error.flag}}
 			<div class="help-text text-important has-padding">
 			{{error.message}}

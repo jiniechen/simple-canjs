@@ -26,13 +26,12 @@
 </view>
 
 <view title="单选示例" 	>		
-	<radio    name="color"   group="colors" id="color"/>
+	<radio  name="color1"   group="colors" id="color"/>
+	<radio  name="color2"   group="colors" id="color2"/>
 </view>
 
 <view title="多选示例" 	>		
-	<checkbox   name="banana"   label="香蕉" />
-	<checkbox   name="apple"    label="苹果" />
-	<checkbox   name="banana"   label="香蕉" />
+	<checkbox   name="ch"    group="colors"/>
 </view>
 
 <view title="下拉选择示例" 	>		

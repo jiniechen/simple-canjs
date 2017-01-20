@@ -16,7 +16,7 @@ define(["text!myFramework/ui/form/Radio.stache"],function(tpl){
 				name:undefined,
 				options:_scope.attr("page")[group],
 				label:"",
-				checked:"",
+				value:"",
 				scope:_scope,
 				error:new can.Map({
 					flag:false,
