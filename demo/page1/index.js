@@ -11,12 +11,12 @@ Page({
 
 
 	},
-	colors:new can.List([
+	colors:[
 
 			{label:"红色",checked:"checked",value:"1"},
 			{label:"蓝色",checked:"",value:"2"}
 
-		]),
+		],
 	fruits:new can.List([
 			{key:"apple",label:"苹果"},
 			{key:"banana",label:"香蕉"}
