@@ -83,11 +83,11 @@ define([], function() {
 					}else
 						_url=options.create;
 					return can.ajax({
-						url : sign.signUrl(_url),
+						url : _url,
 						type : _type,
 						dataType : "json",
 						contentType : "application/json",
-						data:JSON.stringify(attrs)
+						data:JSON.stringify(sign.signData(attrs))
 					});
 				}
 			};
@@ -103,11 +103,11 @@ define([], function() {
 						_url=options.update;
 					_url=_url.replace("{id}",id);
 					return can.ajax({
-						url : sign.signUrl(_url),
+						url : _url,
 						type : _type,
 						dataType : "json",
 						contentType : "application/json",
-						data:JSON.stringify(attrs)
+						data:JSON.stringify(sign.signData(attrs))
 					});
 				}
 			};
@@ -123,10 +123,11 @@ define([], function() {
 						_url=options.destroy;
 					_url=_url.replace("{id}",id);
 					return can.ajax({
-						url : sign.signUrl(_url),
+						url : _url,
 						type : _type,
 						contentType : "application/json",
-						dataType : "json"
+						dataType : "json",
+						data:sign.signData()
 					});
 				}
 			};
@@ -142,10 +143,11 @@ define([], function() {
 						_url=options.findOne;
 					_url=_url.replace("{id}",params.id);
 					return can.ajax({
-						url : sign.signUrl(_url),
+						url : _url,
 						type : _type,
 						contentType : "application/json",
-						dataType : "json"
+						dataType : "json",
+						data:sign.signData()
 					});
 				}
 			};
@@ -160,11 +162,11 @@ define([], function() {
 					}else
 						_url=options.findAll;
 					return can.ajax({
-						url : sign.signUrl(_url),
+						url : _url,
 						type : _type,
 						contentType : "application/json",
 						dataType : "json",
-						data:JSON.stringify(params)
+						data:JSON.stringify(sign.signData(params))
 					});
 				}
 			};
@@ -182,9 +184,10 @@ define([], function() {
 		this.get = function(url, object, success, fail) {
 			var _url = url + "?" + can.param(object);
 			var _defrend = can.ajax({
-				url : sign.signUrl(url),
+				url : url,
 				type : "GET",
-				dataType : "json"
+				dataType : "json",
+				data:sign.signData()
 			});
 			var _fail = fail;
 			if (_fail == undefined) {
@@ -199,13 +202,11 @@ define([], function() {
 		};
 		this.post = function(url, object, success, fail) {
 			var _data = object;
-			if (_data["serialize"])
-				_data = _data.serialize();
 			var _defrend = can.ajax({
-				url : sign.signUrl(url),
+				url : url,
 				type : "POST",
 				dataType : "json",
-				data : _data
+				data : JSON.stringify(sign.signData(_data))
 			});
 			var _fail = fail;
 			if (_fail == undefined) {
@@ -219,8 +220,6 @@ define([], function() {
 				return _defrend.then(success, _fail);
 		};
 		/*add by vidy.tu start 增加session验证数据
-		*由于有GET请求，验证数据无法放在json中
-		*暂时放在URL中
 		*/
 		var sign={};
 
@@ -235,6 +234,17 @@ define([], function() {
 			}
 			var _url = url+part.slice(0,-1);
 			return _url;
+		}
+		sign.signData=function(data){
+			var session = sign._session;
+			var postData={};
+			for(var key in session){
+				postData[key]=session[key];
+			}
+			if(data != undefined){
+				postData['data']=data;
+			}
+			return postData;
 		}
 		//add by vidy.tu end
 	}
