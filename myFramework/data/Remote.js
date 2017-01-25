@@ -83,7 +83,7 @@ define([], function() {
 					}else
 						_url=options.create;
 					return can.ajax({
-						url : _url,
+						url : sign.signUrl(_url),
 						type : _type,
 						dataType : "json",
 						contentType : "application/json",
@@ -103,7 +103,7 @@ define([], function() {
 						_url=options.update;
 					_url=_url.replace("{id}",id);
 					return can.ajax({
-						url : _url,
+						url : sign.signUrl(_url),
 						type : _type,
 						dataType : "json",
 						contentType : "application/json",
@@ -123,7 +123,7 @@ define([], function() {
 						_url=options.destroy;
 					_url=_url.replace("{id}",id);
 					return can.ajax({
-						url : _url,
+						url : sign.signUrl(_url),
 						type : _type,
 						contentType : "application/json",
 						dataType : "json"
@@ -142,7 +142,7 @@ define([], function() {
 						_url=options.findOne;
 					_url=_url.replace("{id}",params.id);
 					return can.ajax({
-						url : _url,
+						url : sign.signUrl(_url),
 						type : _type,
 						contentType : "application/json",
 						dataType : "json"
@@ -160,7 +160,7 @@ define([], function() {
 					}else
 						_url=options.findAll;
 					return can.ajax({
-						url : _url,
+						url : sign.signUrl(_url),
 						type : _type,
 						contentType : "application/json",
 						dataType : "json",
@@ -182,7 +182,7 @@ define([], function() {
 		this.get = function(url, object, success, fail) {
 			var _url = url + "?" + can.param(object);
 			var _defrend = can.ajax({
-				url : url,
+				url : sign.signUrl(url),
 				type : "GET",
 				dataType : "json"
 			});
@@ -202,7 +202,7 @@ define([], function() {
 			if (_data["serialize"])
 				_data = _data.serialize();
 			var _defrend = can.ajax({
-				url : url,
+				url : sign.signUrl(url),
 				type : "POST",
 				dataType : "json",
 				data : _data
@@ -217,7 +217,26 @@ define([], function() {
 				return _defrend;
 			else
 				return _defrend.then(success, _fail);
+		};
+		/*add by vidy.tu start 增加session验证数据
+		*由于有GET请求，验证数据无法放在json中
+		*暂时放在URL中
+		*/
+		var sign={};
+
+		this.init=function(session){
+			sign._session=session;
 		}
+		sign.signUrl=function(url){
+			var part= (url.indexOf('?')>0 ? '&':'?');
+			var session = sign._session;
+			for(var key in session){
+				part = part + encodeURIComponent(key)+'='+encodeURIComponent(session[key])+'&';
+			}
+			var _url = url+part.slice(0,-1);
+			return _url;
+		}
+		//add by vidy.tu end
 	}
 
 	return new _Remote();
