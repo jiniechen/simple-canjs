@@ -1,14 +1,17 @@
 <view title="搜索框示例">
 		<search tip="请输入您所要查询的关键字" name="search"/>
 </view>
- 
+
+<scrollview context="detail">
+</scrollview>
+
 <view title="我的信息">
 	<text name="field1" label="姓名"/>
 	<switch name="field2" label="出生日期"/>
 </view>
 
 <view title="详细信息">
-	<text id="df" name="field1" label="姓名" context="detail"/>
+	<text id="df" name="field1" label="姓名" />
 	<switch name="field2" label="出生日期"/>
 </view>
  

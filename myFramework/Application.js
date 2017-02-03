@@ -122,7 +122,7 @@ define(
 
 			
 			function _defaultImports(extra){
-				var result=[ "myFramework/ui/popup/Menu", "myFramework/ui/View",
+				var result=[ "myFramework/ui/popup/Menu", "myFramework/ui/View","myFramework/ui/ScrollView","myFramework/ui/ScrollViewItem",
 								"myFramework/ui/form/Form", "myFramework/ui/TitleBar",
 								"myFramework/ui/TabBar","myFramework/ui/form/Dropdown","myFramework/ui/form/Dropdown_mobi","myFramework/ui/form/Vcode","myFramework/ui/form/Search",
 			"myFramework/ui/form/Date","myFramework/ui/form/Multitext",

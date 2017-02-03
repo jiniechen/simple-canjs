@@ -8,10 +8,17 @@ Page({
 		getcode:"",
 		vcode:"",
 		direction:"",
-		detail:{
-			field1:"this detail field1"
-		}
-
+		detail:[
+			{
+				field1:"this detail field1"
+			},
+			{
+				field1:"this detail field2"
+			},
+			{
+				field1:"this detail field3"
+			}
+		]
 	},
 	colors:[
 
