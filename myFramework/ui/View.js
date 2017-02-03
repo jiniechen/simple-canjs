@@ -8,10 +8,11 @@ requirejs([ "text!myFramework/ui/View.stache" ], function(tpl) {
 			//获取页面对象
 			var _page=_root.attr("page");
 			//组件可以通过属性data重设数据值对象
-			var _data=attrs.data;
-			if (_data==undefined)
-				_data=_root.attr("data");
+			//组件可以通过属性data重设数据值对象
+			var _contextName=attrs.context||"";
+			var _data=can.getObject(_contextName,parentScope.attr("data")||_root.attr("data"));
 			return {
+				contextName:_contextName,
 				name:undefined,
 				title:undefined,
 				page:_page,
