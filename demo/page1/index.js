@@ -7,8 +7,10 @@ Page({
 		search:"",
 		getcode:"",
 		vcode:"",
-		direction:""
-
+		direction:"",
+		detail:{
+			field1:"this detail field1"
+		}
 
 	},
 	colors:[
@@ -52,7 +54,9 @@ Page({
 	onClick:function(){
 		alert("OK");
 	},
-	onValidateValue:function(name,value){
+	onValidateValue:function(context,name,value){
+		if (context.length>0)
+			return;
 		if (name=="field1"&&value!="123456")
 			return "xxewwer";
 		if (name=="field2"&&value==true)
