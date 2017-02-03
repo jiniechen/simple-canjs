@@ -7,6 +7,9 @@ define([], function() {
 			result = _name.substring(0, 1).toUpperCase();
 		if (nameLength>1)
 			result = result + _name.substring(1, nameLength);
+		var pos=_name.indexOf(".");
+		if (pos>0)
+			result=result.substring(0,pos)+camelString(result.substring(pos+1));
 		return result;
 	};
 	MF.StacheHelpers = {
