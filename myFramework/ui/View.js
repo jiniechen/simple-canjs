@@ -12,7 +12,7 @@ requirejs([ "text!myFramework/ui/View.stache" ], function(tpl) {
 			var _contextName=attrs.context||"";
 			var _data=can.getObject(_contextName,parentScope.attr("data")||_root.attr("data"));
 			return {
-				id:undefined,
+				id:el.getAttribute("id"),
 				contextName:_contextName,
 				name:undefined,
 				title:undefined,

@@ -61,9 +61,7 @@ Page({
 	onClick:function(){
 		alert("OK");
 	},
-	onValidateValue:function(context,name,value){
-		if (context.length>0)
-			return;
+	onValidateValue:function(name,value){
 		if (name=="field1"&&value!="123456")
 			return "xxewwer";
 		if (name=="field2"&&value==true)
