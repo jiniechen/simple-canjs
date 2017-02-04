@@ -2,7 +2,7 @@
 		<search tip="请输入您所要查询的关键字" name="search"/>
 </view>
 
-<scrollview context="detail">
+<scrollview context="detail" height="300">
 	
 </scrollview>
 

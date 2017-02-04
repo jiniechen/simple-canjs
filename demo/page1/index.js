@@ -17,6 +17,24 @@ Page({
 			},
 			{
 				field1:"this detail field3"
+			},
+			{
+				field1:"this detail field4"
+			},
+			{
+				field1:"this detail field5"
+			},
+			{
+				field1:"this detail field6"
+			},
+			{
+				field1:"this detail field7"
+			},
+			{
+				field1:"this detail field8"
+			},
+			{
+				field1:"this detail field9"
 			}
 		]
 	},
@@ -113,6 +131,15 @@ Page({
 	},
 	onSureClick:function(){
 		MF.Mask.toast("恭喜您,提交成功");
+	},
+	onDetailUp:function(){
+		
+		var data = MF.getCurrentPage().viewModel.data['detail'];
+		data.attr(0,{field1:'this new detail field1'});
+	},
+	onDetailDown:function(){
+		var data = MF.getCurrentPage().viewModel.data['detail'];
+		data.attr(9,{field1:'this  detail field10'});
 	}
 
 

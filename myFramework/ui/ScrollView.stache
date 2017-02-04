@@ -1,3 +1,7 @@
-{{#each data}}
-<scrollviewitem {data}="." context={{context}} />
-{{/each}}
+<section style="height:{{height}}px !important;overflow:scroll;">
+	<div>
+		{{#each data}}
+			<scrollviewitem {data}="." context={{context}} />
+		{{/each}}
+	</div>
+</section>
