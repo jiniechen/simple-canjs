@@ -1,0 +1,3 @@
+{{#each data}}
+<scrollviewitem {data}="." context={{context}} />
+{{/each}}

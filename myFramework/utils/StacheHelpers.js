@@ -15,11 +15,13 @@ define([], function() {
 	MF.StacheHelpers = {
 		event : function(type) {
 			var _page = this.page;
-			var _name = this.name || "";
-			var _contextName=this.contextName||"";
+			var _id = this.id;
+			if (_id==undefined)
+				_id=this.name||"";
+			var _name=this.name||"";
 			return function(el) {
 				var eventName = "on";
-				eventName = eventName + camelString(_contextName)+camelString(_name);
+				eventName = eventName + camelString(_id);
 				var typeLength = type?type.length:0;
 				if (typeLength>0){
 					/*eventName = eventName + type.substring(0, 1).toUpperCase();
@@ -43,10 +45,11 @@ define([], function() {
 		formValue : function() {
 			var _data = this.data;
 			var _page = this.page;
-			var _name = this.name;
-			var _contextName=this.contextName||"";
+			var _id = this.id;
+			if (_id==undefined)
+				_id=this.name||"";
+			var _name=this.name||"";
 			var _viewModel = this;
-			window.viewModel=_viewModel;
 			return function(el) {
 				function _isCheckbox(){
 
@@ -65,7 +68,7 @@ define([], function() {
 						else
 							el.value=newVal;
 						if (_page.onValidateValue) {
-							var _error = _page.onValidateValue(_contextName,_name, newVal);
+							var _error = _page.onValidateValue(_id, newVal);
 							if (_error) {
 								_viewModel.error.attr("flag", true);
 								_viewModel.error.attr("message", _error);
@@ -75,7 +78,7 @@ define([], function() {
 							}
 						}
 					
-						var dropdownChangeEvent="on"+camelString(_contextName)+camelString(_name)+"ValueChange";
+						var dropdownChangeEvent="on"+camelString(_name)+"ValueChange";
 
 						if (_page[dropdownChangeEvent])
 

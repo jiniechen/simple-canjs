@@ -3,6 +3,7 @@
 </view>
 
 <scrollview context="detail">
+	
 </scrollview>
 
 <view title="我的信息">

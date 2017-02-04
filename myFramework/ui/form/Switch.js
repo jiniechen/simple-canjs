@@ -12,6 +12,7 @@ define(["text!myFramework/ui/form/Switch.stache"],function(tpl){
 			var _contextName=attrs.context||"";
 			var _data=can.getObject(_contextName,parentScope.attr("data")||_root.attr("data"));
 			return {
+				id:undefined,
 				contextName:_contextName,
 				name:undefined,
 				label:"",
