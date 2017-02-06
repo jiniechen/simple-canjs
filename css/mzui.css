@@ -5114,4 +5114,6 @@ select+input{
     text-align: center;
     color: #000;
 }
-
+.mobi-input{
+	width:100%;
+}
