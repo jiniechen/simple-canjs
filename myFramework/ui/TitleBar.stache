@@ -4,7 +4,7 @@
         <a><i class="icon-chevron-left"></i></a>
       </nav>
     {{/if}}
-      <div class="title text-center">{{window.barTitleText}}</div>
+      <div class="title text-center" style="text-align:{{align}} !important">{{window.barTitleText}}</div>
       {{#if window.showMenuButton}}
       <nav class="nav menunav" id="menu">
         <a><i class="icon-ellipsis-h"></i></a>

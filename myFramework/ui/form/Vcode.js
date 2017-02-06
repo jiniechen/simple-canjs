@@ -19,6 +19,7 @@ define(["text!myFramework/ui/form/Vcode.stache"],function(tpl){
 				tip:"",
 				src:"",
 				text:"",
+				align:"left",
 				page:_page,
 				data:_data,
 				root:_root,

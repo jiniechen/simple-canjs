@@ -3,7 +3,7 @@
 
 	<div class=" cell-12 no-border row has-padding" style="padding-left: 0 !important;">
 		{{#if options}}
-				<select  {{formValue}} class="cell-12 no-border" >
+				<select  {{formValue}} class="cell-12 no-border" style="direction: {{_align}};">
 					{{#each options}}
 						<option value="{{key}}" >{{value}}</options>
 					{{/each}}

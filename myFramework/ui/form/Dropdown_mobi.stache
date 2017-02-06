@@ -1,7 +1,7 @@
 
 <div class=" row has-padding no-margin divider select">
 
-	<div class=" cell-12 no-border row has-padding mobi-input" style="padding-left: 0 !important;">
+	<div class=" cell-12 no-border row has-padding mobi-input {{_align}}" style="padding-left: 0 !important;">
 	
 		{{#if options}}
 				<select  {{formValue}} class="cell-12 no-border" >

@@ -4,7 +4,7 @@
 
 <div class="row has-padding no-margin relative">
 
-	<textarea {{formValue}} class="no-border fluid" placeholder={{tip}} name={{name}} rows={{row}}></textarea>
+	<textarea {{formValue}} class="no-border fluid" placeholder={{tip}} name={{name}} rows={{row}} style="text-align:{{align}} !important"></textarea>
 
 	{{#if error.flag}}
 		<div class="errorText" style="left:0.5rem !important">

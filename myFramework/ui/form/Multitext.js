@@ -17,6 +17,7 @@ define(["text!myFramework/ui/form/Multitext.stache"],function(tpl){
 				name:undefined,
 				tip:"",
 				row:"",
+				align:"left",
 				page:_page,
 				data:_data,
 				root:_root,

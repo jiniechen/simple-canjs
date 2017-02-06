@@ -16,6 +16,7 @@ define(["text!myFramework/ui/form/Search.stache"],function(tpl){
 				contextName:_contextName,
 				name:undefined,
 				tip:"",
+				align:"left",
 				page:_page,
 				data:_data,
 				root:_root,

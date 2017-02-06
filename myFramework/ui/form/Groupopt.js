@@ -12,15 +12,17 @@ define(["text!myFramework/ui/form/Groupopt.stache"],function(tpl){
 			//组件可以通过属性data重设数据值对象
 			var _contextName=attrs.context||"";
 			var _data=can.getObject(_contextName,parentScope.attr("data")||_root.attr("data"));
+			var txt_align = attrs.align;
+			var _align = txt_align == undefined?"":(txt_align == "right" ? "mobi-right" :"mobi-center");
 			return {
 				id:el.getAttribute("id"),
 				contextName:_contextName,
 				name:undefined,
 				//mobi:undefined,
 				options:_page[group],
-				//value:"",
+				_value:"",
 				label:"",
-				//opt:newopt,
+				_align:_align,
 				key:"",
 				page:_page,
 				data:_data,

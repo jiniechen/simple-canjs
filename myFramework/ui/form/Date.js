@@ -17,6 +17,7 @@ define(["text!myFramework/ui/form/Date.stache"],function(tpl){
 				name:undefined,
 				label:"",
 				tip:"",
+				align:"left",
 				page:_page,
 				data:_data,
 				root:_root,

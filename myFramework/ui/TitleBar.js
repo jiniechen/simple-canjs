@@ -10,6 +10,7 @@ requirejs([ "text!myFramework/ui/TitleBar.stache" ], function(tpl) {
 			};
 			return {
 				position:fixed,
+				align:"left",
 				scope:_scope
 			}
 		},
