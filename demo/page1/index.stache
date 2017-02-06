@@ -6,8 +6,12 @@
 	
 </scrollview>
 
+<view title="只读文本">
+	<readtext name="field1" label="姓名" align="right"/>
+</view>
+
 <view title="我的信息">
-	<text name="field1" label="姓名"/>
+	<text name="field1" label="姓名" align="right"/>
 	<switch name="field2" label="出生日期"/>
 </view>
 

@@ -1,6 +1,6 @@
-define(["text!myFramework/ui/form/Text.stache"],function(tpl){
+define(["text!myFramework/ui/form/Readtext.stache"],function(tpl){
 	can.Component.extend({
-		tag:"text",
+		tag:"readtext",
 		template:can.stache(tpl),
 		helpers:MF.StacheHelpers,
 		viewModel:function(attrs,parentScope,el){
