@@ -4,6 +4,7 @@ requirejs.config({
 		mzui : "../lib/mzui.min",
 		canjs : "../lib/can.zepto.min",
 		stache : "../lib/can.stache",
+		canvalidations:"../lib/can.map.validations",
 		myFramework : "../myFramework",
 		text : "../requirejs/text",// 文本加载器
 		template : "../requirejs/loadTemplate", // 自定义加载器
@@ -30,7 +31,7 @@ requirejs(
 					[ "canjs" ],
 					function() {
 						requirejs(
-								[ "mobiscroll","stache", "myFramework/Engine"],
+								[ "mobiscroll","canvalidations","stache", "myFramework/Engine"],
 								function(mobiscroll) {
 									window._DEBUG = true;
 									window.App = MF.App;

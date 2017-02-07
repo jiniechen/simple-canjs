@@ -1,12 +1,18 @@
 define([], function() {
 	function _Remote() {
 		function _StoreOperation(name, Model) {
+			
 			this.name = name;
 			this.Model = Model;
 		}
 		;
+		_StoreOperation.prototype.new = function(data) {
+			return new this.Model(data);
+		}
+
 		// 通过ID是否为空来控制create or update
 		_StoreOperation.prototype.save = function(data, success, fail) {
+			
 			var _model = new this.Model(data);
 			var _fail = fail;
 			if (_fail == undefined) {
@@ -71,8 +77,10 @@ define([], function() {
 						throw data.message;
 					}
 				}
+				
 			};
 			if (options.create){
+				
 				_options.create=function( attrs ){
 					var urls=options.create.split(" ");
 					var _type="POST";
@@ -170,7 +178,19 @@ define([], function() {
 					});
 				}
 			};
+			if (true){
+				_options.init=function(){
+					this.validate("name",function(value){
+						debugger;
+	            		if(value != "xx"){
+	            			return "name change";
+	            	}
+	        	});
+				}
+			}
+			
 			window._options=_options;
+		
 			return can.Model(name,_options,{});
 		}
 
@@ -223,7 +243,7 @@ define([], function() {
 		*/
 		var sign={};
 
-		this.init=function(session){
+		this.init=function(session){	
 			sign._session=session;
 		}
 		sign.signUrl=function(url){
