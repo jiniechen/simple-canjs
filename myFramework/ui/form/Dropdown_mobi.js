@@ -21,6 +21,7 @@ define(["text!myFramework/ui/form/Dropdown_mobi.stache"],function(tpl){
 				mobi:undefined,
 				options:_page[group],
 				key:"",
+				label:"",
 				_align:_align,
 				page:_page,
 				data:_data,

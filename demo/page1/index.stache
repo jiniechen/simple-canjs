@@ -2,7 +2,7 @@
 		<search tip="请输入您所要查询的关键字" name="search" align="center"/>
 </view>
 
-<scrollview context="detail" height="300">
+<scrollview context="detail" height="300" id="ssv">
 	
 </scrollview>
 
@@ -44,18 +44,18 @@
 </view>
 
 <view title="下拉选择示例" 	>		
-	<dropdown  name="citys" id="citys" group="citys"   align="right" />
+	<dropdown  name="citys" id="citys" group="citys"   align="right" label="城市选择"/>
 	<dropdown  name="area" id="area" group="area" />
 </view>
 
 
 <view title="下拉选择示例" 	>	
-	<dropdown-mobi  name="chose1"  group="citys" align ="right" />
+	<dropdown-mobi  name="chose1"  group="citys" align ="center" label="城市选择"/>
 	<dropdown-mobi  name="chose2"  id="chose2" group="area" />
 </view>
 
 <view title="grounp option示例" 	>	
-	<groupopt  name="card"  group="go"  id="gp" align="right"/>
+	<groupopt  name="card"  group="go"  id="gp" align="right" label="城市选择"/>
 </view>
 
 <command text="递交"/>

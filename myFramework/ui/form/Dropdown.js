@@ -20,6 +20,7 @@ define(["text!myFramework/ui/form/Dropdown.stache"],function(tpl){
 				name:undefined,
 				options:_page[group],
 				key:"",
+				label:"",
 				_align:_align,
 				page:_page,
 				data:_data,

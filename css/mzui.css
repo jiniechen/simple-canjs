@@ -5115,7 +5115,7 @@ select+input{
     color: #000;
 }
 .mobi-input input{
-	width:100%;
+	width:60%;
 }
 .mobi-right input{
     //justify-content:flex-end !important;
