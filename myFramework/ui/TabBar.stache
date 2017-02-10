@@ -1,7 +1,0 @@
-{{#if tabBar.visible}}
-<nav class="nav affix dock-bottom justified">
-  {{#each tabBar.list}}
-  <a data-url={{page}}>{{text}}</a>
-  {{/each}}
-</nav>
-{{/if}}
