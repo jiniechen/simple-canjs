@@ -1,0 +1,13 @@
+<div class="page" style="overflow: hidden">
+	 <div class="dialog-tit">
+	 	{{title}}
+ 		<a id="_closeBtn_" class="btn dock dock-top dock-right dialog-close" style="display:{{close}}">
+	 		<i class="icon icon-remove-circle muted "></i>
+	 	</a>
+	 </div>	
+ 	 <div class="dock flex flex-center">
+   		<div class="modal rounded dialog">
+     	 <content></content>
+    </div>    
+  </div>
+</div>

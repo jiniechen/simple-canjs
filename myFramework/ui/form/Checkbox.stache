@@ -1,0 +1,11 @@
+{{#each options}}
+<label class="flex  divider has-padding no-margin">
+	<input  class="checkbox" type="checkbox"  value={{value}} name={{name}}>
+	<span>{{label}}</span>
+	{{#if error.flag}}
+		<div class="help-text text-important has-padding">
+		{{error.message}}
+		</div>
+	{{/if}}
+</label>
+{{/each}}

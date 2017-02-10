@@ -1,0 +1,16 @@
+<div class=" row divider has-padding no-margin relative">
+
+	<label class="cell-4">{{label}}</label>
+
+	<input {{formValue}} class="cell no-border date " type="text" name={{name}} 
+
+	placeholder={{tip}} start={{start}} end ={{end}}>
+
+	<i class="icon icon-calendar"></i>
+	{{#if error.flag}}
+		<div class="errorText">
+		{{error.message}}
+		</div>
+	{{/if}}
+
+</div>

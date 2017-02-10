@@ -1,0 +1,61 @@
+<view title="搜索框示例">
+		<search tip="请输入您所要查询的关键字" name="search"/>
+</view>
+
+<scrollview context="detail">
+	
+</scrollview>
+
+<view title="我的信息">
+	<text name="field1" label="姓名"/>
+	<switch name="field2" label="出生日期"/>
+</view>
+
+<view title="详细信息">
+	<text id="df" name="field1" label="姓名" />
+	<switch name="field2" label="出生日期"/>
+</view>
+ 
+<view name="view1" title="获取验证码示例">
+	<vcode label="验证码" name="getcode" tip="请输入验证码" text="获取验证码" />
+	<vcode label="验证码" name="vcode" tip="请输入验证码" src="../img/vcode.jpg" />		
+</view>
+
+<view title="时间控件示例">
+	<date label="投保时间" name="startDate" tip="__年__月__日"  start="2017-10-01 " end="2018-10-01" id="tt" />	
+</view>
+
+<view title="多行文本输入示例">
+	<multitext tip="请输入文本" name="direction"  row="4"/>
+</view>
+
+<view title="单选示例" 	>		
+	<radio  name="color1"   group="colors" id="color"/>
+	<radio  name="color2"   group="colors" id="color2"/>
+</view>
+
+<view title="多选示例" 	>		
+	<checkbox   name="ch"    group="colors"/>
+</view>
+
+<view title="下拉选择示例" 	>		
+	<dropdown  name="citys" id="citys" group="citys"   />
+	<dropdown  name="area" id="area" group="area" />
+</view>
+
+
+<view title="下拉选择示例" 	>	
+	<dropdown-mobi  name="chose1"  group="citys" />
+	<dropdown-mobi  name="chose2"  id="chose2" group="area" />
+</view>
+
+<view title="grounp option示例" 	>	
+	<groupopt  name="card"  group="go"  id="gp" />
+</view>
+
+<command text="递交"/>
+<command text="取消"  type="gray"/>
+<command name="sure" text="确认"  size="big" type="success"/>
+<command text="确认"  size="big" type="darkgray"/>
+
+

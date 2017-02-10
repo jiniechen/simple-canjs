@@ -1,0 +1,4 @@
+<titlebar title="我的首页" menu_button=true>
+</titlebar>
+<div id="page"></div>
+<tabbar></tabbar>

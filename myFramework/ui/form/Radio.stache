@@ -1,0 +1,13 @@
+{{#each options}}
+	<label class="flex space-between  divider has-padding no-margin">
+		<span>{{label}}</span>
+		<input class="radio" name={{name}}  type="radio"  value={{value}}>
+		{{#if error.flag}}
+			<div class="help-text text-important has-padding">
+			{{error.message}}
+			</div>
+		{{/if}}
+	</label>
+{{/each}}
+
+

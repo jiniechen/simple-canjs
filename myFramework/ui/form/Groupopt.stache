@@ -1,0 +1,26 @@
+<div class=" row has-padding no-margin divider select">
+
+	<div class=" cell-12 no-border row has-padding" style="padding-left: 0 !important;">
+
+	
+		{{#if options}}
+
+			<select class="cell-12 no-border " >
+				{{#each options}}
+					<optgroup label={{value}}>  
+						{{#each opt}}
+				        	<option value={{key}}>{{txt}}</option>  
+				        {{/each}}
+				    </optgroup> 
+				{{/each}}
+			</select>
+
+		{{else}}
+			<slect>
+				<option>Loading Text </option>
+			</select>
+		{{/if}}
+		
+	</div>
+
+</div>
