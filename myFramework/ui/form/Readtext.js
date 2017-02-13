@@ -1,8 +1,8 @@
-requirejs(["text!myFramework/ui/form/Text.stache","myFramework/utils/StacheHelpers"],function(tpl,stacheHelpers){
+requirejs(["text!myFramework/ui/form/Readtext.stache","myFramework/utils/StacheHelpers"],function(tpl,stacheHelpers){
 	can.Component.extend({
-		tag:"text",
+		tag:"readtext",
 		template:can.stache(tpl),
-		helpers:stacheHelpers,
+		helpers:MF.StacheHelpers,
 		viewModel:function(attrs,parentScope,el){
 			//获取page对象的viewModel,组合组件从上层组件获取root,顶层组件的parentScope为root
 			var _root=parentScope.attr("root")==undefined?parentScope:parentScope.attr("root");

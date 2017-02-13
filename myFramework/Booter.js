@@ -2,9 +2,9 @@ define(["text"],function(textLoader) {
 	// 加载基础JS框架
 	var _script;//App.js
 	function _loadLibrary(req,config,cb){
-		req([ "mzui" ],function() {
+		req([ "mzui"],function() {
 			req([ "canjs" ],function() {
-				req(["mobiscroll","canjsStache"],function(mobiscroll) {
+				req(["mobiscroll","canjsStache","canjsValidation"],function(mobiscroll) {
 					if (config.isBuild){
 						
 						cb();
@@ -17,12 +17,14 @@ define(["text"],function(textLoader) {
 		});
 	};
 	function _loadMyFramework(req,config,cb){
-		req(["myFramework/MyExports","myFramework/AppObject","myFramework/PageObject"],function(exports,App,Page){
+		req(["myFramework/MyExports","myFramework/data/Remote","myFramework/AppObject","myFramework/PageObject"],
+			function(exports,Remote,App,Page){
 			if (config.isBuild){
 				cb();
 			}else{	
 				exports.tools.App=App;
 				exports.tools.Page=Page;
+				exports.tools.Remote=Remote;
 				cb();
 			}
 		});
@@ -83,9 +85,10 @@ define(["text"],function(textLoader) {
 		},
 		write:function(plugName,moduleName,write){
 			write(
-				'define("' + plugName + '!' + moduleName + '",'+'["mobiscroll","myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","app!App","text!App.stache"],function(mobiscroll,exports,_APP,Page,options,tpl){'+
+				'define("' + plugName + '!' + moduleName + '",'+'["mobiscroll","myFramework/data/Remote","myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","app!App","text!App.stache"],function(mobiscroll,Remote,exports,_APP,Page,options,tpl){'+
 					'exports.tools.App=_APP;'+
 					'exports.tools.Page=Page;'+
+					'exports.tools.Remote=Remote;'+
 					'exports.App=options;'+
 					//'var _app = App.App(options,tpl);'+
 					'var App=_APP.App;'+

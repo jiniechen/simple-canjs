@@ -5114,4 +5114,19 @@ select+input{
     text-align: center;
     color: #000;
 }
+.mobi-input input{
+	width:60%;
+}
+.mobi-right input{
+    //justify-content:flex-end !important;
+    text-align: right !important;
+}
+.mobi-center input{
+    //justify-content:center !important;
+    text-align: center !important;
+}
+.search-input{
+    border:0 !important;
+    width:100% !important;
+}
 

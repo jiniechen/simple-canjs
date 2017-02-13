@@ -12,16 +12,20 @@ requirejs(["text!myFramework/ui/form/Dropdown.stache","myFramework/utils/StacheH
 			//组件可以通过属性data重设数据值对象
 			var _contextName=attrs.context||"";
 			var _data=can.getObject(_contextName,parentScope.attr("data")||_root.attr("data"));
+			var txt_align = attrs.align;
+			var _align = txt_align == undefined?"":(txt_align == "right" ? "rtl" :"");
 			return {
 				id:el.getAttribute("id"),
 				contextName:_contextName,
 				name:undefined,
 				options:_page[group],
 				key:"",
-				//value:"",
+				label:"",
+				_align:_align,
 				page:_page,
 				data:_data,
 				root:_root,
+				_myParent:parentScope,
 				error:new can.Map({
 					flag:false,
 					message:undefined

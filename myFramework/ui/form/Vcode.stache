@@ -2,7 +2,7 @@
 
 	<label class="cell-4">{{label}}</label>
 
-	<input {{formValue}} class="cell-4 no-border" type="text" name={{name}} placeholder={{tip}}>
+	<input {{formValue}} class="cell-4 no-border" type="text" name={{name}} placeholder={{tip}} style="text-align:{{align}} !important">
 
 	<span class="cell-4 bl flex flex-center no-padding">
 		{{#src}}

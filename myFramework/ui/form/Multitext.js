@@ -17,9 +17,11 @@ requirejs(["text!myFramework/ui/form/Multitext.stache","myFramework/utils/Stache
 				name:undefined,
 				tip:"",
 				row:"",
+				align:"left",
 				page:_page,
 				data:_data,
 				root:_root,
+				_myParent:parentScope,
 				error:new can.Map({
 					flag:false,
 					message:undefined

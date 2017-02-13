@@ -5,6 +5,7 @@
 		mzui : "../lib/mzui.min",
 		canjs : "../lib/can.zepto.min",
 		canjsStache : "../lib/can.stache",
+		canjsValidation:"../lib/can.map.validations",
 		mobiscroll: "../lib/mobiscroll.custom-3.0.0-beta6.min",
 		myFramework : "../myFramework",
 		text : "../requirejs/text",// 文本加载器

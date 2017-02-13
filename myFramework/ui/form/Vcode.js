@@ -19,9 +19,11 @@ requirejs(["text!myFramework/ui/form/Vcode.stache","myFramework/utils/StacheHelp
 				tip:"",
 				src:"",
 				text:"",
+				align:"left",
 				page:_page,
 				data:_data,
 				root:_root,
+				_myParent:parentScope,
 				error:new can.Map({
 					flag:false,
 					message:undefined

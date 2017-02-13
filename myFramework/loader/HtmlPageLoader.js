@@ -6,7 +6,7 @@ define(["text" ], function(text) {
 			var jsName=name.indexOf(".html")>0?name.substring(0,name.length-5):name;
 			text.get(req.toUrl(jsName + ".js"), function(text) {
 				buildMap[name] = text;
-				req(["myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","text!"+name], function(exports,_App,_Page,text) {
+				req(["myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","text!"+name,"myFramework/data/Remote"], function(exports,_App,_Page,text,_Remote) {
 					if (config.isBuild){
 						onload();
 					}else{
@@ -24,7 +24,7 @@ define(["text" ], function(text) {
 			});
 		},
 		write : function(plugName, moduleName, write) {
-			write('define("' + plugName + '!' + moduleName+'",["myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","text!'+moduleName+'"],function(exports,_App,_Page,tpl){'+
+			write('define("' + plugName + '!' + moduleName+'",["myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","text!'+moduleName+'","myFramework/data/Remote"],function(exports,_App,_Page,tpl,Remote){'+
 					'var _page=undefined;'+
 					'var getApp=_App.getApp;'+
 					'var Page=function(options){_page=_Page(options)};'+

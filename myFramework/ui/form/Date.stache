@@ -4,7 +4,7 @@
 
 	<input {{formValue}} class="cell no-border date " type="text" name={{name}} 
 
-	placeholder={{tip}} start={{start}} end ={{end}}>
+	placeholder={{tip}} start={{start}} end ={{end}} style="text-align:{{align}} !important">
 
 	<i class="icon icon-calendar"></i>
 	{{#if error.flag}}

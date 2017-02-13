@@ -16,9 +16,11 @@ requirejs(["text!myFramework/ui/form/Search.stache","myFramework/utils/StacheHel
 				contextName:_contextName,
 				name:undefined,
 				tip:"",
+				align:"left",
 				page:_page,
 				data:_data,
 				root:_root,
+				_myParent:parentScope,
 				error:new can.Map({
 					flag:false,
 					message:undefined

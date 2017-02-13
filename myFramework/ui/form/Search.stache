@@ -2,7 +2,7 @@
 
 	<div class="title" >
 
-		<input {{formValue}} type="text" style="border:0;width:100%" placeholder={{tip}} class="text-gray" name={{name}}>
+		<input {{formValue}} type="text" style="text-align:{{align}} !important" placeholder={{tip}} class="text-gray search-input" name={{name}}>
 
 	</div>
 

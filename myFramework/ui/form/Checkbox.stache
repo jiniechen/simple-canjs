@@ -1,5 +1,5 @@
 {{#each options}}
-<label class="flex  divider has-padding no-margin">
+<label style="justify-content:{{_align}} !important;coloe:#ff4400" class="flex  divider has-padding no-margin" >
 	<input  class="checkbox" type="checkbox"  value={{value}} name={{name}}>
 	<span>{{label}}</span>
 	{{#if error.flag}}

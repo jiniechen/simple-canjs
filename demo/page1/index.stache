@@ -39,7 +39,7 @@
 </view>
 
 <view title="下拉选择示例" 	>		
-	<dropdown  name="citys" id="citys" group="citys"   />
+	<dropdown  name="citys" id="citys" group="citys"   label="城市选择控件" align="right"/>
 	<dropdown  name="area" id="area" group="area" />
 </view>
 
@@ -50,7 +50,7 @@
 </view>
 
 <view title="grounp option示例" 	>	
-	<groupopt  name="card"  group="go"  id="gp" />
+	<groupopt  name="card"  group="go"  id="gp" label="地址"  align="right"/>
 </view>
 
 <command text="递交"/>

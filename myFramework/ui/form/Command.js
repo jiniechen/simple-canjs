@@ -18,6 +18,7 @@ requirejs(["text!myFramework/ui/form/Command.stache","myFramework/utils/StacheHe
 				size:"",
 				type:"success",
 				text:"",
+				_myParent:parentScope,
 				page:_page,
 				data:_data,
 				root:_root

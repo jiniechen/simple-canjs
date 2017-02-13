@@ -1,6 +1,26 @@
+//扩展自定义的校验方法
+//创建一个remote  Remote.define(Name,{});
+Remote.define("Student",{
+	validators:[
+	//校验数组需要 以  "name[]".attrName 来校验数组的每一项
+		/*{attr:"detail[].field1",proc:function(value){
+			if(value != "xxxx"){
+				return "error";
+			}
+		}},
+		{attr:"field2",proc:function(value){
+			if (value != false) {
+				return "已开启";
+			}
+		}},*/
+		/*调用canjs的校验方法*/
+		{attr:"email",proc:"validateFormatOf",opt:[/[\w\.]+@\w+\.\w+/,{message:"格式错误"}]},
+		{attr:"field1",proc:"validatesNumericalityOf"}
+	]
+});
 Page({
 	onData:function(){
-		return new can.Map({	
+		return Remote.Student.new({	
 			name : "this is a page viewModel",
 			field1 : "this is field1",
 			field2 : false,
@@ -9,6 +29,7 @@ Page({
 			getcode:"",
 			vcode:"",
 			direction:"",
+		        email:"444740823@qq.com",
 			detail:[
 				{
 					field1:"this detail field1"

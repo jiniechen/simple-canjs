@@ -52,36 +52,72 @@ define([ "myFramework/MyExports" ],
 					var _data = this.data;
 					var _page = this.page;
 					var _id = this.id;
+					var _root = this.root;
 					if (_id == undefined)
 						_id = this.name || "";
 					var _name = this.name || "";
 					var _viewModel = this;
+			                var _index=this.index;
+			                var _self=this;
+			//递归寻找this的 context 和 index
+			
+			function getFullPath(_scope){
+				var result=_scope.attr("context");
+				if (result==undefined)
+					result="";
+				if (_scope._myParent){
+					var pr=getFullPath(_scope._myParent);
+					if (pr!=""){
+						if (_scope._myParent.attr("index"))
+							pr=pr+"[]";
+						result=pr+(result==""?"":"."+result);
+					}
+				}
+				return result;
+			};
+			function getIndexArray(_scope){
+				var result = _scope.attr("index");
+				if (result == undefined)
+					result = "";
+				if (_scope._myParent) {
+					var index  = getIndexArray(_scope._myParent);
+					if (index !="") {
+						result = [index];
+					}
+				}
+				return result;
+			}
 					return function(el) {
 						function _isCheckbox() {
 
-							var type = el.getAttribute("type");
-							return type == "checkbox" || type == "radio" ? true
-									: false;
+					var type = el.getAttribute("type");
+					return type =="checkbox" ||type =="radio"? true:false;
+				}
+				_data.bind(_name, function(ev, newVal, oldVal) {
+					if (newVal != oldVal) {
+						
+						if (_isCheckbox())
+							{
+
+								el.checked=newVal;
+							}
+						else
+							el.value=newVal;
+
+						var _fp=getFullPath(_self);
+						_fp=_fp==""?_name:_fp+"."+_name;
+						var _error = _root.attr("data").errors(_fp,{options:getIndexArray(_self)});
+						if(_error){
+							can.each(_error,function(key,val){
+								can.each(key,function(el,index){
+									_viewModel.error.attr("flag",true);
+									_viewModel.error.attr("message",el);
+								})
+							})
+						}else{
+							_viewModel.error.attr("flag",false);
+							_viewModel.error.attr("message",undefined);
 						}
-						_data.bind(_name, function(ev, newVal, oldVal) {
-							if (newVal != oldVal) {
-								if (_isCheckbox()) {
-									el.checked = newVal;
-								} else
-									el.value = newVal;
-								if (_page.onValidateValue) {
-									var _error = _page.onValidateValue(_id,
-											newVal);
-									if (_error) {
-										_viewModel.error.attr("flag", true);
-										_viewModel.error
-												.attr("message", _error);
-									} else {
-										_viewModel.error.attr("flag", false);
-										_viewModel.error.attr("message",
-												undefined);
-									}
-								}
 
 								var dropdownChangeEvent = "on"
 										+ camelString(_name) + "ValueChange";

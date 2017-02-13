@@ -4,6 +4,7 @@ requirejs.config({
 		mzui : "../lib/mzui.min",
 		canjs : "../lib/can.zepto.min",
 		canjsStache : "../lib/can.stache",
+		canjsValidation:"../lib/can.map.validations",
 		mobiscroll: "../lib/mobiscroll.custom-3.0.0-beta6.min",
 		myFramework : "../myFramework",
 		text : "../requirejs/text",// 文本加载器
@@ -36,6 +37,7 @@ requirejs(["boot!App","myFramework/MyExports"],function(AppObject,exports){
 	window.exports=exports;
 	window.Pages=exports.Pages;
 	window.getApp=exports.tools.App.getApp;
+	window.Remote=exports.tools.App.Remote;
 	window.Mask=exports.Mask;
 	window.Navigator=exports.Navigator;
 	window.getCurrentPage=exports.Navigator.getCurrentPage;

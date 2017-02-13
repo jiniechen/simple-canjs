@@ -1,4 +1,4 @@
-define(["text" ], function(textLoader) {
+define(["text"], function(textLoader) {
 	var buildMap={};
 	return {
 		load : function(name, req, onload, config) {
@@ -6,12 +6,13 @@ define(["text" ], function(textLoader) {
 			var jsName=name.indexOf(".stache")>0?name.substring(0,name.length-7):name;
 			textLoader.get(req.toUrl(jsName + ".js"), function(text) {
 				buildMap[name] = text;
-				req(["myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","text!"+name], function(exports,_App,_Page,text) {
+				req(["myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","text!"+name,"myFramework/data/Remote"], function(exports,_App,_Page,text,_Remote) {
 					if (config.isBuild){
 						onload();
 					}else{
 						var _page=undefined;
 						var Page=function(options){_page=_Page(options)};
+						var Remote=_Remote;
 						var getApp=_App.getApp;
 						eval(buildMap[name]);
 						_page.setStache(text);
@@ -24,7 +25,7 @@ define(["text" ], function(textLoader) {
 			});
 		},
 		write : function(plugName, moduleName, write) {
-			write('define("' + plugName + '!' + moduleName+'",["myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","text!'+moduleName+'"],function(exports,_App,_Page,tpl){'+
+			write('define("' + plugName + '!' + moduleName+'",["myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","text!'+moduleName+'","myFramework/data/Remote"],function(exports,_App,_Page,tpl){'+
 					'var _page=undefined;'+
 					'var getApp=_App.getApp;'+
 					'var Page=function(options){_page=_Page(options)};'+

@@ -17,11 +17,13 @@ requirejs(["text!myFramework/ui/form/Date.stache","myFramework/utils/StacheHelpe
 				name:undefined,
 				label:"",
 				tip:"",
+				align:"left",
 				page:_page,
 				data:_data,
 				root:_root,
 				start:"",
 				end:"",
+				_myParent:parentScope,
 				error:new can.Map({
 					flag:false,
 					message:undefined

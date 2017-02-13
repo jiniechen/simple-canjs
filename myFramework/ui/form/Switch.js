@@ -19,6 +19,7 @@ requirejs(["text!myFramework/ui/form/Switch.stache","myFramework/utils/StacheHel
 				page:_page,
 				data:_data,
 				root:_root,
+				_myParent:parentScope,
 				error:new can.Map({
 					flag:false,
 					message:undefined
