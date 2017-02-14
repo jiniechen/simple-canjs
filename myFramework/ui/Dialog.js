@@ -8,11 +8,15 @@ requirejs(["text!myFramework/ui/Dialog.stache","myFramework/utils/Navigator"],fu
 				_scope=_scope.scope;
 			};
 			var page = _scope.attr("page");
-			var	closebtn = page.closeBtn == false ? "none":"";
+			var	closebtn = page.closeBtn == false ? "none":undefined;
 			return {
 				page:page,
 				title:page.title,
-				close :closebtn
+				close :closebtn,
+				height:"400px",
+				width:"80%",
+				top:"20%",
+				left:"10%"
 			};
 		},
 		events:{
@@ -20,7 +24,6 @@ requirejs(["text!myFramework/ui/Dialog.stache","myFramework/utils/Navigator"],fu
 				this.viewModel.attr("page").hide();
 			},
 			"inserted" : function(el, ev){
-				//chrome存在bug
 				$(el).css("display","inline-block");
 			}
 		}

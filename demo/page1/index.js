@@ -30,17 +30,26 @@ Page({
 			getcode:"",
 			vcode:"",
 			direction:"",
-		        email:"444740823@qq.com",
+		    email:"444740823@qq.com",
 			detail:[
 			{
 				field1:"this detail field1",
+				name:"xxx",
+				age:"18",
+				sex:"man"
 			},
 			{
-				field1:"this detail field2"
+				field1:"this detail field2",
+				name:"xxx",
+				age:"18",
+				sex:"man"
 			},
 			{
-				field1:"this detail field3"
-			},
+				field1:"this detail field3",
+				name:"xxx",
+				age:"18",
+				sex:"man"
+			}/*,
 			{
 				field1:"this detail field4"
 			},
@@ -58,8 +67,9 @@ Page({
 			},
 			{
 				field1:"this detail field9"
-			}
-		]
+			}*/
+		],
+		listTitle:{code:"编码",name:"姓名",age:"年龄",sex:"性别"}
 		});
 	},
 	colors:[
@@ -161,5 +171,8 @@ Page({
 		exports.tools.validate(data,function(){
 			alert("正确数据");
 		})
+	},
+	onCancelClick:function(){
+		exports.Mask.show();
 	}
 });

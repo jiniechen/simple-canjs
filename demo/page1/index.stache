@@ -2,8 +2,6 @@
 		<search tip="请输入您所要查询的关键字" name="search"/>
 </view>
 
-
-
 <view title="我的信息">
 	<text name="field1" label="姓名"/>
 	<switch name="field2" label="出生日期"/>
@@ -50,10 +48,12 @@
 <view title="grounp option示例" 	>	
 	<groupopt  name="card"  group="go"  id="gp" label="地址"  align="right"/>
 </view>
-
+<view title="表格示例">
+	<list style="table bordered" context="detail" title="listTitle"  id="table" align="right"></list>
+</view>
 <command text="递交"/>
 <command text="取消"  type="gray"/>
 <command name="sure" text="确认"  size="big" type="success"/>
-<command text="确认"  size="big" type="darkgray"/>
+<command text="确认"  size="big" type="darkgray" id="cancel"/>
 
 

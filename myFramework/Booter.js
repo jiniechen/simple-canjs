@@ -29,8 +29,8 @@ define(["text"],function(textLoader) {
 					var errors  = data.errors();
 					if(errors!=undefined){
 						var _page = new Page({
-							title:"错误信息",
 							dialog:true,
+							title:"错误信息",
 							onSureClick:function(){
 								_page.hide();
 							}

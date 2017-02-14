@@ -1,0 +1,19 @@
+<table class={{style}} style="text-align:{{align}} !important">
+	<thead>
+		<tr>
+			{{#each _title}}
+				<td>{{.}}</td>
+			{{/each}}
+		</tr>
+	</thead>
+	<tbody>
+		{{#each data}}
+			<tr id="{{@index}}">
+				{{#each . }}
+					<td>{{.}}</td>
+				{{/each}}
+			</tr>
+		{{/each}}
+	</tbody>
+</table>
+

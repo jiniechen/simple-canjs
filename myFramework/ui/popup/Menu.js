@@ -1,10 +1,12 @@
 define(["text!myFramework/ui/popup/Menu.stache","myFramework/ui/popup/Mask"],function(tmpl,Mask){
 	function show(data,placement){
+		
 		if (Mask.Popup.isShow){
 			Mask.Popup.hide();
 		}
 		if (!data.position)
 			data.position="bottom";
+
 		Mask.Popup.show({
 			content:function(options){
 				var _frag=can.stache(options.stache);
@@ -15,16 +17,22 @@ define(["text!myFramework/ui/popup/Menu.stache","myFramework/ui/popup/Mask"],fun
 			stache:tmpl,
 			viewModel:data,
 			placement:data.position,
-			backdrop:true,
 			targetDismiss : false,
 			display:"modal",
 			autoHide:false,
 			animate:0,//不执行动画
 			duration:0,//不执行动画
 			data:data,
-			preventDefault:true,
-			stopPropagation:true,
+			//preventDefault:false,
+			//stopPropagation:false,
+			show:function(){
+				$("html,body").css("overflow-y","hidden");
+			},
+			hidden:function(){
+				$("html,body").css("overflow-y","auto");
+			},
 			shown:function(options){//绑定事件
+				//debugger;
 				var _options=options;
 				var _el=_options.$target.find("#menu a");
 				if (_el.length){
