@@ -2,9 +2,7 @@
 		<search tip="请输入您所要查询的关键字" name="search"/>
 </view>
 
-<scrollview context="detail">
-	
-</scrollview>
+
 
 <view title="我的信息">
 	<text name="field1" label="姓名"/>

@@ -1,4 +1,4 @@
-requirejs(["text!myFramework/ui/Dialog.stache"],function(tpl){
+requirejs(["text!myFramework/ui/Dialog.stache","myFramework/utils/Navigator"],function(tpl,Navigator){
 	can.Component.extend({
 		tag:"dialog",
 		template:can.stache(tpl),

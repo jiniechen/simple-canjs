@@ -17,18 +17,35 @@ define(["text"],function(textLoader) {
 		});
 	};
 	function _loadMyFramework(req,config,cb){
-		req(["myFramework/MyExports","myFramework/data/Remote","myFramework/AppObject","myFramework/PageObject"],
-			function(exports,Remote,App,Page){
+		req(["myFramework/MyExports","myFramework/data/Remote","myFramework/AppObject","myFramework/PageObject","text!myFramework/errorsDialog.stache"],
+			function(exports,Remote,App,Page,tpl){
 			if (config.isBuild){
 				cb();
 			}else{	
 				exports.tools.App=App;
 				exports.tools.Page=Page;
 				exports.tools.Remote=Remote;
+				exports.tools.validate = function(data,callback){
+					var errors  = data.errors();
+					if(errors!=undefined){
+						var _page = new Page({
+							title:"错误信息",
+							dialog:true,
+							onSureClick:function(){
+								_page.hide();
+							}
+						})
+					_page.setStache(tpl);
+					_page.show(errors);
+					}else{
+						callback();
+					}
+				};
 				cb();
 			}
 		});
 	};
+	
 	function _loadAppAndPages(req,config,cb){
 		req(["myFramework/MyExports","app!App"],function(exports,app) {
 			if (config.isBuild){

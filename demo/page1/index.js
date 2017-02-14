@@ -18,6 +18,7 @@ Remote.define("Student",{
 		{attr:"field1",proc:"validatesNumericalityOf"}
 	]
 });
+
 Page({
 	onData:function(){
 		return Remote.Student.new({	
@@ -31,16 +32,34 @@ Page({
 			direction:"",
 		        email:"444740823@qq.com",
 			detail:[
-				{
-					field1:"this detail field1"
-				},
-				{
-					field1:"this detail field2"
-				},
-				{
-					field1:"this detail field3"
-				}
-				]
+			{
+				field1:"this detail field1",
+			},
+			{
+				field1:"this detail field2"
+			},
+			{
+				field1:"this detail field3"
+			},
+			{
+				field1:"this detail field4"
+			},
+			{
+				field1:"this detail field5"
+			},
+			{
+				field1:"this detail field6"
+			},
+			{
+				field1:"this detail field7"
+			},
+			{
+				field1:"this detail field8"
+			},
+			{
+				field1:"this detail field9"
+			}
+		]
 		});
 	},
 	colors:[
@@ -135,8 +154,12 @@ Page({
 		
 	},
 	onSureClick:function(){
-		Mask.toast("恭喜您,提交成功");
+		//Mask.toast("恭喜您,提交成功");
+		//debugger;
+		var data = getCurrentPage().onData();
+		
+		exports.tools.validate(data,function(){
+			alert("正确数据");
+		})
 	}
-
-
 });

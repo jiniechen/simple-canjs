@@ -1,8 +1,8 @@
-requirejs([ "text!myFramework/ui/ScrollViewItem.stache" ], function(tpl) {
+requirejs([ "text!myFramework/ui/ScrollViewItem.stache" ,"myFramework/utils/StacheHelpers"], function(tpl,stacheHelpers) {
 	can.Component.extend({
 		tag : "scrollviewitem",
 		template : can.stache(tpl),
-		helpers:MF.StacheHelpers,
+		helpers:stacheHelpers,
 
 		viewModel : function(attrs,parentScope,el){
 			//获取page对象的viewModel,组合组件从上层组件获取root,顶层组件的parentScope为root

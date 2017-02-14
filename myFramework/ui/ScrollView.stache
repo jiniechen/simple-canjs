@@ -1,7 +1,7 @@
 <section style="height:{{height}}px !important;overflow:scroll;">
 	<div>
 		{{#each data}}
-			<scrollviewitem {data}="." index = {{@index}}  context={{context}} name="field1" />
+			<scrollviewitem {data}="." index = {{@index}}  context={{context}}  />
 		{{/each}}
 	</div>
 </section>

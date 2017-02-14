@@ -1,7 +1,7 @@
-requirejs([ "text!myFramework/ui/ScrollView.stache" ], function(tpl) {
+requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/utils/StacheHelpers"], function(tpl,stacheHelpers) {
 	can.Component.extend({
 		tag : "scrollview",
-		helpers:MF.StacheHelpers,
+		helpers:stacheHelpers,
 		template : can.stache(tpl),
 		viewModel : function(attrs,parentScope,el){
 			
@@ -23,7 +23,8 @@ requirejs([ "text!myFramework/ui/ScrollView.stache" ], function(tpl) {
 				height:el.getAttribute("height"),
 				page:_page,
 				data:_data,
-				root:_root
+				root:_root,
+				_myParent:parentScope
 			};
 		},
 		events:{
@@ -31,13 +32,23 @@ requirejs([ "text!myFramework/ui/ScrollView.stache" ], function(tpl) {
 				
 				var section = el.find("section").eq(0),
 					div = section.find("div").eq(0);
-					
+
+				var _viewModel = getCurrentPage();
+
 				var wrapH = el.viewModel().height,//容器高度
 					documentH = div.height(),//文档高度
 					data = el.viewModel().context,
 					data = data.substring(0,1).toUpperCase()+data.substring(1,data.length);
-				var up = MF.getCurrentPage().viewModel.page["on"+data+"Up"],
-					down = MF.getCurrentPage().viewModel.page["on"+data+"Down"];
+
+				
+				/*if(_viewModel["on"+data+"Up"])
+					var up = _viewModel["on"+data+"Up"];
+				else 
+					up = undefined;
+				if(_viewModel["on"+data+"Down"])
+					var down = _viewModel["on"+data+"Down"];
+				else
+					down = undefined;*/
 				section.listenScroll({
 					listenScroll:function(isInScroll, scrollDirection, scrollTop){
 
@@ -46,20 +57,16 @@ requirejs([ "text!myFramework/ui/ScrollView.stache" ], function(tpl) {
 							if(scrollTop == documentH-wrapH){
 								
 								var timer = setTimeout(function(){
-									
-									if(down) 
-									down();
+									if(_viewModel["on"+data+"Up"])
+										_viewModel["on"+data+"Up"]();
 								},100);
 								
-
 							}
 						}else if(scrollDirection == "up"){
 							if(scrollTop == 0){
-								
 								var timer = setTimeout(function(){
-									if(up) 
-									up();
-									
+									if(_viewModel["on"+data+"Down"])
+										_viewModel["on"+data+"Down"]();
 								},100);
 							}
 						}
