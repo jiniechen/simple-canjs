@@ -29,7 +29,7 @@ define(["text!myFramework/ui/popup/Menu.stache","myFramework/ui/popup/Mask"],fun
 				//阻止触摸事件
 				$("body,html").on("touchstart",function(ev){
 					ev.preventDefault();
-					ev.stopPropagation();
+					//ev.stopPropagation();
 				});
 			},
 			hidden:function(){
@@ -42,7 +42,7 @@ define(["text!myFramework/ui/popup/Menu.stache","myFramework/ui/popup/Mask"],fun
 				var mask = $("body").find("div[type='modal']");
 				mask.on("touchstart",function(ev){
 					ev.preventDefault();
-					ev.stopPropagation();
+					//ev.stopPropagation();
 				})
 				if (_el.length){
 					$(_el).on("click",function(ev){

@@ -17,7 +17,7 @@ define(["myFramework/MyExports"],function(exports){
 				//阻止触摸事件
 				$("html,body").on("touchmove",function(ev){
 					ev.preventDefault();
-					ev.stopPropagation();
+					//ev.stopPropagation();
 				})
 			},
 			hidden:function(){
