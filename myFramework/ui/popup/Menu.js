@@ -39,10 +39,6 @@ define(["text!myFramework/ui/popup/Menu.stache","myFramework/ui/popup/Mask"],fun
 			shown:function(options){//绑定事件
 				var _options=options;
 				var _el=_options.$target.find("#menu a");
-				var mask = $("body").find("div[type='modal']");
-				mask.on("touchstart",function(ev){
-					ev.preventDefault();
-					//ev.stopPropagation();
 				})
 				if (_el.length){
 					$(_el).on("click",function(ev){
