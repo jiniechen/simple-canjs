@@ -5,7 +5,7 @@
 	 		<i class="icon icon-remove-circle muted "></i>
 	 	</a>
 	 </div>	
- 	 <div class="dock flex flex-center">
+ 	 <div class="dock flex flex-center" style="position:absolute;top:{{top}};left:{{left}};height:{{height}};width:{{width}};">
    		<div class="modal rounded dialog" style="{{opcity}}" >
      	 <content></content>
     	</div>    
