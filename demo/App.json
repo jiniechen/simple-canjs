@@ -6,6 +6,6 @@
 			"myFramework/ui/form/Dropdown",	"myFramework/ui/form/Groupopt","myFramework/ui/form/Multitext",
 			"myFramework/ui/form/Radio","myFramework/ui/form/Search","myFramework/ui/form/Switch",
 			"myFramework/ui/form/Text",	"myFramework/ui/form/Vcode","myFramework/ui/form/Dropdown_mobi",
-			"myFramework/ui/Scrollview","myFramework/ui/ScrollviewItem","myFramework/ui/List"
+			"myFramework/ui/ScrollView","myFramework/ui/ScrollViewItem","myFramework/ui/List"
 			]
 }
