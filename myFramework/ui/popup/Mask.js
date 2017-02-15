@@ -1,8 +1,7 @@
 define(["myFramework/MyExports"],function(exports){
 	// 注入mzui
 	var _Popup = new $.Display({});
-	
-	function show() {
+	function show() {	
 		_Popup.show({
 			content : "<div class=\"loading loading-light gray\">加载中</div>",
 			placement : "center",
@@ -10,14 +9,25 @@ define(["myFramework/MyExports"],function(exports){
 			display : "modal",
 			backdropDismiss : false,
 			autoHide : false,
-			preventDefault:true,
-			stopPropagation:true,
+			//preventDefault:true,
+			//stopPropagation:true,
 			animate:0,// 不执行动画
-			duration:0// 不执行动画
+			duration:0,	// 不执行动画
+			shown:function(){
+				//阻止触摸事件
+				$("html,body").on("touchmove",function(ev){
+					ev.preventDefault();
+				})
+			},
+			hidden:function(){
+				//恢复触摸事件
+				$("html,body").off("touchmove");
+			}
 		});
 	};
 
 	function toast(message) {
+
 		_Popup.show({
 			content : message,
 			placement : "center",

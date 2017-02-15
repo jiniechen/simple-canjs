@@ -1,5 +1,5 @@
 <table class={{style}} style="text-align:{{align}} !important">
-	<thead>
+	<thead class="{{titleColor}}">
 		<tr>
 			{{#each _title}}
 				<td>{{.}}</td>

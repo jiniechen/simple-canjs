@@ -23,6 +23,7 @@ requirejs(["text!myFramework/ui/List.stache","myFramework/utils/StacheHelpers"],
 				root:_root,
 				aling:"left",
 				style:"table bordered",
+				titleColor:"primary",
 				active:"",
 				_myParent:parentScope,
 				error:new can.Map({

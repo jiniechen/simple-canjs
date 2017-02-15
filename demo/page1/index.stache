@@ -1,8 +1,10 @@
 <view title="搜索框示例">
 		<search tip="请输入您所要查询的关键字" name="search"/>
 </view>
-
-<view title="我的信息">
+<view title="滚动组件示例">
+	<scrollview context="detail" height="300"/>
+</view>
+<view title="我的信息" id="toast">
 	<text name="field1" label="姓名"/>
 	<switch name="field2" label="出生日期"/>
 </view>
@@ -49,7 +51,7 @@
 	<groupopt  name="card"  group="go"  id="gp" label="地址"  align="right"/>
 </view>
 <view title="表格示例">
-	<list style="table bordered" context="detail" title="listTitle"  id="table" align="right"></list>
+	<list style="table bordered" context="detail" title="listTitle"  id="table" align="center"></list>
 </view>
 <command text="递交"/>
 <command text="取消"  type="gray"/>

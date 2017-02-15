@@ -142,8 +142,9 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 			if (this.dialog) {
 				this._appendTo($("body"),data);
 				//删除滚动条
-				$("html,body").css("overflow-y","hidden");
-
+				$("html,body").on("touchmove",function(ev){
+					ev.preventDefault();
+				})
 			} else {
 				if (_page) {
 					if (_page.attr("data-page") != this.name) {
@@ -164,9 +165,9 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 		};
 		this.hide = function() {
 			if (this.dialog) {
-				this._remove();
+			 	this._remove();
 				//增加滚动条
-				$("html,body").css("overflow-y","auto");
+				$("html,body").off("touchmove");
 			} else {
 				this.backPageHide();
 				App.getApp().pushBackList(this);
