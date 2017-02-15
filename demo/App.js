@@ -19,7 +19,12 @@ App({
 			Navigator.runApp("../poc/index.html");
 		});
 		titleBar.addMenu("Toast","icon-home",function(){
-			getApp().showMe();
+			//getApp().showMe();
+			exports.Mask.hide();
+			var timer = setTimeout(function(){
+				exports.Mask.toast("这是一个toast");
+			},1);
+			
 		});
 	}
 });

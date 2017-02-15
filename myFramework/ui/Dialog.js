@@ -8,15 +8,18 @@ requirejs(["text!myFramework/ui/Dialog.stache","myFramework/utils/Navigator"],fu
 				_scope=_scope.scope;
 			};
 			var page = _scope.attr("page");
+			var bg = page.opcity;
+			var bg = bg == true ? "background:rgba(0,0,0,0.2)" : undefined;
 			var	closebtn = page.closeBtn == false ? "none":undefined;
 			return {
 				page:page,
 				title:page.title,
 				close :closebtn,
-				height:"400px",
-				width:"80%",
-				top:"20%",
-				left:"10%"
+				height:page.height,
+				width:page.width,
+				top:page.top,
+				left:page.left,
+				opcity:bg
 			};
 		},
 		events:{

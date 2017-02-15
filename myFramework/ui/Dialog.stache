@@ -6,7 +6,7 @@
 	 	</a>
 	 </div>	
  	 <div class="dock flex flex-center">
-   		<div class="modal rounded dialog" style="background:rgba(0,0,0,0.2)" >
+   		<div class="modal rounded dialog" style="{{opcity}}" >
      	 <content></content>
     	</div>    
   </div>

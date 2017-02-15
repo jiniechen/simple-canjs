@@ -31,6 +31,11 @@ define(["text"],function(textLoader) {
 						var _page = new Page({
 							dialog:true,
 							title:"错误信息",
+							top:'20%',
+							left:'10%',
+							height:"400px",
+							width:'80%',
+							opcity:true,
 							onSureClick:function(){
 								_page.hide();
 							}
