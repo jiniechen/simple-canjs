@@ -25,7 +25,7 @@ define(["text"], function(textLoader) {
 			});
 		},
 		write : function(plugName, moduleName, write) {
-			write('define("' + plugName + '!' + moduleName+'",["myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","text!'+moduleName+'","myFramework/data/Remote"],function(exports,_App,_Page,tpl){'+
+			write('define("' + plugName + '!' + moduleName+'",["myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","text!'+moduleName+'","myFramework/data/Remote"],function(exports,_App,_Page,tpl,Remote){'+
 					'var _page=undefined;'+
 					'var getApp=_App.getApp;'+
 					'var Page=function(options){_page=_Page(options)};'+
