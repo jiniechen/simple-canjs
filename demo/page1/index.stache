@@ -64,12 +64,31 @@
 
 
 <view title="下拉选择示例" 	>	
-	<dropdown-mobi  label="城市选择" name="chose1"  options="citys" id="new"/>
-	<dropdown-mobi  label="城市选择" name="chose2"  id="chose2" options="area" />
+	<dropdown-mobi  label="城市选择" name="chose1"  id="new"
+		data-options='[
+       		{key:"sz" ,value:"深圳"},
+       		{key:"zh",value:"珠海"}
+    	]'/>
+	<dropdown-mobi  label="城市选择" name="chose2"  id="chose2" 
+		data-parent="chose1" data-options='{
+			zh:[
+       			{key:"xz" ,value:"香洲"},
+       			{key:"jw",value:"金湾"},
+    		],
+   	 		sz:[
+       			{key:"ns" ,value:"南山"},
+       			{key:"ft",value:"福田"},
+       			{key:"lh",value:"罗湖"}
+       	]}' />
 </view>
 
 <view title="grounp option示例" >	
-	<groupopt  name="card"  options="go"  id="gp" label="地址"  align="right"/>
+	<groupopt  name="card"  id="gp" label="地址"  align="right"
+		data-options='[
+    		{value:"USA",opt:[{key:"01",txt:"洛杉矶"},{key:"02",txt:"纽约"}]},
+    		{value:"China",opt:[{key:"03",txt:"深圳"},{key:"04",txt:"香港"}]}
+    	]'
+	/>
 </view>
 <view title="表格示例">
 	<list context="detail" rows="listRows" id="list"></list>

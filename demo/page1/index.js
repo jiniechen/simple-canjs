@@ -86,12 +86,7 @@ Page({
 	listRows:[
 		{field:"field"},{name:"姓名"},{sex:"性别"},{age:"年龄"}
 	],
-	
-    go:new can.List([
-    		{value:"USA",opt:[{key:"01",txt:"洛杉矶"},{key:"02",txt:"纽约"}]},
-    		{value:"China",opt:[{key:"03",txt:"深圳"},{key:"04",txt:"香港"}]}
-    	]),
-    config:{
+	config:{
     	theme: 'mobiscroll',  
         lang: 'zh',           
         display: 'bottom',
@@ -128,18 +123,6 @@ Page({
 	},
 	onClick:function(){
 		//MF.getCurrentPage().viewModel.data.attr("field1","123456");
-	},
-	onChose1ValueChange:function(name,newVal){
-			
-		var _page = this,
-			_chose = $("#chose2"),
-			instance = _chose.viewModel().mobi;
-
-		_chose.viewModel().attr("_options",_page[newVal]);
-
-		instance.clear();
-		instance.init();
-		
 	},
 	onSureClick:function(){
 		//Mask.toast("恭喜您,提交成功");
