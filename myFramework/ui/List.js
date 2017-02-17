@@ -4,6 +4,8 @@ requirejs(["text!myFramework/ui/List.stache","myFramework/utils/StacheHelpers"],
 		template:can.stache(tpl),
 		helpers:stacheHelpers,
 		viewModel:function(attrs,parentScope,el){
+			var _titles=$(el).data("titles");
+			
 			//获取page对象的viewModel,组合组件从上层组件获取root,顶层组件的parentScope为root
 			var _root=parentScope.attr("root")==undefined?parentScope:parentScope.attr("root");
 			//获取页面对象
@@ -17,7 +19,7 @@ requirejs(["text!myFramework/ui/List.stache","myFramework/utils/StacheHelpers"],
 				id:el.getAttribute("id"),
 				contextName:_contextName,
 				align:"left",
-				title:_page[_title],
+				titles:_titles,
 				page:_page,
 				data:_data,
 				root:_root,

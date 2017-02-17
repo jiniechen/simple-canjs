@@ -28,7 +28,10 @@ requirejs(["text!myFramework/ui/form/Dropdown.stache","myFramework/utils/StacheH
 				}else
 					_options=new can.List([]);
 				_data.bind(_parentName,function(ev, newVal, oldVal) {
-					$(el).viewModel().attr("_options",_parentOptions[newVal]);
+					var vm=$(el).viewModel();
+					var _options=vm._parentOptions[vm.data[_parentName]];
+					$(el).viewModel().attr("_options",_options);
+					$(el).viewModel().data.attr(name,"");
 				});
 			}else{
 				_options=_parentOptions;
@@ -56,18 +59,4 @@ requirejs(["text!myFramework/ui/form/Dropdown.stache","myFramework/utils/StacheH
 		}
 	});
 	
-	window.dropDown=function(el){
-		var vm=$(el).viewModel();
-		this.changeOptions=function(){
-			var _options;
-			if (vm._parentName){
-				if (vm.data[vm._parentName]){
-					_options=vm._parentOptions[vm.data[vm._parentName]];
-					vm.attr("_options",_options);
-				}else
-					_options=new can.List([]);
-			}
-		}
-		return this;
-	}
 });

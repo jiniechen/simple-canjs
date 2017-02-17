@@ -42,7 +42,7 @@ Page({
 		    citys:"sz",
 		    area:"ns",
 		   	radio:"blue",
-		    ch:["blue",undefined],
+		    ch:["apple"],
 			detail:[
 			{
 				field1:"this detail field1",
@@ -83,9 +83,6 @@ Page({
 		]
 		});
 	},
-	listRows:[
-		{field:"field"},{name:"姓名"},{sex:"性别"},{age:"年龄"}
-	],
 	config:{
     	theme: 'mobiscroll',  
         lang: 'zh',           

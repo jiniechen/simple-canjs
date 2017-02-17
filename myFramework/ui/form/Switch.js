@@ -4,6 +4,7 @@ requirejs(["text!myFramework/ui/form/Switch.stache","myFramework/utils/StacheHel
 		template:can.stache(tpl),
 		helpers:stacheHelpers,
 		viewModel:function(attrs,parentScope,el){
+			var _options=$(el).data("options");
 			//获取page对象的viewModel,组合组件从上层组件获取root,顶层组件的parentScope为root
 			var _root=parentScope.attr("root")==undefined?parentScope:parentScope.attr("root");
 			//获取页面对象
@@ -16,6 +17,7 @@ requirejs(["text!myFramework/ui/form/Switch.stache","myFramework/utils/StacheHel
 				contextName:_contextName,
 				name:undefined,
 				label:"",
+				_options:_options,
 				page:_page,
 				data:_data,
 				root:_root,

@@ -6,7 +6,7 @@
 		{{#if _options}}
 				<select  {{formValue}} class="cell-8 no-border" >
 					{{#each _options}}
-						<option value="{{key}}" >{{value}}</options>
+						<option value="{{.}}" >{{@key}}</options>
 					{{/each}}
 				</select>
 			{{else}}

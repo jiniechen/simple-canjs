@@ -29,7 +29,9 @@ requirejs(["text!myFramework/ui/form/Dropdown_mobi.stache","myFramework/utils/St
 					_options=new can.List([]);
 				_data.bind(_parentName,function(ev, newVal, oldVal) {
 					var vm=$(el).viewModel();
-					vm.attr("_options",_parentOptions[newVal]);
+					var _options=vm._parentOptions[vm.data[_parentName]];
+					$(el).viewModel().attr("_options",_options);
+					$(el).viewModel().data.attr(name,"");
 					vm.mobi.clear();
 					vm.mobi.init();
 				});

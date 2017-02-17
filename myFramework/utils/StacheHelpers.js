@@ -153,53 +153,53 @@ define([ "myFramework/MyExports" ],
 					var _data = this.data;
 					var _name = this.name || "";
 					return function(el){
-						_data[_name].bind("change",function(ev, index, how, newVal, oldVal){
-							//一一对应情况	
-							var number = el.getAttribute("index");	
-							el.checked = el.getAttribute("data-true") == _data[_name].attr(number);
-
-							//只传选中的值
-							/*var index = _data[_name].indexOf(el.getAttribute("data-true"));
-							el.checked = index==0||index > 0 ?  true:false;*/
-						})
+						var _checkValue=$(el).data("value");
+						_data[_name].bind('length', function(ev, removedElements, index) {
+							var _inputs=$(el).parent().parent().find("input");
+							can.each(_inputs,function(_input,index){
+								_input.checked=false;
+								can.each(_data[_name],function(_c,index){
+									if ($(_input).data("value")==_c)
+										_input.checked=true;
+								});
+							});
+						});
 						el.onclick=function(){
-							//一一对应情况
-							var attr = this.checked == true  ? this.getAttribute("data-true"):this.getAttribute("data-false");
-							var index = this.getAttribute("index");
-							_data[_name].attr(index,attr);
-
-							//只传选中的值
-							/*var attr = this.getAttribute("data-true"),
-								index = _data[_name].indexOf(attr);
-							if(index > 0 || index==0 ){
-								_data[_name].splice(index,1);
-							}else{
-								_data[_name].push(attr);
-
-							}*/
-							
+							var _list=_data.attr(_name);
+							//el.checked
+							var _index=-1;
+							if (_list){
+								can.each(_list,function(value,index){
+									if (value==_checkValue)
+										_index=index;
+								});
+							}
+							if (el.checked)
+								if (_index=-1)
+									_list.push(_checkValue);
+							if (!el.checked)
+								_list.splice(_index,1);
 						};
-						//一一对应情况
-						_data[_name].attr(el.getAttribute("index")) == el.getAttribute("data-true")?el.checked=true:el.checked=false;
-						
-						//只传选中的值
-						/*var include = _data[_name].indexOf(el.getAttribute("data-true"));
-						el.checked = include==0||include > 0 ?  true:false;*/
+						var _list=_data.attr(_name);
+						el.checked=false;
+						if (_list){
+							can.each(_list,function(value,index){
+								if (value==_checkValue)
+									el.checked=true;
+							});
+						}
 					}
 				},switchValue:function(){
 					var _data = this.data;
 					var _name = this.name || "";
+					var _options = this._options||[0,1];
 					return function(el){
-						
 						_data.bind(_name,function(ev, newVal, oldVal){
-
-							el.checked=newVal;
-
+							el.checked=newVal==_options[1];
 						})
-						el.checked = _data.attr(_name);
-
+						el.checked = _data.attr(_name)==_options[1];
 						el.onclick=function(){
-							_data.attr(_name, this.checked);
+							_data.attr(_name,_options[this.checked?1:0]);
 						};
 						
 					}

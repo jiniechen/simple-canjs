@@ -1,7 +1,7 @@
 {{#each _options}}
 	<label class="flex space-between  divider has-padding no-margin" style="justify-content:{{_align}} !important">
-			<span>{{label}}</span>
-			<input {{formValue}} class="radio"  type="radio"  value={{value}}>
+			<span>{{@key}}</span>
+			<input {{formValue}} class="radio"  type="radio"  value={{.}}>
 		{{#if error.flag}}
 			<div class="help-text text-important has-padding">
 			{{error.message}}

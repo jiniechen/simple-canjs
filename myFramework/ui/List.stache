@@ -1,9 +1,7 @@
 <table class={{style}} style="text-align:{{align}} !important">
 		<tr class={{titleColor}}>
-			{{#each title}}
-				{{#each .}}
-						<td>{{.}}</td>
-				{{/each}}
+			{{#each titles}}
+				<td>{{.}}</td>
 			{{/each}}
 		</tr>
 		{{#each data}}

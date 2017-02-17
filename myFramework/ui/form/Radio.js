@@ -5,7 +5,7 @@ requirejs(["text!myFramework/ui/form/Radio.stache","myFramework/utils/StacheHelp
 		helpers:stacheHelpers,
 		viewModel:function(attrs,parentScope,el){
 			var _optionsJson=$(el).data("options");
-			var _options={};
+			var _options=[];
 			if (_optionsJson){
 				var func=new Function("return "+_optionsJson+";");
 				_options=func();
