@@ -61,9 +61,8 @@ define(["text"],function(textLoader) {
 				//exports.App=app;
 				// 启动应用对象
 				req(["myFramework/MyExports","text!App.stache","myFramework/AppObject"],function(exports,tpl,_APP) {
-					//var _app = _APP.App(_appConfig,tpl);
-					var App=_APP.App;
-					var _app=eval(_script);
+					var func=new Function("App","return "+_script+";");
+					var _app=func(_APP.App);
 					_app.setTemplate(tpl);
 					cb(_app);
 				});
@@ -112,7 +111,6 @@ define(["text"],function(textLoader) {
 					'exports.tools.Page=Page;'+
 					'exports.tools.Remote=Remote;'+
 					'exports.App=options;'+
-					//'var _app = App.App(options,tpl);'+
 					'var App=_APP.App;'+
 					'var _app='+_script+';'+
 					'_app.setTemplate(tpl);'+

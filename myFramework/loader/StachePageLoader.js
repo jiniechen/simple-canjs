@@ -11,10 +11,8 @@ define(["text"], function(textLoader) {
 						onload();
 					}else{
 						var _page=undefined;
-						var Page=function(options){_page=_Page(options)};
-						var Remote=_Remote;
-						var getApp=_App.getApp;
-						eval(buildMap[name]);
+						var func=new Function("Remote","getApp","Page",buildMap[name]);
+						func(_Remote,_App.getApp,function(options){_page=_Page(options)});
 						_page.setStache(text);
 						_page.name=name;
 						// 保存页面对象到全局变量MyExports

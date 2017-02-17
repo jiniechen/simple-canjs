@@ -48,7 +48,7 @@ define(["text" ], function(textLoader) {
 			'use strict';
 			textLoader.get(req.toUrl(name+".json"), function(text) {
 				// 建立App函数，获取App的定义
-				var _options = eval('('+text+')');
+				var _options = new Function('return '+text+';')();
 				_buildMap[name]=text;
 				_executeLoads(_options,req, onload, config);
 			});
