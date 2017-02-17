@@ -2,16 +2,22 @@
 		<search tip="请输入您所要查询的关键字" name="search"/>
 </view>
 <view title="多选示例" 	>		
-	<radio   name="radio"    options="colors" />
+	<radio   name="radio"  data-options='[{label:"红色",value:"red"},{label:"蓝色",value:"blue"}]' />
 </view>
 <view title="多选示例2" 	>		
-	<radio   name="radio"    options="colors" />
+	<radio   name="radio" data-options='[{label:"红色",value:"red"},{label:"蓝色",value:"blue"}]' />
 </view>
 <view title="多选示例" 	>		
-	<checkbox   name="ch"    options="cooptions" />
+	<checkbox   name="ch" data-options='[
+			{key:"apple",label:"苹果"},
+			{key:"banana",label:"香蕉"}
+		]' />
 </view>
 <view title="多选示例" 	>		
-	<checkbox   name="ch"    options="cooptions" />
+	<checkbox   name="ch"   data-options='[
+			{key:"apple",label:"苹果"},
+			{key:"banana",label:"香蕉"}
+		]' />
 </view>
 <view title="我的信息" id="toast">
 	<text name="field1" label="姓名"/>
@@ -38,8 +44,22 @@
 
 
 <view title="下拉选择示例" 	>		
-	<dropdown  name="citys" id="citys" options="citys"   label="城市选择控件" align="right"/>
-	<dropdown  label="城市选择控件" name="area" id="area" options="area" align="right"/>
+	<dropdown  name="citys" id="citys" label="城市选择控件" align="right"
+		 data-options='[
+       		{key:"sz" ,value:"深圳"},
+       		{key:"zh",value:"珠海"}
+    	]'/>
+	<dropdown  label="城市选择控件" name="area" id="area" align="right"
+		data-parent="citys" data-options='{
+			zh:[
+       			{key:"xz" ,value:"香洲"},
+       			{key:"jw",value:"金湾"},
+    		],
+   	 		sz:[
+       			{key:"ns" ,value:"南山"},
+       			{key:"ft",value:"福田"},
+       			{key:"lh",value:"罗湖"}
+       	]}' />
 </view>
 
 

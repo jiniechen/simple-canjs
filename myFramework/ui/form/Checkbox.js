@@ -4,7 +4,12 @@ requirejs(["text!myFramework/ui/form/Checkbox.stache","myFramework/utils/StacheH
 		template:can.stache(tpl),
 		helpers:stacheHelpers,
 		viewModel:function(attrs,parentScope,el){
-			var group = attrs.options;
+			var _optionsJson=$(el).data("options");
+			var _options={};
+			if (_optionsJson){
+				var func=new Function("return "+_optionsJson+";");
+				_options=func();
+			}
 			//获取page对象的viewModel,组合组件从上层组件获取root,顶层组件的parentScope为root
 			var _root=parentScope.attr("root")==undefined?parentScope:parentScope.attr("root");
 			//获取页面对象
@@ -19,7 +24,7 @@ requirejs(["text!myFramework/ui/form/Checkbox.stache","myFramework/utils/StacheH
 				contextName:_contextName,
 				name:undefined,
 				index:undefined,
-				_options:_page[group],
+				_options:_options,
 				label:"",
 				_align:_align,
 				page:_page,
@@ -32,5 +37,7 @@ requirejs(["text!myFramework/ui/form/Checkbox.stache","myFramework/utils/StacheH
 				})
 			};
 		}
-	})
-})
+	});
+	
+	
+});

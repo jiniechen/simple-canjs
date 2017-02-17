@@ -83,42 +83,10 @@ Page({
 		]
 		});
 	},
-	cooptions:new can.List([
-    		{label:"蓝色",trueVal:"blue",falseVal:""},
-    		{label:"黄色",trueVal:"yellow",falseVal:""},
-    	]),
-	colors:[
-
-			{label:"红色",value:"red"},
-			{label:"蓝色",value:"blue"}
-
-		],
 	listRows:[
 		{field:"field"},{name:"姓名"},{sex:"性别"},{age:"年龄"}
 	],
-	fruits:new can.List([
-			{key:"apple",label:"苹果"},
-			{key:"banana",label:"香蕉"}
-		]),
-	citys:new can.List( [
-       {key:"sz" ,value:"深圳"},
-       {key:"zh",value:"珠海"}
-    ]),
-    area:new can.List( [
-       {key:"ns" ,value:"南山"},
-       {key:"ft",value:"福田"},
-       {key:"lh",value:"罗湖"},
-    ]),
-    zh:new can.List( [
-       {key:"xz" ,value:"香洲"},
-       {key:"jw",value:"金湾"},
-    ]),
-    sz:new can.List( [
-       {key:"ns" ,value:"南山"},
-       {key:"ft",value:"福田"},
-       {key:"lh",value:"罗湖"},
-    ]),
-    
+	
     go:new can.List([
     		{value:"USA",opt:[{key:"01",txt:"洛杉矶"},{key:"02",txt:"纽约"}]},
     		{value:"China",opt:[{key:"03",txt:"深圳"},{key:"04",txt:"香港"}]}
@@ -160,16 +128,6 @@ Page({
 	},
 	onClick:function(){
 		//MF.getCurrentPage().viewModel.data.attr("field1","123456");
-	},
-
-	onCitysValueChange:function(name,newVal){
-		
-		
-		var _page = this;
-		
-		$("#area").viewModel().attr("_options",_page[newVal]);
-	
-		
 	},
 	onChose1ValueChange:function(name,newVal){
 			

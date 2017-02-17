@@ -4,7 +4,12 @@ requirejs(["text!myFramework/ui/form/Radio.stache","myFramework/utils/StacheHelp
 		template:can.stache(tpl),
 		helpers:stacheHelpers,
 		viewModel:function(attrs,parentScope,el){
-			var group = attrs.options;
+			var _optionsJson=$(el).data("options");
+			var _options={};
+			if (_optionsJson){
+				var func=new Function("return "+_optionsJson+";");
+				_options=func();
+			}
 			//获取page对象的viewModel,组合组件从上层组件获取root,顶层组件的parentScope为root
 			var _root=parentScope.attr("root")==undefined?parentScope:parentScope.attr("root");
 			//获取页面对象
@@ -20,7 +25,7 @@ requirejs(["text!myFramework/ui/form/Radio.stache","myFramework/utils/StacheHelp
 				contextName:_contextName,
 				name:undefined,
 				//value:undefined,
-				_options:_page[group],
+				_options:_options,//_page[group],
 				label:"",
 				_align:_align,
 				page:_page,
