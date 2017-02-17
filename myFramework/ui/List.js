@@ -10,14 +10,14 @@ requirejs(["text!myFramework/ui/List.stache","myFramework/utils/StacheHelpers"],
 			var _page=_root.attr("page");
 			//组件可以通过属性data重设数据值对象
 			var _contextName=attrs.context||"";
-			var _title = attrs.title||"";
+			var _title = attrs.rows||"";
 			var _data=can.getObject(_contextName,parentScope.attr("data")||_root.attr("data"));
 
 			return {
 				id:el.getAttribute("id"),
 				contextName:_contextName,
 				align:"left",
-				_title:_page.data[_title],
+				title:_page[_title],
 				page:_page,
 				data:_data,
 				root:_root,

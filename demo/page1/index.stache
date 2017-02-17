@@ -1,14 +1,22 @@
 <view title="搜索框示例">
 		<search tip="请输入您所要查询的关键字" name="search"/>
 </view>
-<view title="滚动组件示例">
-	<scrollview context="detail" height="300"/>
+<view title="多选示例" 	>		
+	<radio   name="radio"    options="colors" />
+</view>
+<view title="多选示例2" 	>		
+	<radio   name="radio"    options="colors" />
+</view>
+<view title="多选示例" 	>		
+	<checkbox   name="ch"    options="cooptions" />
+</view>
+<view title="多选示例" 	>		
+	<checkbox   name="ch"    options="cooptions" />
 </view>
 <view title="我的信息" id="toast">
 	<text name="field1" label="姓名"/>
 	<switch name="field2" label="出生日期"/>
 </view>
-
 <view title="详细信息">
 	<text id="df" name="field1" label="姓名" />
 	<switch name="field2" label="出生日期"/>
@@ -27,32 +35,27 @@
 	<multitext tip="请输入文本" name="direction"  row="4"/>
 </view>
 
-<view title="单选示例" 	>		
-	<radio  name="color1"   group="colors" id="color"/>
-	<radio  name="color2"   group="colors" id="color2"/>
-</view>
 
-<view title="多选示例" 	>		
-	<checkbox   name="ch"    group="colors"/>
-</view>
 
 <view title="下拉选择示例" 	>		
-	<dropdown  name="citys" id="citys" group="citys"   label="城市选择控件" align="right"/>
-	<dropdown  name="area" id="area" group="area" />
+	<dropdown  name="citys" id="citys" options="citys"   label="城市选择控件" align="right"/>
+	<dropdown  label="城市选择控件" name="area" id="area" options="area" align="right"/>
 </view>
 
 
 <view title="下拉选择示例" 	>	
-	<dropdown-mobi  name="chose1"  group="citys" />
-	<dropdown-mobi  name="chose2"  id="chose2" group="area" />
+	<dropdown-mobi  label="城市选择" name="chose1"  options="citys" id="new"/>
+	<dropdown-mobi  label="城市选择" name="chose2"  id="chose2" options="area" />
 </view>
 
-<view title="grounp option示例" 	>	
-	<groupopt  name="card"  group="go"  id="gp" label="地址"  align="right"/>
+<view title="grounp option示例" >	
+	<groupopt  name="card"  options="go"  id="gp" label="地址"  align="right"/>
 </view>
 <view title="表格示例">
-	<list style="table bordered" context="detail" title="listTitle"  id="table" align="center"></list>
+	<list context="detail" rows="listRows" id="list"></list>
 </view>
+
+
 <command text="递交"/>
 <command text="取消"  type="gray"/>
 <command name="sure" text="确认"  size="big" type="success"/>

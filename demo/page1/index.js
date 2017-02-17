@@ -13,6 +13,11 @@ Remote.define("Student",{
 				return "已开启";
 			}
 		}},*/
+		{attr:"field1",proc:function(value){
+			if(value != "xxxx"){
+				return "只能为字符串";
+			}
+		}},
 		/*调用canjs的校验方法*/
 		{attr:"email",proc:"validateFormatOf",opt:[/[\w\.]+@\w+\.\w+/,{message:"格式错误"}]},
 		{attr:"field1",proc:"validatesNumericalityOf"}
@@ -24,13 +29,20 @@ Page({
 		return Remote.Student.new({	
 			name : "this is a page viewModel",
 			field1 : "this is field1",
-			field2 : false,
+			field2:true,
 			startDate:"",
 			search:"",
 			getcode:"",
 			vcode:"",
 			direction:"",
 		    email:"444740823@qq.com",
+		    chose1:"zh",
+		    chose2:"xz",
+		    card:"02",
+		    citys:"sz",
+		    area:"ns",
+		   	radio:"blue",
+		    ch:["blue",undefined],
 			detail:[
 			{
 				field1:"this detail field1",
@@ -68,16 +80,22 @@ Page({
 			{
 				field1:"this detail field9"
 			}*/
-		],
-		listTitle:{code:"编码",name:"姓名",age:"年龄",sex:"性别"}
+		]
 		});
 	},
+	cooptions:new can.List([
+    		{label:"蓝色",trueVal:"blue",falseVal:""},
+    		{label:"黄色",trueVal:"yellow",falseVal:""},
+    	]),
 	colors:[
 
-			{label:"红色",checked:"checked",value:"1"},
-			{label:"蓝色",checked:"",value:"2"}
+			{label:"红色",value:"red"},
+			{label:"蓝色",value:"blue"}
 
 		],
+	listRows:[
+		{field:"field"},{name:"姓名"},{sex:"性别"},{age:"年龄"}
+	],
 	fruits:new can.List([
 			{key:"apple",label:"苹果"},
 			{key:"banana",label:"香蕉"}
@@ -100,6 +118,7 @@ Page({
        {key:"ft",value:"福田"},
        {key:"lh",value:"罗湖"},
     ]),
+    
     go:new can.List([
     		{value:"USA",opt:[{key:"01",txt:"洛杉矶"},{key:"02",txt:"纽约"}]},
     		{value:"China",opt:[{key:"03",txt:"深圳"},{key:"04",txt:"香港"}]}
@@ -110,9 +129,10 @@ Page({
         display: 'bottom',
         dateFormat:"yy-mm-dd "
     },
-	onClick:function(){
+    	onClick:function(){
 		alert("OK");
 	},
+
 	onValidateValue:function(name,value){
 		if (name=="field1"&&value!="123456")
 			return "xxewwer";
@@ -141,23 +161,23 @@ Page({
 	onClick:function(){
 		//MF.getCurrentPage().viewModel.data.attr("field1","123456");
 	},
+
 	onCitysValueChange:function(name,newVal){
 		
 		
 		var _page = this;
 		
-		$("#area").viewModel().attr("options",_page[newVal]);
+		$("#area").viewModel().attr("_options",_page[newVal]);
 	
 		
 	},
 	onChose1ValueChange:function(name,newVal){
-		
-		
+			
 		var _page = this,
-			_chose = $("#chose2");
+			_chose = $("#chose2"),
 			instance = _chose.viewModel().mobi;
 
-		_chose.viewModel().attr("options",_page[newVal]);
+		_chose.viewModel().attr("_options",_page[newVal]);
 
 		instance.clear();
 		instance.init();
@@ -174,5 +194,8 @@ Page({
 	},
 	onCancelClick:function(){
 		exports.Mask.show();
+	},
+	onToastClick:function(){
+		exports.Mask.toast("这是一个toast");
 	}
 });

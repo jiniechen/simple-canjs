@@ -25,21 +25,19 @@ define(["text!myFramework/ui/popup/Menu.stache","myFramework/ui/popup/Mask"],fun
 			duration:0,//不执行动画
 			//preventDefault:true,
 			//stopPropagation:true,
-			show:function(){
-				//阻止触摸事件
-				$("body,html").on("touchstart",function(ev){
-					ev.preventDefault();
-					//ev.stopPropagation();
-				});
-			},
 			hidden:function(){
 				//恢复触摸事件
-				$("body,html").off("touchstart");
+				var mask = $("body").find("div[type='modal']");
+				mask.off("touchstart");
 			},
 			shown:function(options){//绑定事件
 				var _options=options;
+				//阻止触摸事件
 				var _el=_options.$target.find("#menu a");
-				})
+				var mask = $("body").find("div[type='modal']");
+				mask.on("touchstart",function(ev){
+					ev.preventDefault();
+				});
 				if (_el.length){
 					$(_el).on("click",function(ev){
 						var _index=$(ev.target).attr("data-menuid");

@@ -3,9 +3,9 @@
 
 	<div class=" cell-12 no-border row has-padding mobi-input {{_align}}" style="padding-left: 0 !important;">
 		<span class="cell-4">{{label}}</span>
-		{{#if options}}
+		{{#if _options}}
 				<select  {{formValue}} class="cell-8 no-border" >
-					{{#each options}}
+					{{#each _options}}
 						<option value="{{key}}" >{{value}}</options>
 					{{/each}}
 				</select>

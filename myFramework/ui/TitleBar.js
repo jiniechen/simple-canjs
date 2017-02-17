@@ -81,6 +81,7 @@ requirejs([ "text!myFramework/ui/TitleBar.stache","myFramework/ui/popup/Menu","m
 			return false;
 		},
 		showMenuButton:function(value){
+
 			var vm=this.viewModel();
 			if (vm){
 				if (value==undefined)

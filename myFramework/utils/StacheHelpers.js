@@ -58,90 +58,150 @@ define([ "myFramework/MyExports" ],
 					var _name = this.name || "";
 					var _viewModel = this;
 			                var _index=this.index;
-			                var _self=this;
-			//递归寻找this的 context 和 index
-			
-			function getFullPath(_scope){
-				var result=_scope.attr("context");
-				if (result==undefined)
-					result="";
-				if (_scope._myParent){
-					var pr=getFullPath(_scope._myParent);
-					if (pr!=""){
-						if (_scope._myParent.attr("index"))
-							pr=pr+"[]";
-						result=pr+(result==""?"":"."+result);
+					                var _self=this;
+					//递归寻找this的 context 和 index
+					
+					function getFullPath(_scope){
+						var result=_scope.attr("context");
+						if (result==undefined)
+							result="";
+						if (_scope._myParent){
+							var pr=getFullPath(_scope._myParent);
+							if (pr!=""){
+								if (_scope._myParent.attr("index"))
+									pr=pr+"[]";
+								result=pr+(result==""?"":"."+result);
+							}
+						}
+						return result;
+					};
+					function getIndexArray(_scope){
+						var result = _scope.attr("index");
+						if (result == undefined)
+							result = "";
+						if (_scope._myParent) {
+							var index  = getIndexArray(_scope._myParent);
+							if (index !="") {
+								result = [index];
+							}
+						}
+						return result;
 					}
-				}
-				return result;
-			};
-			function getIndexArray(_scope){
-				var result = _scope.attr("index");
-				if (result == undefined)
-					result = "";
-				if (_scope._myParent) {
-					var index  = getIndexArray(_scope._myParent);
-					if (index !="") {
-						result = [index];
-					}
-				}
-				return result;
-			}
 					return function(el) {
 						function _isCheckbox() {
 
-					var type = el.getAttribute("type");
-					return type =="checkbox" ||type =="radio"? true:false;
-				}
-				_data.bind(_name, function(ev, newVal, oldVal) {
-					if (newVal != oldVal) {
-						
-						if (_isCheckbox())
-							{
+							var type = el.getAttribute("type");
 
-								el.checked=newVal;
-							}
-						else
-							el.value=newVal;
-
-						var _fp=getFullPath(_self);
-						_fp=_fp==""?_name:_fp+"."+_name;
-						var _error = _root.attr("data").errors(_fp,{options:getIndexArray(_self)});
-						if(_error){
-							can.each(_error,function(key,val){
-								can.each(key,function(el,index){
-									_viewModel.error.attr("flag",true);
-									_viewModel.error.attr("message",el);
-								})
-							})
-						}else{
-							_viewModel.error.attr("flag",false);
-							_viewModel.error.attr("message",undefined);
+							return type =="checkbox" ||type == "radio"? type:false;
 						}
+						_data.bind(_name, function(ev, newVal, oldVal) {
+							//debugger;
+							if (newVal != oldVal) {
+								
+								if (_isCheckbox()=="radio")
+									{
+										//el.checked=newVal;
+										el.checked = _data.attr(_name) == el.getAttribute("value")?true:false;
+									}
+								else
+									el.value=newVal;
 
-								var dropdownChangeEvent = "on"
-										+ camelString(_name) + "ValueChange";
-
-								if (_page[dropdownChangeEvent])
-								{
-									_page[dropdownChangeEvent](_name, newVal);
+								var _fp=getFullPath(_self);
+								_fp=_fp==""?_name:_fp+"."+_name;
+								var _error = _root.attr("data").errors(_fp,{options:getIndexArray(_self)});
+								if(_error){
+									can.each(_error,function(key,val){
+										can.each(key,function(el,index){
+											_viewModel.error.attr("flag",true);
+											_viewModel.error.attr("message",el);
+										})
+									})
+								}else{
+									_viewModel.error.attr("flag",false);
+									_viewModel.error.attr("message",undefined);
 								}
-							}
-						});
 
-						if (_isCheckbox()) {
-							el.onclick = function() {
-								_data.attr(_name, this.checked);
-							};
-						} else {
-							el.onchange = function() {
-								_data.attr(_name, this.value);
-							};
-						}
-						if (_isCheckbox()) {
-							el.checked = _data.attr(_name);
-						} else
-							el.value = _data.attr(_name);
+										var dropdownChangeEvent = "on"
+												+ camelString(_name) + "ValueChange";
+
+										if (_page[dropdownChangeEvent])
+										{
+											_page[dropdownChangeEvent](_name, newVal);
+										}
+									}
+								});
+
+							if (_isCheckbox()=="radio") {
+								el.onclick = function() {
+									//_data.attr(_name, this.checked);
+									_data.attr(_name , this.value);
+								};
+							} else {
+								el.onchange = function() {
+									_data.attr(_name, this.value);
+								};
+							}
+							if (_isCheckbox()=="radio") {
+								//el.checked = _data.attr(_name);
+								el.checked = _data.attr(_name) == el.getAttribute("value")?true:false;
+
+							}else
+								el.value = _data.attr(_name);
+					}
+				},checkboxValue:function(){
+
+					var _data = this.data;
+					var _name = this.name || "";
+					return function(el){
+						_data[_name].bind("change",function(ev, index, how, newVal, oldVal){
+							//一一对应情况	
+							var number = el.getAttribute("index");	
+							el.checked = el.getAttribute("data-true") == _data[_name].attr(number);
+
+							//只传选中的值
+							/*var index = _data[_name].indexOf(el.getAttribute("data-true"));
+							el.checked = index==0||index > 0 ?  true:false;*/
+						})
+						el.onclick=function(){
+							//一一对应情况
+							var attr = this.checked == true  ? this.getAttribute("data-true"):this.getAttribute("data-false");
+							var index = this.getAttribute("index");
+							_data[_name].attr(index,attr);
+
+							//只传选中的值
+							/*var attr = this.getAttribute("data-true"),
+								index = _data[_name].indexOf(attr);
+							if(index > 0 || index==0 ){
+								_data[_name].splice(index,1);
+							}else{
+								_data[_name].push(attr);
+
+							}*/
+							
+						};
+						//一一对应情况
+						_data[_name].attr(el.getAttribute("index")) == el.getAttribute("data-true")?el.checked=true:el.checked=false;
+						
+						//只传选中的值
+						/*var include = _data[_name].indexOf(el.getAttribute("data-true"));
+						el.checked = include==0||include > 0 ?  true:false;*/
+					}
+				},switchValue:function(){
+					var _data = this.data;
+					var _name = this.name || "";
+					return function(el){
+						
+						_data.bind(_name,function(ev, newVal, oldVal){
+
+							el.checked=newVal;
+
+						})
+						el.checked = _data.attr(_name);
+
+						el.onclick=function(){
+							_data.attr(_name, this.checked);
+						};
+						
 					}
 				}
 			};

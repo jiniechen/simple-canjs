@@ -9,7 +9,7 @@ requirejs(["text!myFramework/ui/Dialog.stache","myFramework/utils/Navigator"],fu
 			};
 			var page = _scope.attr("page");
 			var bg = page.opcity;
-			var bg = bg == true ? "background:rgba(0,0,0,0.2)" : undefined;
+			var bg = bg == true ? "background:rgba(0,0,0,0.5)" : undefined;
 			var	closebtn = page.closeBtn == false ? "none":undefined;
 			return {
 				page:page,

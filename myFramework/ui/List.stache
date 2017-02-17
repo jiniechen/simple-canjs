@@ -1,12 +1,11 @@
 <table class={{style}} style="text-align:{{align}} !important">
-	<thead class="{{titleColor}}">
-		<tr>
-			{{#each _title}}
-				<td>{{.}}</td>
+		<tr class={{titleColor}}>
+			{{#each title}}
+				{{#each .}}
+						<td>{{.}}</td>
+				{{/each}}
 			{{/each}}
 		</tr>
-	</thead>
-	<tbody>
 		{{#each data}}
 			<tr id="{{@index}}">
 				{{#each . }}

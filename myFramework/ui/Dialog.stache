@@ -1,4 +1,4 @@
-<div class="page" style="overflow: hidden" style="background:rgba(0,0,0,0.2)">
+<div class="page" style="overflow: hidden" style="background:rgba(0,0,0,0.5)">
 	 <div class="dialog-tit" style="position:absolute;top:{{top}};left:{{left}};width:{{width}}">
 	 	{{title}}
  		<a id="_closeBtn_" class="btn dock dock-top dock-right dialog-close" style="display:{{close}}">

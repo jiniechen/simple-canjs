@@ -33,7 +33,7 @@ define(["text"],function(textLoader) {
 							title:"错误信息",
 							top:'20%',
 							left:'10%',
-							height:"400px",
+							height:"300px",
 							width:'80%',
 							opcity:true,
 							onSureClick:function(){

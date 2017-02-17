@@ -60,13 +60,16 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 			}
 		}
 
-		this._appendTo = function($el,data) {
+		this._appendTo = function($el,__data) {
 			var _data=undefined;
-			if (data)
-				_data=data;
+			if (__data)
+				_data=__data;
 			if (_data==undefined){
-				if (this.onData)
+				if (this.data)
+					_data=this.data;
+				else if (this.onData){
 					_data=this.onData();
+				}
 			}
 			if (_data==undefined)
 				_data={};
@@ -105,9 +108,10 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 			}
 			if (_result) {
 				if (this._dom){
-					this._dom.remove();
+					this._dom.remove();					
 					this._dom = undefined;
-					this.data=undefined;
+					if (this.onData==undefined)
+						this.data=undefined;
 				}
 			}
 		}
