@@ -39,7 +39,7 @@ define(["text"],function(textLoader) {
 							onSureClick:function(){
 								_page.hide();
 							}
-						})
+						});
 					_page.setStache(tpl);
 					_page.show(errors);
 					}else{
@@ -106,10 +106,31 @@ define(["text"],function(textLoader) {
 		},
 		write:function(plugName,moduleName,write){
 			write(
-				'define("' + plugName + '!' + moduleName + '",'+'["mobiscroll","myFramework/data/Remote","myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","app!App","text!App.stache"],function(mobiscroll,Remote,exports,_APP,Page,options,tpl){'+
+				'define("' + plugName + '!' + moduleName + '",'+'["mobiscroll","myFramework/data/Remote","myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","app!App","text!App.stache","text!myFramework/errorsDialog.stache"],function(mobiscroll,Remote,exports,_APP,Page,options,tpl,errorsDialogTpl){'+
 					'exports.tools.App=_APP;'+
 					'exports.tools.Page=Page;'+
 					'exports.tools.Remote=Remote;'+
+					'exports.tools.validate = function(data,callback){'+
+						'var errors  = data.errors();'+
+						'if(errors!=undefined){'+
+							'var _page = new Page({'+
+								'dialog:true,'+
+								'title:"错误信息",'+
+								'top:"20%",'+
+								'left:"10%",'+
+								'height:"300px",'+
+								'width:"80%",'+
+								'opcity:true,'+
+								'onSureClick:function(){'+
+									'_page.hide();'+
+									'}'+
+								'});'+
+							'_page.setStache(errorsDialogTpl);'+
+							'_page.show(errors);'+
+						'}else{'+
+							'callback();'+
+						'}'+
+					'};'+
 					'exports.App=options;'+
 					'var App=_APP.App;'+
 					'var _app='+_script+';'+
