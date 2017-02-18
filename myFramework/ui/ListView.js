@@ -1,4 +1,27 @@
-requirejs(["text!myFramework/ui/List.stache","myFramework/utils/StacheHelpers"],function(tpl,stacheHelpers){
+requirejs(["text!myFramework/ui/ListView.stache","myFramework/ui/WidgetFactory"],function(tpl,widgetFactory){
+	widgetFactory.widget("listview",tpl)
+	.config(function(config){
+		config.extendVM=function(vm,attrs,parentScope,el){
+			var _titles=$(el).data("titles");
+			vm.titles=_titles;
+		}
+	})
+	.build()
+	.plugin(function(el){
+		var vm=$(el).viewModel();
+	
+		return {
+			vm:vm,
+			align:function(value){
+				vm.attr("align",
+					value== undefined?"left":(value == "right" ? "flex-end" :"center"));
+			}
+		};
+	});
+});
+
+/*
+,"myFramework/utils/StacheHelpers"],function(tpl,stacheHelpers){
 	can.Component.extend({
 		tag:"list",
 		template:can.stache(tpl),
@@ -36,3 +59,4 @@ requirejs(["text!myFramework/ui/List.stache","myFramework/utils/StacheHelpers"],
 		}
 	});
 });
+*/

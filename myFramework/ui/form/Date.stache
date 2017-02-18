@@ -2,7 +2,7 @@
 
 	<label class="cell-4">{{label}}</label>
 
-	<input {{formValue}} class="cell no-border date " type="text" name={{name}} 
+	<input {{inputValue}} class="cell no-border date " type="text" name={{name}} 
 
 	placeholder={{tip}} start={{start}} end ={{end}} style="text-align:{{align}} !important">
 

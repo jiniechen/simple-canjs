@@ -1,0 +1,105 @@
+define(["myFramework/utils/StacheHelpers"],function(_helpers){
+	/*
+	 * options
+	 * 	tag 组件名称
+	 *  name 绑定变量名称
+	 */
+	function _widgetFunc(tag,template,hasError){
+		
+		//构建Componnet
+		return new function(tag,template){
+			this.context={
+				tag:tag,
+				tpl:template,
+				helpers:_helpers,
+				config:{
+					hasError:false,
+					hasAlign:true,
+					hasLabel:true,
+					extendVM:undefined
+				}
+			};
+			
+			this._buildViewModel=function(attrs,parentScope,el){
+				//获取组件的辅助元素
+				var _optionsJson=$(el).data("options");
+				var _options={};
+				if (_optionsJson){
+					//data-options=["xx","xx"]时，jquery自动转换为数组
+					if (can.isArray(_optionsJson))
+						_options=_optionsJson;
+					else{
+						var func=new Function("return "+_optionsJson+";");
+						_options=func();
+					}
+				}
+				
+				//获取page对象的viewModel,组合组件从上层组件获取root,顶层组件的parentScope为root
+				var _root=parentScope.attr("root")==undefined?parentScope:parentScope.attr("root");
+				//获取页面对象
+				var _page=_root.attr("page");
+				var _contextName=attrs.context||"";
+				var _data=can.getObject(_contextName,parentScope.attr("data")||_root.attr("data"));
+				
+				var vm= {
+					id:$(el).attr("id"),
+					tag:undefined,	
+					name:undefined,
+					context:_contextName,
+					index:undefined,
+					options:_options,
+					page:_page,
+					root:_root,
+					data:_data,
+					parentData:parentScope.attr("data"),
+				};	
+				if (this.config.hasError)
+					vm.error=new can.Map({
+						flag:false,
+						message:undefined
+					});
+				if (this.config.hasLabel)
+					vm.label=undefined;
+				if (this.config.hasAlign)
+					vm.align=(attrs.align== undefined?"left":(attrs.align == "right" ? "flex-end" :"center"));
+				if (this.config.extendVM)
+					this.config.extendVM(vm,attrs,parentScope,el);
+				return vm;
+			};
+			
+			this.events=function(callback){
+				if (!this.context.events)
+					this.context.events={};
+				if (callback)
+					callback(this.context.events);
+				return this;
+			};
+			
+			this.config=function(callback){
+				callback(this.context.config);
+				return this;
+			}
+	
+			this.build=function(){
+				this.context.viewModel=this._buildViewModel;
+				this.context.template=can.stache(this.context.tpl);
+				can.Component.extend(this.context);
+				return {
+					_tag:this.context.tag,
+					plugin:function(callback){
+						window[this._tag]=callback;
+					}
+				}
+			};
+		}(tag,template);
+	}
+	
+	function _simpleWidget(tag,template){
+		var _widget=_widgetFunc(tag,template);
+		return _widget;
+	}
+	
+	return {
+		widget:_simpleWidget
+	};
+});

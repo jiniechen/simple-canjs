@@ -1,6 +1,6 @@
 <div class="row divider has-padding no-margin has-error relative">
 	<label class="cell-4">{{label}}</label>
-	<input {{formValue}} class="cell-6 no-border"
+	<input {{inputValue}} class="cell-6 no-border"
 		type={{type}} name={{name}} placeholder={{tip}} style = "text-align:{{align}}" >
 	<i class="cell-2 icon {{#if error.flag}}icon-times{{/if}} text-red justify-end  "></i>
 	{{#if error.flag}}

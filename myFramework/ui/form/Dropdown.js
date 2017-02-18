@@ -1,4 +1,54 @@
-requirejs(["text!myFramework/ui/form/Dropdown.stache","myFramework/utils/StacheHelpers"],function(tpl,stacheHelpers){
+requirejs(["text!myFramework/ui/form/Dropdown.stache","myFramework/ui/WidgetFactory"],function(tpl,widgetFactory){
+	widgetFactory.widget("dropdown",tpl)
+	.config(function(config){
+		config.extendVM=function(vm,attrs,parentScope,el){
+			//级联随动
+			var _parentName=$(el).data("parent");
+			var _options;
+			if (_parentName){
+				if (vm.data[_parentName]){
+					_options=vm.options[vm.data[_parentName]];
+				}else
+					_options=new can.List([]);
+				var _data=can.getObject(vm.context,parentScope.attr("data")||vm.root.attr("data"));
+				_data.bind(_parentName,function(ev, newVal, oldVal) {
+					if (newVal!=oldVal){
+						var _vm=$(el).viewModel();
+						var _options=_vm.parentOptions[_vm.data.attr(_parentName)];
+						_vm.attr("options",_options);
+						var _firstValue=undefined;
+						can.each(_options,function(v,k){
+							if (_firstValue==undefined)
+								_firstValue=v;
+						});
+						if (_firstValue)
+							_vm.data.attr(_vm.name,_firstValue);
+						//_vm.data.attr(_vm.name,"");
+					}
+				});
+				vm.parentName=_parentName;
+				vm.parentOptions=vm.options;
+				vm.options=_options;
+			}else{
+				vm.parentOptions={};
+			}
+		}
+	})
+	.build()
+	.plugin(function(el){
+		var vm=$(el).viewModel();
+	
+		return {
+			vm:vm,
+			align:function(value){
+				vm.attr("align",
+					value== undefined?"left":(value == "right" ? "flex-end" :"center"));
+			}
+		};
+	});
+});
+
+/*,"myFramework/utils/StacheHelpers"],function(tpl,stacheHelpers){
 	can.Component.extend({
 		tag:"dropdown",
 		template:can.stache(tpl),
@@ -59,4 +109,4 @@ requirejs(["text!myFramework/ui/form/Dropdown.stache","myFramework/utils/StacheH
 		}
 	});
 	
-});
+});*/

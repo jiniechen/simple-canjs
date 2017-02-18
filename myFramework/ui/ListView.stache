@@ -1,9 +1,10 @@
-<table class={{style}} style="text-align:{{align}} !important">
-		<tr class={{titleColor}}>
+<table class="table bordered" style="text-align:{{align}} !important">
+		<tr class="primary">
 			{{#each titles}}
 				<td>{{.}}</td>
 			{{/each}}
 		</tr>
+		<tbody>
 		{{#each data}}
 			<tr id="{{@index}}">
 				{{#each . }}

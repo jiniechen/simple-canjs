@@ -1,9 +1,11 @@
 <view title="搜索框示例">
 		<search tip="请输入您所要查询的关键字" name="search"/>
 </view>
+
 <view title="单选示例1" 	>		
 	<radio  id="r1" name="radio"  data-options='{红色:"red",蓝色:"blue"}' />
 </view>
+
 <view title="单选示例2" 	>		
 	<radio   name="radio" data-options='{红色:"red",蓝色:"blue"}' />
 </view>
@@ -13,6 +15,7 @@
 <view title="多选示例" 	>		
 	<checkbox   name="ch"   data-options='{苹果:"apple",香蕉:"banana"}' />
 </view>
+
 <view title="我的信息" id="toast">
 	<text name="field1" label="姓名"/>
 	<switch id ="sw2" name="field2" label="出生日期" data-options='["错","对"]'/>
@@ -49,9 +52,9 @@
 
 
 <view title="下拉选择示例" 	>	
-	<dropdown-mobi  label="城市选择" name="chose1"  id="new"
+	<dropdown_mobi  label="城市选择" name="chose1"  id="new"
 		data-options='{深圳:"sz" ,珠海:"zh"}'/>
-	<dropdown-mobi  label="城市选择" name="chose2"  id="chose2" 
+	<dropdown_mobi  label="城市选择" name="chose2"  id="chose2" 
 		data-parent="chose1" data-options='{
 			zh:{香洲:"xz",金湾:"jw"},
    	 		sz:{南山:"ns",福田:"ft",罗湖:"lh"}
@@ -67,9 +70,10 @@
 	/>
 </view>
 <view title="表格示例">
-	<list context="detail" id="list"
-		data-titles='["field","姓名","性别","年龄"]'	
-	/>
+	<listview context="detail" id="list"
+		data-titles='["field","姓名","性别","年龄"]'	>
+		<text label="xxxx" name="field1">
+	</listview>
 </view>
 
 
