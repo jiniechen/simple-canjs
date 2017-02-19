@@ -1,4 +1,21 @@
-requirejs([ "text!myFramework/ui/View.stache" ], function(tpl) {
+requirejs([ "text!myFramework/ui/View.stache","myFramework/ui/WidgetFactory"],function(tpl,widgetFactory){
+	widgetFactory.widget("view",tpl)
+	.config(function(config){
+		config.hasError=false;
+		config.hasAlign=false;
+		config.hasLabel=false;
+		config.extendVM=function(vm,attrs,parentScope,el){
+			vm.title=undefined
+		}
+	})
+	.build()
+	.plugin(function(_widget){
+		
+	});
+});
+
+/*
+], function(tpl) {
 	can.Component.extend({
 		tag : "view",
 		template : can.stache(tpl),
@@ -12,14 +29,16 @@ requirejs([ "text!myFramework/ui/View.stache" ], function(tpl) {
 			var _contextName=attrs.context||"";
 			var _data=can.getObject(_contextName,parentScope.attr("data")||_root.attr("data"));
 			return {
+				_cName:el.tagName,
 				id:el.getAttribute("id"),
 				contextName:_contextName,
 				name:undefined,
 				title:undefined,
 				page:_page,
 				data:_data,
-				root:_root
+				root:_root,
+				parentScope:parentScope
 			}
 		}
 	});
-});
+});*/

@@ -12,6 +12,55 @@ define([ "myFramework/MyExports" ],function(exports) {
 			result = result.substring(0, pos) + camelString(result.substring(pos + 1));
 		return result;
 	};
+	
+	function getFullPath(scope,parentScope){
+		var _result="";
+		var _name=scope.attr("context")||scope.attr("name");
+		if (parentScope){
+			var _scope=parentScope;
+			var _index=_scope.attr("index");
+			//数组ITEM组件
+			if (_index){
+				var __scope=_scope.attr("parentScope");
+				var _value=getFullPath(__scope,__scope.attr("parentScope"));
+				if (_value.length>0)
+					_result=_result+_value+"[]";
+				else
+					_result=_result+"[]";
+			}else{
+				var _value=getFullPath(_scope,_scope.attr("parentScope"));
+				if (_value)
+					_result=_result+_value;
+			}
+		}
+		if (_name)
+			return  _result.length>0?_result+"."+_name:_name;
+		else
+			return _result;
+	}
+
+	function getFullArray(scope,parentScope){
+		var _result="";
+		if (parentScope){
+			var _scope=parentScope;
+			var _index=_scope.attr("index");
+			//数组ITEM组件
+			if (_index){
+				var __scope=_scope.attr("parentScope");
+				var _value=getFullArray(__scope,__scope.attr("parentScope"));
+				if (_value.length>0)
+					_result=_result+_value+","+_index;
+				else
+					_result=_result+_index;
+			}else{
+				var _value=getFullArray(_scope,_scope.attr("parentScope"));
+				if (_value.length>0)
+					_result=_result+_value;
+			}
+		}
+		return new Function("return ["+_result+"]")();
+	}
+	
 	// 绑定事件，{{event type}}
 	function event(type) {
 		var _page = this.page;
@@ -55,7 +104,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 		if (_id == undefined)
 			_id = this.name || "";
 		var _name = this.name || "";
-		var _parentData = this.parentData;
+		var _parentScope = this.parentScope;
         var _index=this.index;
 		var _self=this;
 		return function(el) {
@@ -75,7 +124,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 		if (_id == undefined)
 			_id = this.name || "";
 		var _name = this.name || "";
-		var _parentData = this.parentData;
+		var _parentScope = this.parentScope;
         var _index=this.index;
         var _context=this.context;
 		var _self=this;
@@ -83,6 +132,20 @@ define([ "myFramework/MyExports" ],function(exports) {
 			_data.bind(_name, function(ev, newVal, oldVal) {
 				if (newVal!=oldVal)
 					el.value=newVal;
+				var _error = _root.attr("data").errors(
+						getFullPath(_self,_self.attr("parentScope")),
+						{options:getFullArray(_self,_self.attr("parentScope"))});
+				if(_error){
+					can.each(_error,function(key,val){
+						can.each(key,function(el,index){
+							_self.error.attr("flag",true);
+							_self.error.attr("message",el);
+						})
+					})
+				}else{
+					_viewModel.error.attr("flag",false);
+					_viewModel.error.attr("message",undefined);
+				}
 			});
 			el.onchange = function() {
 				_data.attr(_name, this.value);
@@ -99,7 +162,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 		if (_id == undefined)
 			_id = this.name || "";
 		var _name = this.name || "";
-		var _parentData = this.parentData;
+		var _parentScope = this.parentScope;
         var _index=this.index;
 		var _self=this;
 		return function(el) {
@@ -110,6 +173,20 @@ define([ "myFramework/MyExports" ],function(exports) {
 				if (_self.mobi){
 					//_self.mobi.clear();
 					_self.mobi.init(el);
+				}
+				var _error = _root.attr("data").errors(
+						getFullPath(_self,_self.attr("parentScope")),
+						{options:getFullArray(_self,_self.attr("parentScope"))});
+				if(_error){
+					can.each(_error,function(key,val){
+						can.each(key,function(el,index){
+							_self.error.attr("flag",true);
+							_self.error.attr("message",el);
+						})
+					})
+				}else{
+					_viewModel.error.attr("flag",false);
+					_viewModel.error.attr("message",undefined);
 				}
 			});
 			el.onchange = function() {
@@ -127,7 +204,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 		if (_id == undefined)
 			_id = this.name || "";
 		var _name = this.name || "";
-		var _parentData = this.parentData;
+		var _parentScope = this.parentScope;
         var _index=this.index;
 		var _self=this;
 		return function(el) {
@@ -178,7 +255,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 		if (_id == undefined)
 			_id = this.name || "";
 		var _name = this.name || "";
-		var _parentData = this.parentData;
+		var _parentScope = this.parentScope;
         var _index=this.index;
 		var _self=this;
 		return function(el) {
@@ -201,7 +278,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 		if (_id == undefined)
 			_id = this.name || "";
 		var _name = this.name || "";
-		var _parentData = this.parentData;
+		var _parentScope = this.parentScope;
         var _index=this.index;
 		var _self=this;
 		var _options = this._options||[0,1];

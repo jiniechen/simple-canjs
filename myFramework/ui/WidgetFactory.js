@@ -13,7 +13,7 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 				tpl:template,
 				helpers:_helpers,
 				config:{
-					hasError:false,
+					hasError:true,
 					hasAlign:true,
 					hasLabel:true,
 					extendVM:undefined
@@ -41,6 +41,7 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 				var _contextName=attrs.context||"";
 				var _data=can.getObject(_contextName,parentScope.attr("data")||_root.attr("data"));
 				var vm= {
+					_cName:el.tagName,
 					id:$(el).attr("id"),
 					tag:undefined,	
 					name:undefined,
@@ -49,7 +50,7 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 					page:_page,
 					root:_root,
 					data:_data,//对象,元素的值为data[name]
-					parentData:parentScope.attr("data"),
+					parentScope:parentScope
 				};	
 				if (this.config.hasError)
 					vm.error=new can.Map({
@@ -87,8 +88,9 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 					this.tag=tag;
 					this.widget=function(el){
 						var _tag=this.tag;
-						var _widget=new function(tag,el){
+						var _widget=new function(_tag,el){
 							this.vm=undefined;
+							alert(el);
 							if (el==undefined)
 								this.vm=$(_tag).viewModel();
 							else

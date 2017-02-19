@@ -7,6 +7,13 @@
 	<listitem index={{@index}}>
 		<readtext  name="id" label="课程号"/>
 		<text name="name" label="课程名称"/>
+		<view id="sch" title="上课时间" context="schedule">
+		{{#each data}}
+			<listitem index={{@index}}>
+				<readtext  name="time" label="时间"/>
+			</listitem>
+		{{/each}}
+		</view>
 	</listitem>
 	{{/each}}
 </view>
