@@ -107,6 +107,10 @@ define([ "myFramework/MyExports" ],function(exports) {
 				if (newVal!=oldVal)
 					if (el.value!=newVal)
 						el.value=newVal;
+				if (_self.mobi){
+					//_self.mobi.clear();
+					_self.mobi.init(el);
+				}
 			});
 			el.onchange = function() {
 				_data.attr(_name, this.value);

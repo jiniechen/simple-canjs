@@ -22,7 +22,6 @@ requirejs(["text!myFramework/ui/form/Dropdown_mobi.stache","myFramework/ui/Widge
 								_firstValue=v;
 						});
 						_vm.mobi.clear();
-						_vm.mobi.init();
 						if (_firstValue)
 							_vm.data.attr(_vm.name,_firstValue);
 					}
