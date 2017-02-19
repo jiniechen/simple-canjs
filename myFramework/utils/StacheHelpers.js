@@ -77,6 +77,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 		var _name = this.name || "";
 		var _parentData = this.parentData;
         var _index=this.index;
+        var _context=this.context;
 		var _self=this;
 		return function(el) {
 			_data.bind(_name, function(ev, newVal, oldVal) {

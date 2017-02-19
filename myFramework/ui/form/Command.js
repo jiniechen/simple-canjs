@@ -4,11 +4,7 @@ requirejs(["text!myFramework/ui/form/Command.stache","myFramework/ui/WidgetFacto
 		
 	})
 	.build()
-	.plugin(function(el){
-		var vm=$(el).viewModel();
-	
-		return {
-			vm:vm
-		};
+	.plugin(function(_widget){
+		
 	});
 });

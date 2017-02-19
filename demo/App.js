@@ -4,7 +4,7 @@ App({
 	},
 	onLaungh : function() {
 		tabBar.addTab("page1/index.stache","导航1");
-		tabBar.addTab("page2/index.html","导航2");
+		tabBar.addTab("page2/index.stache","导航2");
 		tabBar.addTab("page2/test.html","导航3");
 		
 		titleBar.viewModel().attr("title","xx");

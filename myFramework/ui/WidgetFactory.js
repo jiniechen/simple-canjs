@@ -40,17 +40,15 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 				var _page=_root.attr("page");
 				var _contextName=attrs.context||"";
 				var _data=can.getObject(_contextName,parentScope.attr("data")||_root.attr("data"));
-				
 				var vm= {
 					id:$(el).attr("id"),
 					tag:undefined,	
 					name:undefined,
 					context:_contextName,
-					index:undefined,
 					options:_options,
 					page:_page,
 					root:_root,
-					data:_data,
+					data:_data,//对象,元素的值为data[name]
 					parentData:parentScope.attr("data"),
 				};	
 				if (this.config.hasError)
@@ -84,10 +82,29 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 				this.context.viewModel=this._buildViewModel;
 				this.context.template=can.stache(this.context.tpl);
 				can.Component.extend(this.context);
+				
+				var _plugin=function(tag,callback){
+					this.tag=tag;
+					this.widget=function(el){
+						var _tag=this.tag;
+						var _widget=new function(tag,el){
+							this.vm=undefined;
+							if (el==undefined)
+								this.vm=$(_tag).viewModel();
+							else
+								this.vm=$(el).viewModel()
+						};
+						this.callback(_widget);
+						return _widget;
+					}
+					window[tag]=this;
+					//widget对象调用
+					this.callback=callback;
+				}
 				return {
 					_tag:this.context.tag,
 					plugin:function(callback){
-						window[this._tag]=callback;
+						return new _plugin(this._tag,callback);
 					}
 				}
 			};

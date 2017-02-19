@@ -1,0 +1,12 @@
+<view title="学生">
+	<text name="name" label="姓名"/>
+	<text name="school" label="学校"/>
+</view>
+<view title="课程" context="course">
+	{{#each data}}
+	<listitem index={{@index}}>
+		<text id="v1" name="id" label="课程号"/>
+		<text name="name" label="课程名称"/>
+	</listitem>
+	{{/each}}
+</view>
