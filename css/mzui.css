@@ -3346,7 +3346,7 @@ a .icon.spin
 
     width: 100%;
     max-height: 22px;
-    padding: .15rem .25rem;
+   /*  padding: .15rem .25rem; */
 
  /*    border: .05rem solid #ccc; */
     border-radius: 0;

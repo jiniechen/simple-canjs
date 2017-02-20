@@ -44,43 +44,19 @@ Page({
 		   	radio:"blue",
 		    ch:["apple"],
 			detail:[
-			{
-				field1:"this detail field1",
-				name:"xxx",
-				age:"18",
-				sex:"man"
-			},
-			{
-				field1:"this detail field2",
-				name:"xxx",
-				age:"18",
-				sex:"man"
-			},
-			{
-				field1:"this detail field3",
-				name:"xxx",
-				age:"18",
-				sex:"man"
-			}/*,
-			{
-				field1:"this detail field4"
-			},
-			{
-				field1:"this detail field5"
-			},
-			{
-				field1:"this detail field6"
-			},
-			{
-				field1:"this detail field7"
-			},
-			{
-				field1:"this detail field8"
-			},
-			{
-				field1:"this detail field9"
-			}*/
-		]
+				{id:"001",name:"计算机基础",
+					time:"2017"
+				},
+				{id:"002",name:"JAVA",
+					time:"2017"
+				},
+				{id:"003",name:"数据结构",
+					time:"2017"
+				},
+				{id:"004",name:"算法",
+					time:"2017"
+				}
+			]
 		});
 	},
 	config:{

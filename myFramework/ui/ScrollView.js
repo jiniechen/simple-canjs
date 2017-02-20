@@ -1,5 +1,71 @@
-requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/utils/StacheHelpers"], function(tpl,stacheHelpers) {
-	can.Component.extend({
+requirejs([ "myFramework/ui/WidgetFactory"],function(widgetFactory){
+	widgetFactory.widget("scrollview","<div style='height:{{height}}px;overflow:auto'><section><content/></section></div>")
+	.config(function(config){
+		config.hasError=false;
+		config.hasAlign=false;
+		config.hasLabel=false;
+		config.extendVM=function(vm,attrs,parentScope,el){
+			vm.title=undefined
+		}
+	})
+	.events(function(events){
+		events.inserted = function(el,ev){
+			
+			var windowH = $(window).height();
+			el.find("div").eq(0).height(windowH);
+			var documentH = el.find("section").eq(0).height(),
+				wrap = el.find("div").eq(0),
+				wrapH = el.viewModel().height;
+			var	page = el.viewModel().page,
+				data = page.data,
+			 	dataName  = el.viewModel().context,
+				_name = dataName.substring(0,1).toUpperCase()+dataName.substring(1,dataName.length);
+			data.bind(dataName,function(ev,newVal,oldVal){
+
+				var length = el.viewModel().data.length;
+				if (newVal != oldVal) {
+					el.viewModel().data.splice(0,length+1);
+					el.viewModel().data.attr(newVal);
+					/*oldVal.splice(0,length+1);
+					oldVal.attr(newVal);*/
+				}
+			})
+			wrap.listenScroll({
+
+			    listenScroll:function(isInScroll, scrollDirection, scrollTop){
+			    		//debugger;
+						if(scrollDirection == "down"){
+							
+							if(scrollTop == documentH-windowH){
+								var timer = setTimeout(function(){
+									if(page["on"+_name+"Down"])
+
+										page["on"+_name+"Down"](page);
+								},100);
+							}
+						}else if(scrollDirection == "up"){
+							if(scrollTop == 0){
+								var timer = setTimeout(function(){
+
+									if(page["on"+_name+"Up"])
+
+										page["on"+_name+"Up"](page);
+
+								},100);
+							}
+						}
+					}
+			});
+
+		}
+	})
+	.build()
+	.plugin(function(_widget){
+		
+	})
+});
+
+	/*can.Component.extend({
 		tag : "scrollview",
 		helpers:stacheHelpers,
 		template : can.stache(tpl),
@@ -41,14 +107,14 @@ requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/utils/StacheHel
 					data = data.substring(0,1).toUpperCase()+data.substring(1,data.length);
 
 				
-				/*if(_viewModel["on"+data+"Up"])
+				if(_viewModel["on"+data+"Up"])
 					var up = _viewModel["on"+data+"Up"];
 				else 
 					up = undefined;
 				if(_viewModel["on"+data+"Down"])
 					var down = _viewModel["on"+data+"Down"];
 				else
-					down = undefined;*/
+					down = undefined;
 				section.listenScroll({
 					listenScroll:function(isInScroll, scrollDirection, scrollTop){
 
@@ -75,4 +141,4 @@ requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/utils/StacheHel
 			}
 		}
 	});
-});
+});*/

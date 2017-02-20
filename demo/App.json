@@ -1,5 +1,5 @@
 {
-	pages : ["page1/index.stache","page2/index.stache","page2/test.html"],
+	pages : ["page1/index.stache","page2/index.stache","page2/test.stache"],
 	imports : [
 			"myFramework/ui/TitleBar","myFramework/ui/TabBar","myFramework/ui/View",
 			"myFramework/ui/form/Checkbox",	"myFramework/ui/form/Command",	"myFramework/ui/form/Date",	

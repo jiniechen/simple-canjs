@@ -1,0 +1,8 @@
+<scrollview context="detail" id="scroll">
+	{{#each data}}
+		<listitem index = {{@index}}>
+			<text name = "id" label="课程号"/>
+			<readtext name="name" label="学科" />
+		</listitem>
+	{{/each}}
+</scrollview>
