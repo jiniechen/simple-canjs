@@ -1,5 +1,5 @@
 requirejs([ "myFramework/ui/WidgetFactory"],function(widgetFactory){
-	widgetFactory.widget("scrollview","<div style='height:{{height}}px;overflow:auto'><section><content/></section></div>")
+	widgetFactory.widget("scrollview","<div  style='height:{{height}}px;overflow:auto'><section><content/><div id='loading-more' style='line-height:40px;text-align:center'>上滑加载更多···</div></section></div>")
 	.config(function(config){
 		config.hasError=false;
 		config.hasAlign=false;
@@ -12,8 +12,8 @@ requirejs([ "myFramework/ui/WidgetFactory"],function(widgetFactory){
 		events.inserted = function(el,ev){
 			
 			var windowH = $(window).height();
-			el.find("div").eq(0).height(windowH);
-			var documentH = el.find("section").eq(0).height(),
+			//var documentH = el.find("section").eq(0).height(),
+			var documentH = $("html").height(),
 				wrap = el.find("div").eq(0),
 				wrapH = el.viewModel().height;
 			var	page = el.viewModel().page,
@@ -24,39 +24,33 @@ requirejs([ "myFramework/ui/WidgetFactory"],function(widgetFactory){
 
 				var length = el.viewModel().data.length;
 				if (newVal != oldVal) {
-					el.viewModel().data.splice(0,length+1);
-					el.viewModel().data.attr(newVal);
-					/*oldVal.splice(0,length+1);
-					oldVal.attr(newVal);*/
+					el.viewModel().data.splice(0,length+1);//清除所有的数据
+					el.viewModel().data.attr(newVal);//推进新数据
 				}
 			})
-			wrap.listenScroll({
 
-			    listenScroll:function(isInScroll, scrollDirection, scrollTop){
-			    		//debugger;
-						if(scrollDirection == "down"){
-							
-							if(scrollTop == documentH-windowH){
-								var timer = setTimeout(function(){
-									if(page["on"+_name+"Down"])
+			$('html,body').on('listenScroll', function(event,isInScroll, scrollDirection,scrollTop) {
+				$("#loading-more").text("正在加载，请稍等");
+			   	if(scrollDirection == "down"){
+					if( scrollTop+windowH == documentH){
+						
+						var timer  = setTimeout(function(){
 
-										page["on"+_name+"Down"](page);
-								},100);
-							}
-						}else if(scrollDirection == "up"){
-							if(scrollTop == 0){
-								var timer = setTimeout(function(){
+							if(page["on"+_name+"Down"])
 
-									if(page["on"+_name+"Up"])
-
-										page["on"+_name+"Up"](page);
-
-								},100);
-							}
-						}
+								page["on"+_name+"Down"](page);
+						},800);
+						$("#loading-more").text("上滑加载更多···");
+					
 					}
-			});
+				}else if(scrollDirection == "up"){
+					if(scrollTop == 0){
+						if(page["on"+_name+"Up"])
 
+							page["on"+_name+"Up"](page);
+					}
+				}
+			});
 		}
 	})
 	.build()
