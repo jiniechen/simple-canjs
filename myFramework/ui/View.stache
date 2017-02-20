@@ -3,6 +3,6 @@
 	<div class="title">{{title}}</div>
 </div>
 {{/if}}
-<section class="pl10 section no-margin">
+<section class="section no-margin">
 	<content></content>
 </section>

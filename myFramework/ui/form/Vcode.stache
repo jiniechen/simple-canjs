@@ -6,7 +6,7 @@
 
 	<span class="cell-4 bl flex flex-center no-padding">
 		{{#src}}
-			<img  class="fluid no-margin"  src={{src}} style="height:42px">
+			<img  class="fluid no-margin"  src={{src}} style="height:46px">
 			{{else}}
 			<a href="javascript:;" class="getvcode">{{text}}</a>
 		{{/src}}

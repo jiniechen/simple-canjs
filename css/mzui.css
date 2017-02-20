@@ -3345,7 +3345,7 @@ a .icon.spin
     display: block;
 
     width: 100%;
-    min-height: 1.5rem;
+    max-height: 22px;
     padding: .15rem .25rem;
 
  /*    border: .05rem solid #ccc; */
@@ -4045,7 +4045,7 @@ body[class*=' display-show-']
 }
 .has-padding
 {
-    padding: .5rem .5rem !important;
+    padding: .6rem .7rem !important;
 }
 .has-padding-sm
 {
@@ -5006,6 +5006,8 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
     outline: none;
     background: transparent;
     border:0;
+    min-height: 22px;
+    max-height: 22px;
 }
 .checkbox{
     position: relative;
@@ -5039,8 +5041,8 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
     color: #999;
 }
 .getvcode{
-    height:42px;
-    line-height:42px;
+    height:46px;
+    line-height:46px;
     width: 100%;
     text-align:center;
 }
@@ -5155,4 +5157,5 @@ select+input{
 .bb{
     border-bottom: 1px solid #ccc !important;
 }
+
 
