@@ -11,7 +11,9 @@ requirejs(["text!myFramework/ui/form/Dropdown.stache","myFramework/ui/WidgetFact
 				}else
 					_options=new can.List([]);
 				var _data=can.getObject(vm.context,parentScope.attr("data")||vm.root.attr("data"));
+				
 				_data.bind(_parentName,function(ev, newVal, oldVal) {
+					
 					if (newVal!=oldVal){
 						var _vm=$(el).viewModel();
 						var _options=_vm.parentOptions[_vm.data.attr(_parentName)];

@@ -1,4 +1,4 @@
-<div class=" row  no-margin pl5 divider relative">
+<div class=" row  no-margin pl5 divider relative"  style="{{_hidden}} !important">
 
 	<label class="cell-4">{{label}}</label>
 

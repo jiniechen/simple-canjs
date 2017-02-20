@@ -1,4 +1,4 @@
-<div class=" row divider has-padding no-margin relative">
+<div class=" row divider has-padding no-margin relative" style="{{_hidden}} !important">
 
 	<label class="cell-4">{{label}}</label>
 

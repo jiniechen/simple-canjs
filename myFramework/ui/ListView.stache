@@ -1,4 +1,4 @@
-<table class="table bordered" style="text-align:{{align}} !important">
+<table class="table bordered" style="text-align:{{align}} !important;{{_hidden}} !important">
 		<tr class="primary">
 			{{#each titles}}
 				<td>{{.}}</td>

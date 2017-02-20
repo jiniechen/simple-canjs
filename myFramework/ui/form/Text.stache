@@ -1,4 +1,4 @@
-<div class="row divider has-padding no-margin has-error relative">
+<div class="row divider has-padding no-margin has-error relative" style="{{_hidden}} !important">
 	<label class="cell-4">{{label}}</label>
 	<input {{inputValue}} class="cell-6 no-border"
 		type={{type}} name={{name}} placeholder={{tip}} style = "text-align:{{align}}" >

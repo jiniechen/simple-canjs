@@ -40,6 +40,7 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 				var _page=_root.attr("page");
 				var _contextName=attrs.context||"";
 				var _data=can.getObject(_contextName,parentScope.attr("data")||_root.attr("data"));
+				var hide = attrs.hide == "true" ? "display:none":undefined;
 				var vm= {
 					_cName:el.tagName,
 					id:$(el).attr("id"),
@@ -47,6 +48,7 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 					name:undefined,
 					context:_contextName,
 					options:_options,
+					_hidden:hide,
 					page:_page,
 					root:_root,
 					data:_data,//对象,元素的值为data[name]
@@ -85,6 +87,7 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 				can.Component.extend(this.context);
 				
 				var _plugin=function(tag,callback){
+					
 					this.tag=tag;
 					this.widget=function(el){
 						var _tag=this.tag;

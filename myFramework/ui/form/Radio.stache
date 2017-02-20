@@ -1,5 +1,5 @@
 {{#each options}}
-	<label class="flex space-between  divider has-padding no-margin" style="justify-content:{{_align}} !important">
+	<label class="flex space-between  divider has-padding no-margin" style="justify-content:{{_align}} !important;{{hidden}} !important">
 			<span>{{@key}}</span>
 			<input {{radioValue}} class="radio"  type="radio"  value={{.}}>
 		{{#if error.flag}}

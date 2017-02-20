@@ -1,1 +1,1 @@
-<button {{event "click"}} type="button" class="btn  btnspace {{size}} {{type}}" >{{text}}</button>
+<button {{event "click"}} type="button" class="btn  btnspace {{size}} {{type}}" style="{{_hidden}} !important">{{text}}</button>
