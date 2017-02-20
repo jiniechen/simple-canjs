@@ -30,17 +30,17 @@ requirejs([ "myFramework/ui/WidgetFactory"],function(widgetFactory){
 			})
 
 			$('html,body').on('listenScroll', function(event,isInScroll, scrollDirection,scrollTop) {
-				$("#loading-more").text("正在加载，请稍等");
+				
 			   	if(scrollDirection == "down"){
 					if( scrollTop+windowH == documentH){
-						
+						//$("#loading-more").text("正在加载，请稍等");
 						var timer  = setTimeout(function(){
 
 							if(page["on"+_name+"Down"])
 
 								page["on"+_name+"Down"](page);
 						},800);
-						$("#loading-more").text("上滑加载更多···");
+						//$("#loading-more").text("上滑加载更多···");
 					
 					}
 				}else if(scrollDirection == "up"){
