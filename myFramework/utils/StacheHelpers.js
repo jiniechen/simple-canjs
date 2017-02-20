@@ -143,8 +143,8 @@ define([ "myFramework/MyExports" ],function(exports) {
 						})
 					})
 				}else{
-					_viewModel.error.attr("flag",false);
-					_viewModel.error.attr("message",undefined);
+					_self.error.attr("flag",false);
+					_self.error.attr("message",undefined);
 				}
 			});
 			el.onchange = function() {
@@ -185,8 +185,8 @@ define([ "myFramework/MyExports" ],function(exports) {
 						})
 					})
 				}else{
-					_viewModel.error.attr("flag",false);
-					_viewModel.error.attr("message",undefined);
+					_self.error.attr("flag",false);
+					_self.error.attr("message",undefined);
 				}
 			});
 			el.onchange = function() {
