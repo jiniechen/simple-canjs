@@ -86,7 +86,6 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 				this.context.template=can.stache(this.context.tpl);
 				//取消helper数据绑定
 				var _removed=function(){
-					window._this=this;
 					var _self=this;
 					if (_self.viewModel.removeHandler){
 						can.each(_self.viewModel.removeHandler,function(obj,index){
