@@ -112,23 +112,23 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 				can.Component.extend(this.context);
 				
 				var _plugin=function(tag,callback){
-					
-					this.tag=tag;
-					this.widget=function(el){
-						var _widget=new function(_tag,el){
-							this.vm=undefined;
-							if (el==undefined)
+					var _tag=tag;
+					var _callback=callback;
+					var _result=function(el){
+						if (el){
+							return new function(el){
+								this.vm=$(el).viewModel();
+								_callback(this);
+							}(el);
+						}else{
+							return new function(){
 								this.vm=$(_tag).viewModel();
-							else
-								this.vm=$(el).viewModel()
-						};
-						this.callback(_widget);
-						return _widget;
-					}
-					window[tag]=this;
-					//widget对象调用
-					this.callback=callback;
-				}
+								_callback(this);
+							}();
+						}
+					};
+					window[tag]=_result;
+				};
 				return {
 					_tag:this.context.tag,
 					plugin:function(callback){
