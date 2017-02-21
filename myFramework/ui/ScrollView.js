@@ -11,41 +11,57 @@ requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/ui/WidgetFactor
 	})
 	.events(function(events){
 
-		events["#lastPage click"]=function(){
-			window._this=this;
-			if(_page["on"+_fucname+"Up"]){
-				_page["on"+_fucname+"Up"](el);
+		events["#lastPage click"]=function(el){
+			var _pageNumber = this.viewModel.pageNumber;
+			if(_pageNumber != 1){
+				var page = this.viewModel.page
+			    var _name  =this.viewModel.id||this.viewModel.name||"";
+			    var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
+			    if(page["on"+funcName+"Up"]){
+			    	page["on"+funcName+"Up"](this.viewModel);
+			    	_pageNumber--;
+					//this.viewModel.pageNumber =pageNumber;
+					this.viewModel.attr("pageNumber",_pageNumber);
+					if(_pageNumber == 1){
+						$("#lastPage").removeClass("primary");
+						$("#lastPage").addClass("gray");
+					}else{
+						$("#lastPage").removeClass("gray");
+						$("#lastPage").addClass("primary");
+					};
+			    };
+
 			}
-			 _pageNumber--;
-			 el.viewModel().pageNumber =_pageNumber;
 		};
-		/*events.inserted = function(el,ev){
+		events["#nextPage click"]=function(el){
+			var _pageNumber = this.viewModel.pageNumber;
+			var page = this.viewModel.page
+		    var _name  =this.viewModel.id||this.viewModel.name||"";
+		    var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
+		    if(page["on"+funcName+"Down"]){
+		    	page["on"+funcName+"Down"](this.viewModel);
+		    	_pageNumber++;
+				this.viewModel.attr("pageNumber",_pageNumber);
+				if(_pageNumber == 1){
+					$("#lastPage").removeClass("primary");
+					$("#lastPage").addClass("gray");
+				}else{
+					$("#lastPage").removeClass("gray");
+					$("#lastPage").addClass("primary");
+				};
+		    }
+		}
+		events.inserted = function(el,ev){
+			$("#lastPage").removeClass("primary");
+			$("#lastPage").addClass("gray");
+			var page = el.viewModel().page;
+			var _name = el.viewModel().id||el.viewModel().name||"";
+			var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
+			if(page["on"+funcName+"Data"]){
+				page["on"+funcName+"Data"](el);
+			};
 			var _pageNumber =  el.viewModel().pageNumber;
-			if(_pageNumber == 1){
-				$("#lastPage").removeClass("primary");
-			}else{
-				$("#lastPage").addClass("primary");
-			}
-			var	_page = el.viewModel().page,
-				_data = page.data,
-			 	dataName  = el.viewModel().context,
-				_fucname = dataName.substring(0,1).toUpperCase()+dataName.substring(1,dataName.length);
-			$("#lastPage").on("click",function(){
-				
-				if(_page["on"+_fucname+"Up"]){
-					_page["on"+_fucname+"Up"](el);
-				}
-				 _pageNumber--;
-				 el.viewModel().pageNumber =_pageNumber;
-			});
-			$("#nextPage").on("click",function(){
-				if(_page["on"+_fucname+"Down"]){
-					_page["on"+_fucname+"Down"](el);
-				}
-				 _pageNumber++;
-				  el.viewModel().pageNumber =_pageNumber;
-			});
-		}*/
+		};
 	})
 	.build()
 	.plugin(function(_widget){

@@ -116,7 +116,6 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 					
 					this.tag=tag;
 					this.widget=function(el){
-						var _tag=this.tag;
 						var _widget=new function(_tag,el){
 							this.vm=undefined;
 							if (el==undefined)

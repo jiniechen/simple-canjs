@@ -44,10 +44,31 @@ Page({
 	doIt:function(){
 		//alert("call function doIt()");
 	},
-	onDetailUp:function(el){
-		
+	onScrollUp:function(el){
+		var detail =[
+				{id:"001",name:"初始化信息",
+					time:"2017"
+				},
+				{id:"002",name:"初始化信息",
+					time:"2017"
+				},
+				{id:"003",name:"初始化信息",
+					time:"2017"
+				},
+				{id:"004",name:"初始化信息",
+					time:"2017"
+				},
+				{id:"005",name:"初始化信息",
+					time:"2017"
+				}
+				
+			] 
+		var _data =el.data;
+		_data.splice(0,_data.length);
+		_data.attr(detail);
 	},
-	onDetailDown:function(el){
+	onScrollDown:function(el){
+		//debugger;
 		var detail =[
 				{id:"001",name:"新增信息1",
 					time:"2017"
@@ -81,6 +102,32 @@ Page({
 				}
 				
 			] 
-		el.viewModel().attr("data",detail);
+
+		var _data =el.data;
+		_data.splice(0,_data.length);
+		_data.attr(detail);
+	},
+	onScrollData:function(el) {
+		var detail =[
+				{id:"001",name:"初始化信息",
+					time:"2017"
+				},
+				{id:"002",name:"初始化信息",
+					time:"2017"
+				},
+				{id:"003",name:"初始化信息",
+					time:"2017"
+				},
+				{id:"004",name:"初始化信息",
+					time:"2017"
+				},
+				{id:"005",name:"初始化信息",
+					time:"2017"
+				}
+				
+			] 
+		var _data =el.viewModel().data;
+		_data.splice(0,_data.length);
+		_data.attr(detail);
 	}
 }); 

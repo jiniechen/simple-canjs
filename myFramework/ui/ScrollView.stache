@@ -1,5 +1,5 @@
-<div  style='height:{{height}}px;overflow:auto' {{scrollValue}}	>
-	<section>
+<div  style='height:{{height}}px;overflow:auto'>
+	<section class="section">
 		<content/>
 		<div class="loading-more">
 			<span class="loading-more-page primary" id="lastPage">上一页</span>
