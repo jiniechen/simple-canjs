@@ -17,7 +17,7 @@ requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/ui/WidgetFactor
 				data = page.data,
 			 	dataName  = el.viewModel().context,
 				_name = dataName.substring(0,1).toUpperCase()+dataName.substring(1,dataName.length);
-
+			var timer = null;
 			$('html,body').on('listenScroll', function(event,isInScroll, scrollDirection,scrollTop) {
 
 				var documentH = $("html").height();
@@ -25,12 +25,21 @@ requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/ui/WidgetFactor
 			   	if(scrollDirection == "down"){
 			   		
 					if( scrollTop+windowH == documentH){
+						if(timer != null){
+							clearTimeout(timer);
+						}
+						$("#loading-more").text("正在加载，请稍等");
 						
-						
-						if(page["on"+_name+"Down"])
-						
-							page["on"+_name+"Down"](page);
-
+						timer = setTimeout(function(){
+							if(page["on"+_name+"Down"])
+								var dataFlag = page["on"+_name+"Down"](page);
+								if(dataFlag){
+									$("#loading-more").text("已全部加载完毕！");
+								}else{
+									$("#loading-more").text("上滑加载更多···");
+									
+								}	
+						},500);		
 					};
 				};
 			});

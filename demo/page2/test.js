@@ -79,9 +79,14 @@ Page({
 				
 			] 
 		var  NewArray = new can.List();
-	
-		var newarray = NewArray.concat(page.data.attr("detail"),detail);
-		page.data.attr("detail",newarray);
-
+		var pageNumber = 1;
+		var dataFlag= false;
+		if (detail == null ) {
+			 dataFlag = true;
+		}else{
+			var newarray = NewArray.concat(page.data.attr("detail"),detail);
+			page.data.attr("detail",newarray);
+		}
+		return dataFlag;
 	}
 });
