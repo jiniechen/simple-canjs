@@ -346,7 +346,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 		};
 	};
 	//todo--考虑数据双向绑定时，切换页面需要取消数据的绑定。
-	function scrollValue(){
+	/*function scrollValue(){
 		var _data = this.data;
 		var _page = this.page;
 		var _name  = this.context;
@@ -363,7 +363,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 				$(el).parent().viewModel().pageNumber = _pageNumber;
 			});
 		};
-	};
+	};*/
 	return {
 		event:event,
 		readOnlyValue:readOnlyValue,
@@ -372,7 +372,6 @@ define([ "myFramework/MyExports" ],function(exports) {
 		checkboxValue:checkboxValue,
 		radioValue:radioValue,
 		switchboxValue:switchboxValue,
-		scrollValue:scrollValue
 	}
 	
 });

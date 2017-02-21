@@ -2,7 +2,7 @@
 		<search tip="请输入您所要查询的关键字" name="search"/>
 </view>
 
-<view title="单选示例1" 	>		
+<view title="单选示例1" >		
 	<radio  id="r1" name="radio"  data-options='{红色:"red",蓝色:"blue"}' />
 </view>
 
@@ -10,15 +10,15 @@
 	<radio   name="radio" data-options='{红色:"red",蓝色:"blue"}' />
 </view>
 <view title="多选示例" 	>		
-	<checkbox id="ch1"  name="ch" data-options='{苹果:"apple",香蕉:"banana"}' />
+	<checkbox id="ch1"  name="ch" data-options='{苹果:"apple",香蕉:"banana"}'  />
 </view>
 <view title="多选示例" 	>		
 	<checkbox   name="ch"   data-options='{苹果:"apple",香蕉:"banana"}' />
 </view>
 
 <view title="我的信息" id="toast">
-	<text name="field1" label="姓名"/>
-	<switch id ="sw2" name="field2" label="出生日期" data-options='["错","对"]'/>
+	<text name="field1" label="姓名" />
+	<switch id ="sw2" name="field2" label="出生日期" data-options='["错","对"]'  />
 </view>
 <view title="详细信息">
 	<text id="df" name="field1" label="姓名" />

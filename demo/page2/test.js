@@ -44,7 +44,10 @@ Page({
 	doIt:function(){
 		//alert("call function doIt()");
 	},
-	onDetailDown:function(page){
+	onDetailUp:function(el){
+		
+	},
+	onDetailDown:function(el){
 		var detail =[
 				{id:"001",name:"新增信息1",
 					time:"2017"
@@ -73,20 +76,11 @@ Page({
 				{id:"009",name:"新增信息1",
 					time:"2017"
 				},
-				{id:"010",name:"新增信息1",
+				{id:"010",name:"新增信息1",	
 					time:"2017"
 				}
 				
 			] 
-		var  NewArray = new can.List();
-		var pageNumber = 1;
-		var dataFlag= false;
-		if (detail == null ) {
-			 dataFlag = true;
-		}else{
-			var newarray = NewArray.concat(page.data.attr("detail"),detail);
-			page.data.attr("detail",newarray);
-		}
-		return dataFlag;
+		el.viewModel().attr("data",detail);
 	}
-});
+}); 

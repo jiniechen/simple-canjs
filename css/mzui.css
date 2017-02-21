@@ -5157,5 +5157,16 @@ select+input{
 .bb{
     border-bottom: 1px solid #ccc !important;
 }
-
+.loading-more{
+    line-height: 50px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    border-top: 1px solid #3280fc;
+    border-bottom: 1px solid #3280fc;
+}
+.loading-more-page{
+    width: 33.33%;
+    text-align: center;
+}
 
