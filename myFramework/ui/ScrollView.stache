@@ -1,7 +1,6 @@
-<section style="height:{{height}}px !important;overflow:scroll;">
-	<div>
-		{{#each data}}
-			<scrollviewitem {data}="." index = {{@index}}  context={{context}}  />
-		{{/each}}
-	</div>
-</section>
+<div  style='height:{{height}}px;overflow:auto' {{scrollValue}}	>
+	<section>
+		<content/>
+		<div id='loading-more' style='line-height:40px;text-align:center'>上滑加载更多···</div>
+	</section>
+</div>

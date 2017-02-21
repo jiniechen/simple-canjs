@@ -1,5 +1,5 @@
-requirejs([ "myFramework/ui/WidgetFactory"],function(widgetFactory){
-	widgetFactory.widget("scrollview","<div  style='height:{{height}}px;overflow:auto'><section><content/><div id='loading-more' style='line-height:40px;text-align:center'>上滑加载更多···</div></section></div>")
+requirejs([ "text!myFramework/ui/scrollview.stache","myFramework/ui/WidgetFactory"],function(tpl,widgetFactory){
+	widgetFactory.widget("scrollview",tpl)
 	.config(function(config){
 		config.hasError=false;
 		config.hasAlign=false;
@@ -11,47 +11,44 @@ requirejs([ "myFramework/ui/WidgetFactory"],function(widgetFactory){
 	.events(function(events){
 		events.inserted = function(el,ev){
 			
-			var windowH = $(window).height();
-			//var documentH = el.find("section").eq(0).height(),
-			var documentH = $("html").height(),
-				wrap = el.find("div").eq(0),
-				wrapH = el.viewModel().height;
+			var windowH = $(window).height(),
+				wrap = el.find("div").eq(0);
 			var	page = el.viewModel().page,
 				data = page.data,
 			 	dataName  = el.viewModel().context,
 				_name = dataName.substring(0,1).toUpperCase()+dataName.substring(1,dataName.length);
+			 /*var  _pageNumber = 1,
+			 	  _data;
 			data.bind(dataName,function(ev,newVal,oldVal){
+				//debugger;
+				//el.viewModel().data.push(newVal);
+				//var length = oldVal.length;
+				//el.viewModel().splice(length-1,0,)
+				el.viewModel().data.attr(newVal);
+				_pageNumber++;
+				el.viewModel().pageNumber = _pageNumber;
 
-				var length = el.viewModel().data.length;
-				if (newVal != oldVal) {
-					el.viewModel().data.splice(0,length+1);//清除所有的数据
-					el.viewModel().data.attr(newVal);//推进新数据
-				}
-			})
-
+			})*/
+		
+			
 			$('html,body').on('listenScroll', function(event,isInScroll, scrollDirection,scrollTop) {
-				
+
+				var documentH = $("html").height();
+
 			   	if(scrollDirection == "down"){
+			   		
 					if( scrollTop+windowH == documentH){
-						//$("#loading-more").text("正在加载，请稍等");
-						var timer  = setTimeout(function(){
+						
+						if(page["on"+_name+"Down"])
+							
+							page["on"+_name+"Down"](page);
 
-							if(page["on"+_name+"Down"])
 
-								page["on"+_name+"Down"](page);
-						},800);
-						//$("#loading-more").text("上滑加载更多···");
-					
-					}
-				}else if(scrollDirection == "up"){
-					if(scrollTop == 0){
-						if(page["on"+_name+"Up"])
-
-							page["on"+_name+"Up"](page);
 					}
 				}
 			});
 		}
+
 	})
 	.build()
 	.plugin(function(_widget){
