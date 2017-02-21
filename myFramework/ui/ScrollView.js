@@ -17,20 +17,7 @@ requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/ui/WidgetFactor
 				data = page.data,
 			 	dataName  = el.viewModel().context,
 				_name = dataName.substring(0,1).toUpperCase()+dataName.substring(1,dataName.length);
-			 /*var  _pageNumber = 1,
-			 	  _data;
-			data.bind(dataName,function(ev,newVal,oldVal){
-				//debugger;
-				//el.viewModel().data.push(newVal);
-				//var length = oldVal.length;
-				//el.viewModel().splice(length-1,0,)
-				el.viewModel().data.attr(newVal);
-				_pageNumber++;
-				el.viewModel().pageNumber = _pageNumber;
 
-			})*/
-		
-			
 			$('html,body').on('listenScroll', function(event,isInScroll, scrollDirection,scrollTop) {
 
 				var documentH = $("html").height();
@@ -39,13 +26,13 @@ requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/ui/WidgetFactor
 			   		
 					if( scrollTop+windowH == documentH){
 						
+						
 						if(page["on"+_name+"Down"])
-							
+						
 							page["on"+_name+"Down"](page);
 
-
-					}
-				}
+					};
+				};
 			});
 		}
 

@@ -347,21 +347,22 @@ define([ "myFramework/MyExports" ],function(exports) {
 	};
 	//todo--考虑数据双向绑定时，切换页面需要取消数据的绑定。
 	function scrollValue(){
-		//debugger;
 		var _data = this.data;
 		var _page = this.page;
 		var _name  = this.context;
-		var  _pageNumber = 1
-		_page.data.bind(_name,function(ev,newVal,oldVal){
-			//debugger;
-			var oldLength = oldVal.length,
-				newVal = newVal.slice(oldLength,newVal.length);
-			can.each(newVal,function(el,index){
-				_data.push(el);
-			})
-			
-		})
-		
+		var  _pageNumber = 1;
+		this.pageNumber = _pageNumber;
+		return function(el){			
+			_page.data.bind(_name,function(ev,newVal,oldVal){
+				var oldLength = oldVal.length,
+					newVal = newVal.slice(oldLength,newVal.length);
+				can.each(newVal,function(element,index){
+					_data.push(element);
+				});
+				_pageNumber++;
+				$(el).parent().viewModel().pageNumber = _pageNumber;
+			});
+		};
 	};
 	return {
 		event:event,

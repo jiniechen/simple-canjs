@@ -48,6 +48,33 @@ Page({
 		var detail =[
 				{id:"001",name:"新增信息1",
 					time:"2017"
+				},
+				{id:"002",name:"新增信息1",
+					time:"2017"
+				},
+				{id:"003",name:"新增信息1",
+					time:"2017"
+				},
+				{id:"004",name:"新增信息1",
+					time:"2017"
+				},
+				{id:"005",name:"新增信息1",
+					time:"2017"
+				},
+				{id:"006",name:"新增信息1",
+					time:"2017"
+				},
+				{id:"007",name:"新增信息1",
+					time:"2017"
+				},
+				{id:"008",name:"新增信息1",
+					time:"2017"
+				},
+				{id:"009",name:"新增信息1",
+					time:"2017"
+				},
+				{id:"010",name:"新增信息1",
+					time:"2017"
 				}
 				
 			] 
@@ -55,7 +82,6 @@ Page({
 	
 		var newarray = NewArray.concat(page.data.attr("detail"),detail);
 		page.data.attr("detail",newarray);
-		//page.data.attr("detail",detail);
-		//return detail;
+
 	}
 });
