@@ -11,55 +11,70 @@ requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/ui/WidgetFactor
 	})
 	.events(function(events){
 
-		events["#lastPage click"]=function(el){
+		events["#prePage click"]=function(el){
 			var _pageNumber = this.viewModel.pageNumber;
+			var _viewModel = this.viewModel;
 			if(_pageNumber != 1){
-				var page = this.viewModel.page
-			    var _name  =this.viewModel.id||this.viewModel.name||"";
+				var page = _viewModel.page
+			    var _name  =_viewModel.id||_viewModel.name||"";
 			    var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
 			    if(page["on"+funcName+"Up"]){
-			    	page["on"+funcName+"Up"](this.viewModel);
+			    	page["on"+funcName+"Up"](_viewModel);
 			    	_pageNumber--;
-					//this.viewModel.pageNumber =pageNumber;
-					this.viewModel.attr("pageNumber",_pageNumber);
+					_viewModel.attr("pageNumber",_pageNumber);
+					var _lastPage = _viewModel.lastPage;
+					if(!_lastPage){
+						$("#nextPage").removeClass("gray");
+						$("#nextPage").addClass("primary");
+					}
 					if(_pageNumber == 1){
-						$("#lastPage").removeClass("primary");
-						$("#lastPage").addClass("gray");
+						$("#prePage").removeClass("primary");
+						$("#prePage").addClass("gray");
 					}else{
-						$("#lastPage").removeClass("gray");
-						$("#lastPage").addClass("primary");
+						$("#prePage").removeClass("gray");
+						$("#prePage").addClass("primary");
 					};
 			    };
 
 			}
 		};
 		events["#nextPage click"]=function(el){
-			var _pageNumber = this.viewModel.pageNumber;
-			var page = this.viewModel.page
-		    var _name  =this.viewModel.id||this.viewModel.name||"";
-		    var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
-		    if(page["on"+funcName+"Down"]){
-		    	page["on"+funcName+"Down"](this.viewModel);
-		    	_pageNumber++;
-				this.viewModel.attr("pageNumber",_pageNumber);
-				if(_pageNumber == 1){
-					$("#lastPage").removeClass("primary");
-					$("#lastPage").addClass("gray");
-				}else{
-					$("#lastPage").removeClass("gray");
-					$("#lastPage").addClass("primary");
-				};
-		    }
+			var _lastPage = this.viewModel.lastPage;
+			var _viewModel = this.viewModel;
+			if(!_lastPage){
+				var _pageNumber = _viewModel.pageNumber;
+				var page = _viewModel.page
+			    var _name  =_viewModel.id||_viewModel.name||"";
+			    var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
+			    if(page["on"+funcName+"Down"]){
+			    	page["on"+funcName+"Down"](_viewModel);
+			    	_pageNumber++;
+					_viewModel.attr("pageNumber",_pageNumber);
+					_lastPage = _viewModel.lastPage;
+					if(_lastPage){
+						$("#nextPage").removeClass("primary");
+						$("#nextPage").addClass("gray");
+					}
+					if (_pageNumber!=1) {
+						$("#prePage").removeClass("gray");
+						$("#prePage").addClass("primary");
+					}	
+			    }
+			}
 		}
 		events.inserted = function(el,ev){
-			$("#lastPage").removeClass("primary");
-			$("#lastPage").addClass("gray");
+			$("#prePage").removeClass("primary");
+			$("#prePage").addClass("gray");
 			var page = el.viewModel().page;
 			var _name = el.viewModel().id||el.viewModel().name||"";
 			var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
 			if(page["on"+funcName+"Data"]){
 				page["on"+funcName+"Data"](el);
 			};
+			if(el.viewModel().lastPage){
+				$("#nextPage").removeClass("primary");
+				$("#nextPage").addClass("gray");
+			}
 			var _pageNumber =  el.viewModel().pageNumber;
 		};
 	})

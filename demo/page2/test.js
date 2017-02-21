@@ -63,9 +63,11 @@ Page({
 				}
 				
 			] 
+
 		var _data =el.data;
 		_data.splice(0,_data.length);
 		_data.attr(detail);
+		el.lastPage= false;
 	},
 	onScrollDown:function(el){
 		//debugger;
@@ -106,6 +108,7 @@ Page({
 		var _data =el.data;
 		_data.splice(0,_data.length);
 		_data.attr(detail);
+		el.lastPage= true;
 	},
 	onScrollData:function(el) {
 		var detail =[
@@ -126,8 +129,10 @@ Page({
 				}
 				
 			] 
+		el.viewModel().lastPage = false;
 		var _data =el.viewModel().data;
 		_data.splice(0,_data.length);
 		_data.attr(detail);
+
 	}
 }); 
