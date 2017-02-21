@@ -112,7 +112,7 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 				can.Component.extend(this.context);
 				
 				var _plugin=function(tag,callback){
-					var _tag=tag;
+					var _tag=tag; 
 					var _callback=callback;
 					var _result=function(el){
 						if (el){
