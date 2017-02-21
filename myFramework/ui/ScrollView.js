@@ -1,4 +1,4 @@
-requirejs([ "text!myFramework/ui/scrollview.stache","myFramework/ui/WidgetFactory"],function(tpl,widgetFactory){
+requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/ui/WidgetFactory"],function(tpl,widgetFactory){
 	widgetFactory.widget("scrollview",tpl)
 	.config(function(config){
 		config.hasError=false;
