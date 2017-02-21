@@ -108,10 +108,16 @@ define([ "myFramework/MyExports" ],function(exports) {
         var _index=this.index;
 		var _self=this;
 		return function(el) {
-			_data.bind(_name, function(ev, newVal, oldVal) {
+			var _bindFunc=function(ev, newVal, oldVal) {
 				if (newVal!=oldVal)
 					el.value=newVal;
-			});
+			};
+			if (!_self.removeHandler){
+				_self.removeHandler=[];
+			}
+			//在component remove时取消绑定
+			_self.removeHandler.push({name:_name,handler:_bindFunc});
+			_data.bind(_name, _bindFunc);
 			el.value = _data.attr(_name);
 		};
 	};
@@ -129,7 +135,7 @@ define([ "myFramework/MyExports" ],function(exports) {
         var _context=this.context;
 		var _self=this;
 		return function(el) {
-			_data.bind(_name, function(ev, newVal, oldVal) {
+			var _bindFunc=function(ev, newVal, oldVal) {
 				if (newVal!=oldVal)
 					el.value=newVal;
 				var _error = _root.attr("data").errors(
@@ -146,7 +152,13 @@ define([ "myFramework/MyExports" ],function(exports) {
 					_self.error.attr("flag",false);
 					_self.error.attr("message",undefined);
 				}
-			});
+			};
+			_data.bind(_name, _bindFunc);
+			if (!_self.removeHandler){
+				_self.removeHandler=[];
+			}
+			//在component remove时取消绑定
+			_self.removeHandler.push({name:_name,handler:_bindFunc});
 			el.onchange = function() {
 				_data.attr(_name, this.value);
 			};
@@ -166,7 +178,7 @@ define([ "myFramework/MyExports" ],function(exports) {
         var _index=this.index;
 		var _self=this;
 		return function(el) {
-			_data.bind(_name, function(ev, newVal, oldVal) {
+			var _bindFunc=function(ev, newVal, oldVal) {
 				if (newVal!=oldVal)
 					if (el.value!=newVal)
 						el.value=newVal;
@@ -188,7 +200,36 @@ define([ "myFramework/MyExports" ],function(exports) {
 					_self.error.attr("flag",false);
 					_self.error.attr("message",undefined);
 				}
-			});
+			};
+			_data.bind(_name, _bindFunc);
+			if (!_self.removeHandler){
+				_self.removeHandler=[];
+			}
+			//在component remove时取消绑定
+			_self.removeHandler.push({name:_name,handler:_bindFunc});
+			//随动事件绑定
+			var _parentName=_self.parentName;
+			if (_parentName){
+				var _bindFunc2=function(ev, newVal, oldVal) {
+					if (newVal!=oldVal){
+						var _vm=_self;
+						var _options=_vm.parentOptions[_vm.data.attr(_parentName)];
+						_vm.attr("options",_options);
+						var _firstValue=undefined;
+						can.each(_options,function(v,k){
+							if (_firstValue==undefined)
+								_firstValue=v;
+						});
+						if (_firstValue)
+							_vm.data.attr(_vm.name,_firstValue);
+						if (_vm.mobi)
+							_vm.mobi.clear();
+					}
+				};
+				_data.bind(_parentName,_bindFunc2);
+				_self.removeHandler.push({name:_name,handler:_bindFunc2});
+			}
+			
 			el.onchange = function() {
 				_data.attr(_name, this.value);
 			};
@@ -209,7 +250,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 		var _self=this;
 		return function(el) {
 			var _checkValue=$(el).data("value");
-			_data[_name].bind('length', function(ev, removedElements, index) {
+			var _bindFunc=function(ev, removedElements, index) {
 				var _inputs=$(el).parent().parent().find("input");
 				can.each(_inputs,function(_input,index){
 					_input.checked=false;
@@ -218,7 +259,13 @@ define([ "myFramework/MyExports" ],function(exports) {
 							_input.checked=true;
 					});
 				});
-			});
+			};
+			_data[_name].bind('length', _bindFunc);
+			if (!_self.removeHandler){
+				_self.removeHandler=[];
+			}
+			//在component remove时取消绑定
+			_self.removeHandler.push({name:_name,handler:_bindFunc,event:"length"});
 			el.onclick = function() {
 				var _list=_data.attr(_name);
 				//el.checked
@@ -259,10 +306,16 @@ define([ "myFramework/MyExports" ],function(exports) {
         var _index=this.index;
 		var _self=this;
 		return function(el) {
-			_data.bind(_name, function(ev, newVal, oldVal) {
+			var _bindFunc=function(ev, newVal, oldVal) {
 				if (newVal!=oldVal)
 					el.checked = _data.attr(_name) == el.getAttribute("value")?true:false;
-			});
+			};
+			_data.bind(_name, _bindFunc);
+			if (!_self.removeHandler){
+				_self.removeHandler=[];
+			}
+			//在component remove时取消绑定
+			_self.removeHandler.push({name:_name,handler:_bindFunc});
 			el.onclick = function() {
 				_data.attr(_name, this.value);
 			};

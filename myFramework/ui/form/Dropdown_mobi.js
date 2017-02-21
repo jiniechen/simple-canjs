@@ -10,8 +10,8 @@ requirejs(["text!myFramework/ui/form/Dropdown_mobi.stache","myFramework/ui/Widge
 					_options=vm.options[vm.data[_parentName]];
 				}else
 					_options=new can.List([]);
-				var _data=can.getObject(vm.context,parentScope.attr("data")||vm.root.attr("data"));
-				_data.bind(_parentName,function(ev, newVal, oldVal) {
+				//var _data=can.getObject(vm.context,parentScope.attr("data")||vm.root.attr("data"));
+				/*_data.bind(_parentName,function(ev, newVal, oldVal) {
 					if (newVal!=oldVal){
 						var _vm=$(el).viewModel();
 						var _options=_vm.parentOptions[_vm.data.attr(_parentName)];
@@ -25,7 +25,7 @@ requirejs(["text!myFramework/ui/form/Dropdown_mobi.stache","myFramework/ui/Widge
 						if (_firstValue)
 							_vm.data.attr(_vm.name,_firstValue);
 					}
-				});
+				});*/
 				vm.parentName=_parentName;
 				vm.parentOptions=vm.options;
 				vm.options=_options;

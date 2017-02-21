@@ -84,6 +84,32 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 			this.build=function(){
 				this.context.viewModel=this._buildViewModel;
 				this.context.template=can.stache(this.context.tpl);
+				//取消helper数据绑定
+				var _removed=function(){
+					window._this=this;
+					var _self=this;
+					if (_self.viewModel.removeHandler){
+						can.each(_self.viewModel.removeHandler,function(obj,index){
+							if (obj.event){
+								_self.viewModel.data[obj.name].unbind(obj.event,obj.handler);
+							}else{
+								_self.viewModel.data.unbind(obj.name,obj.handler);
+							}
+						})
+					}
+				};
+				if (this.context.events){
+					var __removed=this.context.events.removed;
+					if (__removed){
+						this.context.events.removed=function(){
+							_removed.call();
+							__removed.call();
+						}
+					}else
+						this.context.events.removed=_removed;
+				}else{
+					this.context.events={removed:_removed};
+				}
 				can.Component.extend(this.context);
 				
 				var _plugin=function(tag,callback){
@@ -93,7 +119,6 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 						var _tag=this.tag;
 						var _widget=new function(_tag,el){
 							this.vm=undefined;
-							alert(el);
 							if (el==undefined)
 								this.vm=$(_tag).viewModel();
 							else
