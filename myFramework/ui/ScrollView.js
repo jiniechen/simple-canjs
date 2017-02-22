@@ -21,12 +21,16 @@ requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/ui/WidgetFactor
 			    var _name  =_viewModel.id||_viewModel.name||"";
 			    var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
 			    if(page["on"+funcName+"Up"]){
-			    	page["on"+funcName+"Up"](_viewModel);
-			    	_pageNumber--;
-					_viewModel.attr("pageNumber",_pageNumber);
-					if(_pageNumber == 1){
-						_viewModel.attr("firstPage",true);
-					}
+			    	exports.Mask.show();
+			    	var timer = setTimeout(function(){
+			    		exports.Mask.hide();
+			    		page["on"+funcName+"Up"](_viewModel);
+				    	_pageNumber--;
+						_viewModel.attr("pageNumber",_pageNumber);
+						if(_pageNumber == 1){
+							_viewModel.attr("firstPage",true);
+						};
+			    	},500);
 			    };
 			}
 		};
@@ -39,11 +43,15 @@ requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/ui/WidgetFactor
 			    var _name  =_viewModel.id||_viewModel.name||"";
 			    var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
 			    if(page["on"+funcName+"Down"]){
-			    	page["on"+funcName+"Down"](_viewModel);
-			    	_pageNumber++;
-					_viewModel.attr("pageNumber",_pageNumber);
-					_lastPage = _viewModel.lastPage;
-					_viewModel.attr("firstPage",false);
+			    	exports.Mask.show();
+			    	var timer = setTimeout(function(){
+			    		exports.Mask.hide();
+			    		page["on"+funcName+"Down"](_viewModel);
+				    	_pageNumber++;
+						_viewModel.attr("pageNumber",_pageNumber);
+						_lastPage = _viewModel.lastPage;
+						_viewModel.attr("firstPage",false);
+			    	},500);
 			    }
 			}
 		}
