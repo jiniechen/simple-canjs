@@ -1,4 +1,25 @@
 requirejs([ "text!myFramework/ui/ScrollView.stache"],function(tpl){
+var onDataLoad = function(_self,cb){
+	var _viewModel = _self.viewModel;
+	var _page  = _viewModel.page;
+	var pageNumber = _viewModel.pageNumber;
+	var _name  =_viewModel.id||_viewModel.name||"";
+    var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
+    var count = _viewModel.attr("count");
+    var updata = function(pageNumber){
+    	_viewModel.attr("pageNumber",pageNumber);
+		_viewModel.attr("data",_page["on"+funcName+"Click"](pageNumber));
+    };
+    var config = {
+    	page:_page,
+    	pageNumber :pageNumber,
+    	viewModel :_viewModel,
+    	count:count,
+    	funcName:funcName,
+    	updata :updata
+    };
+   	cb(config);
+};
 can.Component.extend({
 		tag : "scrollview",
 		template : can.stache(tpl),
@@ -39,54 +60,35 @@ can.Component.extend({
 			    	can.each(_ondata,function(val,key){
 			    		key == "count" ? count = val :_data = val;
 			    	});
+			    	_viewModel.attr("count",count);
 			    	_viewModel.attr("nextClass",count > 1 ? "primary" : "gray");
 			    	_viewModel.attr("data",_data);
 			    };
 			},
 			"#prePage click" :function(){
-				var _viewModel = this.viewModel;
-				var _page  = _viewModel.page;
-				var pageNumber = _viewModel.pageNumber;
-				var _name  =_viewModel.id||_viewModel.name||"";
-			    var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
-			    var count ;
-			    var _data ; 
-			    if(_page["on"+funcName+"Up"]){
-			    	pageNumber--;
-			    	var preData = _page["on"+funcName+"Up"]();
-		    		can.each(preData,function(val,key){
-		    			key == "count" ? count = val :_data = val;
-		    		});
-			    	if(pageNumber > 1 || pageNumber == 1){
-			    		_viewModel.attr("pageNumber",pageNumber);
-			    		_viewModel.attr("data",_data);
-			    		_viewModel.attr("preClass",pageNumber == 1 ? "gray" : "primary");
-			    		_viewModel.attr("nextClass",pageNumber == count ? "gray" : "primary");
-			    		exports.Mask.hide();
-				    }
-			    };
+				onDataLoad(this,function(config){
+					config.pageNumber--;
+				    if(config.pageNumber > 1 || config.pageNumber == 1){
+					    if(config.page["on"+config.funcName+"Click"]){
+							config.updata(config.pageNumber);
+				    		config.viewModel.attr("preClass",config.pageNumber == 1 ? "gray" : "primary");
+				    		config.viewModel.attr("nextClass",config.pageNumber == config.count ? "gray" : "primary");
+					    }
+				    };
+				});
 			},
 			"#nextPage click" :function(){
-				var _viewModel = this.viewModel;
-				var _page  = _viewModel.page;
-				var pageNumber = _viewModel.pageNumber;
-				var _name  =_viewModel.id||_viewModel.name||"";
-			    var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
-			    var count ;
-			    var _data ; 
-			    if(_page["on"+funcName+"Down"]){
-		    		pageNumber++;
-		    		var nextData = _page["on"+funcName+"Down"]();
-		    		can.each(nextData,function(val,key){
-		    			key == "count" ? count = val :_data = val;
-		    		});
-		    		if(pageNumber < count || pageNumber == count ){
-		    			_viewModel.attr("pageNumber",pageNumber);
-		    			_viewModel.attr("data",_data);
-		    			_viewModel.attr("nextClass",pageNumber == count ? "gray" : "primary");
-		    			_viewModel.attr("preClass","primary");
-		    		}
-			    };
+				
+			    onDataLoad(this,function(config){
+			    	config.pageNumber++;
+				    if(config.pageNumber < config.count || config.pageNumber == config.count ){
+				    	if(config.page["on"+config.funcName+"Click"]){
+				    		config.updata(config.pageNumber);
+			    			config.viewModel.attr("nextClass",config.pageNumber == config.count ? "gray" : "primary");
+			    			config.viewModel.attr("preClass","primary");
+			    		}
+				    };
+			    })
 			}
 		}
 	});

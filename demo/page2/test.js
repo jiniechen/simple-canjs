@@ -49,59 +49,29 @@ Page({
 		
 		//alert("call function doIt()");
 	},
-	onScrollUp:function(el){
-
+	onScrollClick:function(pageNumber){
+		console.log(pageNumber);
 		var detail =[
-				{id:"001",name:"上一页信息",
+				{id:"001",name:"换页信息",
 					time:"2017"
 				},
-				{id:"002",name:"上一页信息",
+				{id:"002",name:"换页信息",
 					time:"2017"
 				},
-				{id:"003",name:"上一页信息",
+				{id:"003",name:"换页信息",
 					time:"2017"
 				},
-				{id:"004",name:"上一页信息",
+				{id:"004",name:"换页信息",
 					time:"2017"
 				},
-				{id:"005",name:"上一页信息",
+				{id:"005",name:"换页信息",
 					time:"2017"
 				}
-				
 			] ;
-		var data  = {
-			_data : detail,
-			count : 3
-		};
-		return data;
+		return detail;
 
 	},
-	onScrollDown:function(el){
-		var detail =[
-				{id:"001",name:"下一页信息",
-					time:"2017"
-				},
-				{id:"002",name:"下一页信息",
-					time:"2017"
-				},
-				{id:"003",name:"下一页信息",
-					time:"2017"
-				},
-				{id:"004",name:"下一页信息",
-					time:"2017"
-				},
-				{id:"005",name:"下一页信息",
-					time:"2017"
-				}
-				
-			] ;
-		var data  = {
-			_data : detail,
-			count : 3
-		};
-		return data;
-	},
-	onScrollData:function(el) {
+	onScrollData:function() {
 		var detail =[
 				{id:"001",name:"初始化信息",
 					time:"2017"
