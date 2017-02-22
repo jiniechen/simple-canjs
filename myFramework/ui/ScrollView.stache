@@ -2,18 +2,9 @@
 	<section class="section">
 		<content/>
 		<div class="loading-more">
-			{{#if firstPage}}
-				<span class="loading-more-page gray" id="prePage">上一页</span>
-			{{#else}}
-				<span class="loading-more-page primary" id="prePage">上一页</span>
-			{{/if}}
-			<span class="loading-more-page bl br white text-primary">第{{pageNumber}}页</span>
-			{{#if lastPage}}
-				<span class="loading-more-page gray" id="nextPage">下一页</span>
-			{{#else}}
-				<span class="loading-more-page primary" id="nextPage">下一页</span>
-			{{/if}}
-			
+		<span class="loading-more-page {{preClass}}" id="prePage">上一页</span>
+		<span class="loading-more-page bl br white text-primary">第{{pageNumber}}页</span>
+		<span class="loading-more-page {{nextClass}}" id="nextPage">下一页</span>
 		</div>
 	</section>
 </div>
