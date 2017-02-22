@@ -6,7 +6,9 @@ requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/ui/WidgetFactor
 		config.hasLabel=false;
 		config.extendVM=function(vm,attrs,parentScope,el){
 			vm.title=undefined;
-			vm.pageNumber = 1;
+			vm.pageNumber = 1;//第几页
+			vm.firstPage = true;//是否为第一页
+			vm.lastPage = false;//是否为最后一页
 		}
 	})
 	.events(function(events){
@@ -22,20 +24,10 @@ requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/ui/WidgetFactor
 			    	page["on"+funcName+"Up"](_viewModel);
 			    	_pageNumber--;
 					_viewModel.attr("pageNumber",_pageNumber);
-					var _lastPage = _viewModel.lastPage;
-					if(!_lastPage){
-						$("#nextPage").removeClass("gray");
-						$("#nextPage").addClass("primary");
-					}
 					if(_pageNumber == 1){
-						$("#prePage").removeClass("primary");
-						$("#prePage").addClass("gray");
-					}else{
-						$("#prePage").removeClass("gray");
-						$("#prePage").addClass("primary");
-					};
+						_viewModel.attr("firstPage",true);
+					}
 			    };
-
 			}
 		};
 		events["#nextPage click"]=function(el){
@@ -51,36 +43,22 @@ requirejs([ "text!myFramework/ui/ScrollView.stache","myFramework/ui/WidgetFactor
 			    	_pageNumber++;
 					_viewModel.attr("pageNumber",_pageNumber);
 					_lastPage = _viewModel.lastPage;
-					if(_lastPage){
-						$("#nextPage").removeClass("primary");
-						$("#nextPage").addClass("gray");
-					}
-					if (_pageNumber!=1) {
-						$("#prePage").removeClass("gray");
-						$("#prePage").addClass("primary");
-					}	
+					_viewModel.attr("firstPage",false);
 			    }
 			}
 		}
 		events.inserted = function(el,ev){
-			$("#prePage").removeClass("primary");
-			$("#prePage").addClass("gray");
 			var page = el.viewModel().page;
 			var _name = el.viewModel().id||el.viewModel().name||"";
 			var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
 			if(page["on"+funcName+"Data"]){
 				page["on"+funcName+"Data"](el);
-			};
-			if(el.viewModel().lastPage){
-				$("#nextPage").removeClass("primary");
-				$("#nextPage").addClass("gray");
-			}
+			};	
 			var _pageNumber =  el.viewModel().pageNumber;
 		};
 	})
 	.build()
 	.plugin(function(_widget){
-		
 	})
 });
 
