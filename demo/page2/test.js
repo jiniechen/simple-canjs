@@ -51,7 +51,18 @@ Page({
 	},
 	onScrollClick:function(pageNumber){
 		console.log(pageNumber);
-		var detail =[
+		var def = can.Deferred();
+		def.reject({
+			message:"error"
+		});
+		def.done(function(){
+			alert("加载成功啦");
+		});
+		def.fail(function(reason){
+			alert(reason.message);
+		})
+		return def;	
+		/*var detail =[
 				{id:"001",name:"换页信息",
 					time:"2017"
 				},
@@ -68,11 +79,34 @@ Page({
 					time:"2017"
 				}
 			] ;
-		return detail;
+		return detail;*/
 
 	},
 	onScrollData:function() {
 		var detail =[
+					{id:"001",name:"换页信息",
+						time:"2017"
+					},
+					{id:"002",name:"换页信息",
+						time:"2017"
+					},
+					{id:"003",name:"换页信息",
+						time:"2017"
+					},
+					{id:"004",name:"换页信息",
+						time:"2017"
+					},
+					{id:"005",name:"换页信息",
+						time:"2017"
+					}
+				] ;
+		var def = can.Deferred();
+			def.resolve({
+					_data :detail,
+					count:3
+				});
+			return def;
+		/*var detail =[
 				{id:"001",name:"初始化信息",
 					time:"2017"
 				},
@@ -94,7 +128,7 @@ Page({
 			_data : detail,
 			count : 3
 		};
-		return data;
+		return data;*/
 
 	}
 }); 

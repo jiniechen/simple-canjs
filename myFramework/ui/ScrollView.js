@@ -1,5 +1,5 @@
 requirejs([ "text!myFramework/ui/ScrollView.stache"],function(tpl){
-var onDataLoad = function(_self,cb){
+var _dataLoad = function(_self,cb){
 	var _viewModel = _self.viewModel;
 	var _page  = _viewModel.page;
 	var pageNumber = _viewModel.pageNumber;
@@ -7,8 +7,22 @@ var onDataLoad = function(_self,cb){
     var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
     var count = _viewModel.attr("count");
     var updata = function(pageNumber){
-    	_viewModel.attr("pageNumber",pageNumber);
-		_viewModel.attr("data",_page["on"+funcName+"Click"](pageNumber));
+    	exports.Mask.show();
+    	var _type = _page["on"+funcName+"Click"](pageNumber);
+    	if(can.isDeferred(_type)){
+    		_type.then(function(success){
+    			var _data = success._data;
+    			_viewModel.attr("data",_data);
+    			_viewModel.attr("pageNumber",pageNumber);
+    			exports.Mask.hide();
+    		},function(reason){
+    			alert(reason.message);
+    		})
+    	}else{
+    		_viewModel.attr("pageNumber",pageNumber);
+			_viewModel.attr("data",_type);
+			exports.Mask.hide();
+    	}
     };
     var config = {
     	page:_page,
@@ -48,6 +62,7 @@ can.Component.extend({
 		},
 		events:{
 			"inserted":function(el,ev){
+				exports.Mask.show();
 				var _viewModel = this.viewModel;
 				var _page  = _viewModel.page;
 				var pageNumber = _viewModel.pageNumber;
@@ -56,17 +71,31 @@ can.Component.extend({
 			    var count ;
 			    var _data ;
 			    if(_page["on"+funcName+"Data"]){
-			    	var _ondata = _page["on"+funcName+"Data"]();
-			    	can.each(_ondata,function(val,key){
-			    		key == "count" ? count = val :_data = val;
-			    	});
+			    	var type = _page["on"+funcName+"Data"]();
+			    	if(can.isDeferred(type)){
+			    		type.then(function(success){
+			    			var _ondata = success;
+			    			can.each(_ondata,function(val,key){
+					    		key == "count" ? count = val :_data = val;
+					    	});
+					    	exports.Mask.hide();
+			    		},function(fail){
+			    			alert(fail);
+			    		})
+						
+			    	}else{
+			    		var _ondata = type;
+			    		can.each(_ondata,function(val,key){
+				    		key == "count" ? count = val :_data = val;
+				    	});
+			    	}
 			    	_viewModel.attr("count",count);
 			    	_viewModel.attr("nextClass",count > 1 ? "primary" : "gray");
 			    	_viewModel.attr("data",_data);
 			    };
 			},
 			"#prePage click" :function(){
-				onDataLoad(this,function(config){
+				_dataLoad(this,function(config){
 					config.pageNumber--;
 				    if(config.pageNumber > 1 || config.pageNumber == 1){
 					    if(config.page["on"+config.funcName+"Click"]){
@@ -79,7 +108,7 @@ can.Component.extend({
 			},
 			"#nextPage click" :function(){
 				
-			    onDataLoad(this,function(config){
+			    _dataLoad(this,function(config){
 			    	config.pageNumber++;
 				    if(config.pageNumber < config.count || config.pageNumber == config.count ){
 				    	if(config.page["on"+config.funcName+"Click"]){
