@@ -3,8 +3,13 @@
 		<content/>
 		<div class="loading-more">
 			<span class="loading-more-page {{preClass}}" id="prePage">上一页</span>
-			<span class="loading-more-page bl br white text-primary">第{{pageNumber}}/{{count}}页</span>
+			<span class="loading-more-page bl br white text-primary">第{{currentPage}}/{{count}}页</span>
 			<span class="loading-more-page {{nextClass}}" id="nextPage">下一页</span>
 		</div>
 	</section>
 </div>
+{{#if mask}}
+	<div class="scrollMask">
+		<div class="loading loading-light gray">加载中···</div>
+	</div>
+{{/if}}

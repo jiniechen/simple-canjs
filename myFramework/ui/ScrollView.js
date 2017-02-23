@@ -1,122 +1,101 @@
 requirejs([ "text!myFramework/ui/ScrollView.stache"],function(tpl){
-var _dataLoad = function(_self,cb){
+var _dataLoad = function(_self,callback){
 	var _viewModel = _self.viewModel;
 	var _page  = _viewModel.page;
-	var pageNumber = _viewModel.pageNumber;
+	var _currentPage = _viewModel.currentPage;
 	var _name  =_viewModel.id||_viewModel.name||"";
-    var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
-    var count = _viewModel.attr("count");
-    var updata = function(pageNumber){
-    	exports.Mask.show();
-    	var _type = _page["on"+funcName+"Click"](pageNumber);
-    	if(can.isDeferred(_type)){
-    		_type.then(function(success){
-    			var _data = success._data;
-    			_viewModel.attr("data",_data);
-    			_viewModel.attr("pageNumber",pageNumber);
-    			exports.Mask.hide();
-    		},function(reason){
-    			alert(reason.message);
-    		})
-    	}else{
-    		_viewModel.attr("pageNumber",pageNumber);
-			_viewModel.attr("data",_type);
-			exports.Mask.hide();
-    	}
-    };
+    var _funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
+    var _count ;
+    var getResultDate = function(result){
+		if(can.isDeferred(result)){
+			result.then(function(success){
+				getResultDate(success);
+			},function(reason){
+				_data = undefined;
+			});
+		}else if (typeof result == "string"){
+			var success = can.ajax(result);
+			getResultDate(success);
+		}else if(typeof result == "object"){
+			can.each(result,function(value,key){
+				key == "count" ? _count = value:_data = value;
+				if(_count){
+					_viewModel.attr("count",_count);
+				}
+			});
+		}
+		
+		return _data;
+	};
+	var undateAttrs = function(_data){
+		_viewModel.attr("data",_data);
+		_viewModel.attr("currentPage",config.currentPage);
+		_viewModel.attr("preClass",config.currentPage == 1 ? "gray" :"primary" );
+		_viewModel.attr("nextClass",config.currentPage == _viewModel.count ? "gray" : "primary");
+	};
     var config = {
     	page:_page,
-    	pageNumber :pageNumber,
+    	currentPage :_currentPage,
     	viewModel :_viewModel,
-    	count:count,
-    	funcName:funcName,
-    	updata :updata
+    	funcName:_funcName,
+    	getResultDate :getResultDate,
+    	undateAttrs:undateAttrs
     };
-   	cb(config);
+   	callback(config);
 };
 can.Component.extend({
 		tag : "scrollview",
 		template : can.stache(tpl),
 		viewModel : function(attrs,parentScope,el){
-			//获取page对象的viewModel,组合组件从上层组件获取root,顶层组件的parentScope为root
 			var _root=parentScope.attr("root")==undefined?parentScope:parentScope.attr("root");
-			//获取页面对象
 			var _page=_root.attr("page");
-			//组件可以通过属性data重设数据值对象
-			//组件可以通过属性data重设数据值对象
-			var _contextName=attrs.context||"";
-			var _data=can.getObject(_contextName,parentScope.attr("data")||_root.attr("data"));
-			//var _parent=parentScope;
 			return {
 				id:el.getAttribute("id"),
-				contextName:_contextName,
 				name:undefined,
-				pageNumber:1,
+				currentPage:1,
 				preClass:"gray",
 				nextClass:"gray",
+				mask:false,
 				page:_page,
-				data:_data,
-				root:_root,
-				_myParent:parentScope
+				data:""
 			};
 		},
 		events:{
 			"inserted":function(el,ev){
-				exports.Mask.show();
-				var _viewModel = this.viewModel;
-				var _page  = _viewModel.page;
-				var pageNumber = _viewModel.pageNumber;
-				var _name  =_viewModel.id||_viewModel.name||"";
-			    var funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
-			    var count ;
-			    var _data ;
-			    if(_page["on"+funcName+"Data"]){
-			    	var type = _page["on"+funcName+"Data"]();
-			    	if(can.isDeferred(type)){
-			    		type.then(function(success){
-			    			var _ondata = success;
-			    			can.each(_ondata,function(val,key){
-					    		key == "count" ? count = val :_data = val;
-					    	});
-					    	exports.Mask.hide();
-			    		},function(fail){
-			    			alert(fail);
-			    		})
-						
-			    	}else{
-			    		var _ondata = type;
-			    		can.each(_ondata,function(val,key){
-				    		key == "count" ? count = val :_data = val;
-				    	});
-			    	}
-			    	_viewModel.attr("count",count);
-			    	_viewModel.attr("nextClass",count > 1 ? "primary" : "gray");
-			    	_viewModel.attr("data",_data);
-			    };
+				var _self = this;
+				_dataLoad(_self,function(config){
+					var result = config.page["on"+config.funcName+"Data"] ? config.page["on"+config.funcName+"Data"]() :undefined;
+					var _data = config.getResultDate(result);
+					config.viewModel.attr("data",_data);
+			    	config.viewModel.attr("nextClass",config.viewModel.count > 1 ? "primary" : "gray");
+				});		
 			},
 			"#prePage click" :function(){
-				_dataLoad(this,function(config){
-					config.pageNumber--;
-				    if(config.pageNumber > 1 || config.pageNumber == 1){
-					    if(config.page["on"+config.funcName+"Click"]){
-							config.updata(config.pageNumber);
-				    		config.viewModel.attr("preClass",config.pageNumber == 1 ? "gray" : "primary");
-				    		config.viewModel.attr("nextClass",config.pageNumber == config.count ? "gray" : "primary");
-					    }
+				var _self = this;
+				_dataLoad(_self,function(config){
+				    if(config.currentPage > 1){
+					    config.currentPage--;
+					   	var result = config.page["on"+config.funcName+"Click"] ? config.page["on"+config.funcName+"Click"](config.currentPage) :undefined;
+						var _data = config.getResultDate(result);
+						if(_data != undefined)
+							config.undateAttrs(_data);
+						else 
+							return false;
 				    };
 				});
 			},
 			"#nextPage click" :function(){
-				
-			    _dataLoad(this,function(config){
-			    	config.pageNumber++;
-				    if(config.pageNumber < config.count || config.pageNumber == config.count ){
-				    	if(config.page["on"+config.funcName+"Click"]){
-				    		config.updata(config.pageNumber);
-			    			config.viewModel.attr("nextClass",config.pageNumber == config.count ? "gray" : "primary");
-			    			config.viewModel.attr("preClass","primary");
-			    		}
-				    };
+				var _self = this;
+			    _dataLoad(_self,function(config){
+			    	if(config.currentPage < config.viewModel.count){
+			    		config.currentPage++;
+			    		var result = config.page["on"+config.funcName+"Click"] ? config.page["on"+config.funcName+"Click"](config.currentPage) :undefined;
+						var _data = config.getResultDate(result);
+						if(_data != undefined)
+							config.undateAttrs(_data);
+						else 
+							return false;
+			    	}
 			    })
 			}
 		}

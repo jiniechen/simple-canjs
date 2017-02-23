@@ -30,7 +30,7 @@ Page({
 		});
 	},
 
-	//dialog:true,
+	dialog:true,
 	title:"这是我的Dialog标题",
 	//closeBtn:false,
 	onShow:function(page){
@@ -51,18 +51,17 @@ Page({
 	},
 	onScrollClick:function(pageNumber){
 		console.log(pageNumber);
-		var def = can.Deferred();
-		def.reject({
-			message:"error"
-		});
-		def.done(function(){
-			alert("加载成功啦");
-		});
-		def.fail(function(reason){
-			alert(reason.message);
-		})
-		return def;	
-		/*var detail =[
+		 if(pageNumber == 3){
+			var def = can.Deferred();
+			def.reject({
+				message:"error"
+			});
+			def.fail(function(reason){
+				exports.Mask.toast(reason.message);
+			})
+			return def;	
+		}else{
+			var detail =[
 				{id:"001",name:"换页信息",
 					time:"2017"
 				},
@@ -79,24 +78,28 @@ Page({
 					time:"2017"
 				}
 			] ;
-		return detail;*/
-
+		var def = can.Deferred();
+			def.resolve({
+					_data :detail,
+				});
+			return def;
+		}
 	},
 	onScrollData:function() {
 		var detail =[
-					{id:"001",name:"换页信息",
+					{id:"001",name:"初始化信息",
 						time:"2017"
 					},
-					{id:"002",name:"换页信息",
+					{id:"002",name:"初始化信息",
 						time:"2017"
 					},
-					{id:"003",name:"换页信息",
+					{id:"003",name:"初始化信息",
 						time:"2017"
 					},
-					{id:"004",name:"换页信息",
+					{id:"004",name:"初始化信息",
 						time:"2017"
 					},
-					{id:"005",name:"换页信息",
+					{id:"005",name:"初始化信息",
 						time:"2017"
 					}
 				] ;
@@ -106,29 +109,5 @@ Page({
 					count:3
 				});
 			return def;
-		/*var detail =[
-				{id:"001",name:"初始化信息",
-					time:"2017"
-				},
-				{id:"002",name:"初始化信息",
-					time:"2017"
-				},
-				{id:"003",name:"初始化信息",
-					time:"2017"
-				},
-				{id:"004",name:"初始化信息",
-					time:"2017"
-				},
-				{id:"005",name:"初始化信息",
-					time:"2017"
-				}
-				
-			] ;
-		var data  = {
-			_data : detail,
-			count : 3
-		};
-		return data;*/
-
 	}
 }); 
