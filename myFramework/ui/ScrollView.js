@@ -11,6 +11,9 @@ var _dataLoad = function(_self,callback){
 		if(can.isDeferred(result)){
 			result.then(function(success){
 				getResultDate(success);
+				var timer = setTimeout(function(){
+					_self.viewModel.attr("mask",false);
+				},500);
 			},function(reason){
 				_self.viewModel.attr("mask",false);
 				can.each(reason,function(val,key){
@@ -34,9 +37,6 @@ var _dataLoad = function(_self,callback){
 	};
 	var undateAttrs = function(_data){
 		_viewModel.attr("data",_data);
-		var timer = setTimeout(function(){
-			_self.viewModel.attr("mask",false);
-		},500);
 		_viewModel.attr("currentPage",config.currentPage);
 		_viewModel.attr("preClass",config.currentPage == 1 ? "gray" :"primary" );
 		_viewModel.attr("nextClass",config.currentPage == _viewModel.count ? "gray" : "primary");
