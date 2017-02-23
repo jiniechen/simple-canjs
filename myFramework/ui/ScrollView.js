@@ -1,57 +1,55 @@
 requirejs([ "text!myFramework/ui/ScrollView.stache"],function(tpl){
-var _dataLoad = function(_self,callback){
-	var _viewModel = _self.viewModel;
-	var _page  = _viewModel.page;
-	var _currentPage = _viewModel.currentPage;
-	var _name  =_viewModel.id||_viewModel.name||"";
+
+var _getConfig = function(_self){
+    var _viewModel = _self.viewModel;
+    var _name  =_viewModel.id||_viewModel.name||"";
     var _funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
-    var _count ;
-    var getResultDate = function(result){
-		if(can.isDeferred(result)){
-			result.then(function(success){
-				getResultDate(success);
-				var timer = setTimeout(function(){
-					_self.viewModel.attr("mask",false);
-				},500);
-			},function(reason){
-				_self.viewModel.attr("mask",false);
-				can.each(reason,function(val,key){
-					exports.Mask.toast(val);
-				})
-				_data = undefined;
-			});
-		}else if (typeof result == "string"){
-			var success = can.ajax({
-				url:result,
-				data:config.currentPage
-			});
-			getResultDate(success);
-		}else if(typeof result == "object"){
-			can.each(result,function(value,key){
-				key == "count" ? _count = value:_data = value;
-				if(_count){
-					_viewModel.attr("count",_count);
-				}
-			});
-		}
-		
-		return _data;
-	};
-	var undateAttrs = function(_data){
-		_viewModel.attr("data",_data);
-		_viewModel.attr("currentPage",config.currentPage);
-		_viewModel.attr("preClass",config.currentPage == 1 ? "gray" :"primary" );
-		_viewModel.attr("nextClass",config.currentPage == _viewModel.count ? "gray" : "primary");
-	};
-    var config = {
-    	page:_page,
-    	currentPage :_currentPage,
+	var  _config = {
     	viewModel :_viewModel,
-    	funcName:_funcName,
-    	getResultDate :getResultDate,
-    	undateAttrs:undateAttrs
-    };
-   	callback(config);
+    	currentPage :_viewModel.currentPage,
+    	name:_name,
+    	funcName:_funcName
+    }
+    return _config;
+};
+var _getResultDate = function(re,vm){
+	
+	if(can.isDeferred(re)){
+		re.then(function(success){
+			_getResultDate(success,vm);
+			var timer = setTimeout(function(){
+				vm.attr("mask",false);
+			},600);
+		},function(fail){
+				vm.attr("mask",false);
+			can.each(fail,function(val,key){
+				exports.Mask.toast(val);
+			});
+			_data = undefined;
+		})
+	}else if(typeof re == "string"){
+		var success = can.ajax({
+			url:re,
+			data:vm.currentPage+1
+		});
+		_getResultDate(success,vm); 
+	}else if(typeof re == "object"){
+		can.each(re,function(val,key){
+			var _count;
+			key == "count" ? _count = val : _data = val;
+			if(_count){
+				vm.attr("count",_count);
+			}
+		});
+	}
+	return _data;
+};
+
+var _undateAttrs = function(_data,pageNumber,vm){
+	vm.attr("data",_data);
+	vm.attr("currentPage",pageNumber);
+	vm.attr("preClass",pageNumber == 1 ? "gray" :"primary" );
+	vm.attr("nextClass",pageNumber == pageNumber.count ? "gray" : "primary");
 };
 can.Component.extend({
 		tag : "scrollview",
@@ -73,45 +71,48 @@ can.Component.extend({
 		events:{
 			"inserted":function(el,ev){
 				var _self = this;
-				_dataLoad(_self,function(config){
-					var result = config.page["on"+config.funcName+"Data"] ? config.page["on"+config.funcName+"Data"]() :undefined;
-					var _data = config.getResultDate(result);
-					config.viewModel.attr("data",_data);
-			    	config.viewModel.attr("nextClass",config.viewModel.count > 1 ? "primary" : "gray");
-				});		
+				var config = _getConfig(_self);
+				var page = config.viewModel.page;
+				if(page["on"+config.funcName+"Data"]){
+					var re = page["on"+config.funcName+"Data"]();
+					var _data = _getResultDate(re,config.viewModel);
+					if(_data){
+						config.viewModel.attr("data",_data);
+			    		config.viewModel.attr("nextClass",config.viewModel.count > 1 ? "primary" : "gray");
+					}
+				}
 			},
 			"#prePage click" :function(){
-
 				var _self = this;
-				_dataLoad(_self,function(config){
-
-				    if(config.currentPage > 1){
-				    	_self.viewModel.attr("mask",true);
-					    config.currentPage--;
-					   	var result = config.page["on"+config.funcName+"Click"] ? config.page["on"+config.funcName+"Click"](config.currentPage) :undefined;
-						var _data = config.getResultDate(result);
-						if(_data != undefined)
-							config.undateAttrs(_data);
-						else 
-							return false;
-				    };
-				});
+				var config = _getConfig(_self);
+				if(config.currentPage >1){
+					_self.viewModel.attr("mask",true);
+					config.currentPage--;
+					var page = config.viewModel.page;
+					if(page["on"+config.funcName+"Click"]){
+						var re = page["on"+config.funcName+"Click"](config.currentPage);
+						var _data = _getResultDate(re,config.viewModel);
+						if(_data){
+							_undateAttrs(_data,config.currentPage,config.viewModel);
+						}
+					}
+				}
 			},
 			"#nextPage click" :function(){
 				var _self = this;
-			
-			    _dataLoad(_self,function(config){
-			    	if(config.currentPage < config.viewModel.count){
-			    		_self.viewModel.attr("mask",true);
-			    		config.currentPage++;
-			    		var result = config.page["on"+config.funcName+"Click"] ? config.page["on"+config.funcName+"Click"](config.currentPage) :undefined;
-						var _data = config.getResultDate(result);
-						if(_data != undefined)
-							config.undateAttrs(_data);
-						else 
-							return false;
-			    	};
-			    });
+				var config = _getConfig(_self);
+				if(config.currentPage <config.viewModel.count){
+					_self.viewModel.attr("mask",true);
+					config.currentPage++;
+					var page = config.viewModel.page;
+					if(page["on"+config.funcName+"Click"]){
+						var re = page["on"+config.funcName+"Click"](config.currentPage);
+						var _data = _getResultDate(re,config.viewModel);
+						if(_data){
+							_undateAttrs(_data,config.currentPage,config.viewModel);
+						}
+					}
+				}
 			}
 		}
 	});
