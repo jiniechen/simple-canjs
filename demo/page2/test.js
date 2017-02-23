@@ -57,9 +57,7 @@ Page({
 			def.reject({
 				message:"error"
 			});
-			def.fail(function(reason){
-				exports.Mask.toast(reason.message);
-			})
+			
 			return def;	
 		}else{
 			var detail =[
@@ -87,7 +85,7 @@ Page({
 		}
 	},
 	onScrollData:function() {
-		
+		var def = can.Deferred();
 		var detail =[
 					{id:"001",name:"当前页数1",
 						time:"2017"
@@ -106,10 +104,10 @@ Page({
 					}
 				] ;
 		var def = can.Deferred();
-			def.resolve({
+		def.resolve({
 					_data :detail,
 					count:3
 				});
-			return def;
+		return def;		
 	}
 }); 

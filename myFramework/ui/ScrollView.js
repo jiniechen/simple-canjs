@@ -7,10 +7,15 @@ var _dataLoad = function(_self,callback){
     var _funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
     var _count ;
     var getResultDate = function(result){
+
 		if(can.isDeferred(result)){
 			result.then(function(success){
 				getResultDate(success);
 			},function(reason){
+				_self.viewModel.attr("mask",false);
+				can.each(reason,function(val,key){
+					exports.Mask.toast(val);
+				})
 				_data = undefined;
 			});
 		}else if (typeof result == "string"){
@@ -29,6 +34,9 @@ var _dataLoad = function(_self,callback){
 	};
 	var undateAttrs = function(_data){
 		_viewModel.attr("data",_data);
+		var timer = setTimeout(function(){
+			_self.viewModel.attr("mask",false);
+		},500);
 		_viewModel.attr("currentPage",config.currentPage);
 		_viewModel.attr("preClass",config.currentPage == 1 ? "gray" :"primary" );
 		_viewModel.attr("nextClass",config.currentPage == _viewModel.count ? "gray" : "primary");
@@ -71,9 +79,12 @@ can.Component.extend({
 				});		
 			},
 			"#prePage click" :function(){
+
 				var _self = this;
 				_dataLoad(_self,function(config){
+
 				    if(config.currentPage > 1){
+				    	_self.viewModel.attr("mask",true);
 					    config.currentPage--;
 					   	var result = config.page["on"+config.funcName+"Click"] ? config.page["on"+config.funcName+"Click"](config.currentPage) :undefined;
 						var _data = config.getResultDate(result);
@@ -86,8 +97,10 @@ can.Component.extend({
 			},
 			"#nextPage click" :function(){
 				var _self = this;
+			
 			    _dataLoad(_self,function(config){
 			    	if(config.currentPage < config.viewModel.count){
+			    		_self.viewModel.attr("mask",true);
 			    		config.currentPage++;
 			    		var result = config.page["on"+config.funcName+"Click"] ? config.page["on"+config.funcName+"Click"](config.currentPage) :undefined;
 						var _data = config.getResultDate(result);
