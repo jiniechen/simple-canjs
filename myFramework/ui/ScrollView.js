@@ -95,8 +95,8 @@ can.Component.extend({
 							config.undateAttrs(_data);
 						else 
 							return false;
-			    	}
-			    })
+			    	};
+			    });
 			}
 		}
 	});

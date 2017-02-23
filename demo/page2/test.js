@@ -1,6 +1,7 @@
 Page({
 	onData:function(){
 		return Remote.Student.new({	
+
 			detail:[
 				{id:"001",name:"计算机基础",
 					time:"2017"
@@ -50,7 +51,7 @@ Page({
 		//alert("call function doIt()");
 	},
 	onScrollClick:function(pageNumber){
-		console.log(pageNumber);
+		var name  = "当前页数"+pageNumber;
 		 if(pageNumber == 3){
 			var def = can.Deferred();
 			def.reject({
@@ -62,19 +63,19 @@ Page({
 			return def;	
 		}else{
 			var detail =[
-				{id:"001",name:"换页信息",
+				{id:"001",name:name,
 					time:"2017"
 				},
-				{id:"002",name:"换页信息",
+				{id:"002",name:name,
 					time:"2017"
 				},
-				{id:"003",name:"换页信息",
+				{id:"003",name:name,
 					time:"2017"
 				},
-				{id:"004",name:"换页信息",
+				{id:"004",name:name,
 					time:"2017"
 				},
-				{id:"005",name:"换页信息",
+				{id:"005",name:name,
 					time:"2017"
 				}
 			] ;
@@ -86,20 +87,21 @@ Page({
 		}
 	},
 	onScrollData:function() {
+		
 		var detail =[
-					{id:"001",name:"初始化信息",
+					{id:"001",name:"当前页数1",
 						time:"2017"
 					},
-					{id:"002",name:"初始化信息",
+					{id:"002",name:"当前页数1",
 						time:"2017"
 					},
-					{id:"003",name:"初始化信息",
+					{id:"003",name:"当前页数1",
 						time:"2017"
 					},
-					{id:"004",name:"初始化信息",
+					{id:"004",name:"当前页数1",
 						time:"2017"
 					},
-					{id:"005",name:"初始化信息",
+					{id:"005",name:"当前页数1",
 						time:"2017"
 					}
 				] ;
