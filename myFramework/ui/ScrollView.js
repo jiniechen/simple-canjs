@@ -7,7 +7,6 @@ var _dataLoad = function(_self,callback){
     var _funcName = _name.substring(0,1).toUpperCase()+_name.substring(1,_name.length);
     var _count ;
     var getResultDate = function(result){
-
 		if(can.isDeferred(result)){
 			result.then(function(success){
 				getResultDate(success);
@@ -22,7 +21,10 @@ var _dataLoad = function(_self,callback){
 				_data = undefined;
 			});
 		}else if (typeof result == "string"){
-			var success = can.ajax(result);
+			var success = can.ajax({
+				url:result,
+				data:config.currentPage
+			});
 			getResultDate(success);
 		}else if(typeof result == "object"){
 			can.each(result,function(value,key){
