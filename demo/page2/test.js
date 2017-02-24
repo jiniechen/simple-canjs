@@ -51,15 +51,16 @@ Page({
 		//alert("call function doIt()");
 	},
 	onScrollClick:function(pageNumber){
-		var name  = "当前页数"+pageNumber;
+		/*var name  = "当前页数"+pageNumber;
 		 if(pageNumber == 3){
 			var def = can.Deferred();
 			def.reject({
-				message:"error"
+				message:"error",
+				error:"error2"
 			});
 			
 			return def;	
-		}else{
+		}else{*/
 			var detail =[
 				{id:"001",name:name,
 					time:"2017"
@@ -82,7 +83,7 @@ Page({
 					_data :detail,
 				});
 			return def;
-		}
+	/*	}*/
 	},
 	onScrollData:function() {
 		var def = can.Deferred();

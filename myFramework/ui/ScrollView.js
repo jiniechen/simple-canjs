@@ -21,7 +21,7 @@ var _getResultDate = function(re,vm){
 				vm.attr("mask",false);
 			},600);
 		},function(fail){
-				vm.attr("mask",false);
+			vm.attr("mask",false);
 			can.each(fail,function(val,key){
 				exports.Mask.toast(val);
 			});
@@ -49,8 +49,9 @@ var _undateAttrs = function(_data,pageNumber,vm){
 	vm.attr("data",_data);
 	vm.attr("currentPage",pageNumber);
 	vm.attr("preClass",pageNumber == 1 ? "gray" :"primary" );
-	vm.attr("nextClass",pageNumber == pageNumber.count ? "gray" : "primary");
+	vm.attr("nextClass",pageNumber == vm.count ? "gray" : "primary");
 };
+
 can.Component.extend({
 		tag : "scrollview",
 		template : can.stache(tpl),
@@ -109,6 +110,7 @@ can.Component.extend({
 						var re = page["on"+config.funcName+"Click"](config.currentPage);
 						var _data = _getResultDate(re,config.viewModel);
 						if(_data){
+							console.log(config.currentPage);
 							_undateAttrs(_data,config.currentPage,config.viewModel);
 						}
 					}
