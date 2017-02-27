@@ -10,7 +10,7 @@ requirejs(["text!myFramework/ui/TabBar.stache","myFramework/utils/Navigator"],fu
 		},
 		events:{
 			"nav a click":function(el){
-				Navigator.swithPage(el.attr("data-url"));
+				Navigator.switchPage(el.attr("data-url"));
 			}
 		}
 	});

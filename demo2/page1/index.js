@@ -100,12 +100,12 @@ Page({
 	onSureClick:function(){
 		//Mask.toast("恭喜您,提交成功");
 		//debugger;
-		/*var data = this.data;
+		var data = this.data;
 		window._data=data;
 		
 		exports.tools.validate(data,function(){
 			alert("正确数据");
-		})*/
+		})
 	},
 	onCancelClick:function(){
 		exports.Mask.show();
