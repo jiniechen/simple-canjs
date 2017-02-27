@@ -156,7 +156,7 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 						this._appendTo(_page,data);
 					}
 				} else {
-
+					alert("错误：没有对应的页面节点<div id='page'>...");
 				}
 			}
 		};
