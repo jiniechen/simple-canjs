@@ -15,14 +15,25 @@
 <div id="page"></div>
 <tabbar></tabbar>
 </script>
+<script id="page2" type="text/template">
+<text name="field1"/>
+<command text="切换远程Page" name="btn" type="success"/>
+</script>
 <script type="text/javascript" src="framework/tpframework.js"></script>
 <script>
 	options={
 		onShow:function(){
-			switchPage("page1/index.stache");
+			switchPage("page2");
 		},
 		onLaungh:function(){
 			this.setTemplate($("#tpl").html());
+			Pages.push(_Page({
+				template:$("#page2").html(),
+				name:"page2",
+				onBtnClick:function(){
+					switchPage("page1/index.stache");
+				}
+			}));
 		}
 	};
 </script>
