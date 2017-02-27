@@ -13,26 +13,27 @@ var _getConfig = function(_self){
     return _config;
 };
 var _getResultDate = function(re,vm){
-	
+	vm.attr("mask",true);
 	if(can.isDeferred(re)){
 		re.then(function(success){
-			_getResultDate(success,vm);
-			var timer = setTimeout(function(){
+			var _jsonData = (new Function("return " + success))();
+			if(_jsonData.count){
+				vm.attr("count",_jsonData.count);
+				if(vm.attr("currentPage") == 1)
+					vm.attr("nextClass", _jsonData.count> 1 ? "primary" : "gray");	
+			}
+			if(_jsonData.data){
+				vm.attr("data", _jsonData.data);
 				vm.attr("mask",false);
-			},600);
+			}
 		},function(fail){
-			vm.attr("mask",false);
-			can.each(fail,function(val,key){
-				exports.Mask.toast(val);
-			});
-			_data = undefined;
-		})
+			exports.Mask.toast(fail.message);
+		}); 
 	}else if(typeof re == "string"){
 		var success = can.ajax({
 			url:re,
-			data:vm.currentPage+1
 		});
-		_getResultDate(success,vm); 
+		_getResultDate(success,vm);
 	}else if(typeof re == "object"){
 		can.each(re,function(val,key){
 			var _count;
@@ -40,13 +41,14 @@ var _getResultDate = function(re,vm){
 			if(_count){
 				vm.attr("count",_count);
 			}
+			if(_data){
+				vm.attr("data", _data);
+				vm.attr("mask",false);
+			}
 		});
 	}
-	return _data;
 };
-
-var _undateAttrs = function(_data,pageNumber,vm){
-	vm.attr("data",_data);
+var _undateAttrs = function(pageNumber,vm){
 	vm.attr("currentPage",pageNumber);
 	vm.attr("preClass",pageNumber == 1 ? "gray" :"primary" );
 	vm.attr("nextClass",pageNumber == vm.count ? "gray" : "primary");
@@ -73,14 +75,11 @@ can.Component.extend({
 			"inserted":function(el,ev){
 				var _self = this;
 				var config = _getConfig(_self);
+				var vm  = config.viewModel;
 				var page = config.viewModel.page;
 				if(page["on"+config.funcName+"Data"]){
 					var re = page["on"+config.funcName+"Data"]();
-					var _data = _getResultDate(re,config.viewModel);
-					if(_data){
-						config.viewModel.attr("data",_data);
-			    		config.viewModel.attr("nextClass",config.viewModel.count > 1 ? "primary" : "gray");
-					}
+					_getResultDate(re,vm);
 				}
 			},
 			"#prePage click" :function(){
@@ -92,10 +91,9 @@ can.Component.extend({
 					var page = config.viewModel.page;
 					if(page["on"+config.funcName+"Click"]){
 						var re = page["on"+config.funcName+"Click"](config.currentPage);
-						var _data = _getResultDate(re,config.viewModel);
-						if(_data){
-							_undateAttrs(_data,config.currentPage,config.viewModel);
-						}
+						_getResultDate(re,config.viewModel);
+						_undateAttrs(config.currentPage,config.viewModel);
+
 					}
 				}
 			},
@@ -108,11 +106,8 @@ can.Component.extend({
 					var page = config.viewModel.page;
 					if(page["on"+config.funcName+"Click"]){
 						var re = page["on"+config.funcName+"Click"](config.currentPage);
-						var _data = _getResultDate(re,config.viewModel);
-						if(_data){
-							console.log(config.currentPage);
-							_undateAttrs(_data,config.currentPage,config.viewModel);
-						}
+						_getResultDate(re,config.viewModel);
+						_undateAttrs(config.currentPage,config.viewModel);
 					}
 				}
 			}

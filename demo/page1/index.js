@@ -100,7 +100,8 @@ Page({
 	onSureClick:function(){
 		//Mask.toast("恭喜您,提交成功");
 		//debugger;
-		var data = getCurrentPage().onData();
+		window._self =this;
+		var data = this.onData();
 		
 		exports.tools.validate(data,function(){
 			alert("正确数据");

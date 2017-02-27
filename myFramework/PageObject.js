@@ -53,10 +53,11 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 		this.elementEvents = [];
 		this.addEvent = function(event) {
 			this.elementEvents.push(event);
+			var _self=this;
 			if (event.handler) {
 				var $el = $(event.el);
 				$el.off(event.handler);
-				$el.on(event.type, event.handler);
+				$el.on(event.type, can.proxy(event.handler,_self));
 			}
 		}
 
@@ -146,9 +147,9 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 			if (this.dialog) {
 				this._appendTo($("body"),data);
 				//删除滚动条
-				$("html,body").on("touchmove",function(ev){
+				/*$("html,body").on("touchmove",function(ev){
 					ev.preventDefault();
-				})
+				})*/
 			} else {
 				if (_page) {
 					if (_page.attr("data-page") != this.name) {
@@ -171,7 +172,7 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 			if (this.dialog) {
 			 	this._remove();
 				//增加滚动条
-				$("html,body").off("touchmove");
+				/*$("html,body").off("touchmove");*/
 			} else {
 				this.backPageHide();
 				App.getApp().pushBackList(this);

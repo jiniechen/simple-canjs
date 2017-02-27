@@ -51,64 +51,18 @@ Page({
 		//alert("call function doIt()");
 	},
 	onScrollClick:function(pageNumber){
-		/*var name  = "当前页数"+pageNumber;
-		 if(pageNumber == 3){
-			var def = can.Deferred();
-			def.reject({
-				message:"error",
-				error:"error2"
-			});
-			
-			return def;	
-		}else{*/
-			var detail =[
-				{id:"001",name:name,
-					time:"2017"
-				},
-				{id:"002",name:name,
-					time:"2017"
-				},
-				{id:"003",name:name,
-					time:"2017"
-				},
-				{id:"004",name:name,
-					time:"2017"
-				},
-				{id:"005",name:name,
-					time:"2017"
-				}
-			] ;
-		var def = can.Deferred();
-			def.resolve({
-					_data :detail,
-				});
-			return def;
-	/*	}*/
+		return "ajaxDone2.html";
+		/*var jsonData = can.ajax({
+			url:"ajaxDone1.html"
+		});
+		return jsonData;*/
+	
 	},
 	onScrollData:function() {
-		var def = can.Deferred();
-		var detail =[
-					{id:"001",name:"当前页数1",
-						time:"2017"
-					},
-					{id:"002",name:"当前页数1",
-						time:"2017"
-					},
-					{id:"003",name:"当前页数1",
-						time:"2017"
-					},
-					{id:"004",name:"当前页数1",
-						time:"2017"
-					},
-					{id:"005",name:"当前页数1",
-						time:"2017"
-					}
-				] ;
-		var def = can.Deferred();
-		def.resolve({
-					_data :detail,
-					count:3
-				});
-		return def;		
+		return "ajaxDone1.html";
+		/*var jsonData = can.ajax({
+			url:"ajaxDone1.html"
+		});
+		return jsonData;*/
 	}
 }); 
