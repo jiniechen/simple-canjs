@@ -14,14 +14,14 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 		return undefined;
 	}
 
-	function navigateTo(name) {
+	function navigateTo(name,data) {
 		var _p = getCurrentPage();
 		if (_p && _p.name == name)
 			return;
 		var _newPage = getPage(name);
 		if(_newPage==undefined){
 			Mask.show();
-			showPage(name,true,function(_page){
+			_showPage(name,data,true,function(_page){
 				if (!_page.dialog)
 					if (_p)
 						_p.hide();
@@ -33,7 +33,7 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 				if (_p)
 					_p.hide();
 			};
-			_newPage.show();
+			_newPage.show(data);
 			Mask.hide();
 		}
 	};
@@ -59,9 +59,9 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 		return false;
 	}
 	
-	function showPage(__page,_stored,callback){
+	function _showPage(__page,data,_stored,callback){
 		if (getPage(__page)){
-			getPage(__page).show();
+			getPage(__page).show(data);
 		}
 		var _isStache=endWith(__page,".stache");
 		var page=__page;
@@ -95,7 +95,7 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 				_page.setHtml(text);
 			if (_stored)
 				Pages.push(_page);
-			_page.show();
+			_page.show(data);
 			if (callback)
 				callback(_page);
 		},function(){
@@ -109,7 +109,9 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 	exports.Navigator.getCurrentPage = getCurrentPage,
 	exports.Navigator.switchPage = navigateTo,
 	exports.Navigator.runApp = redirectTo
-	exports.Navigator.showPage = showPage
+	exports.Navigator.showPage = function(name,data){
+		_showPage(name,data,false);
+	}
 	
 	
 	return exports.Navigator;
