@@ -3,6 +3,9 @@ App({
 		alert("show me");
 	},
 	onLaungh : function() {
+		
+	},
+	onShow:function(){
 		tabBar.addTab("page1/index.stache","导航1");
 		tabBar.addTab("page2/index.stache","导航2");
 		tabBar.addTab("page2/test.stache","导航3");
@@ -26,5 +29,7 @@ App({
 			},1);
 			
 		});
+		if (Pages.length>0)
+			Pages[0].show();
 	}
 });

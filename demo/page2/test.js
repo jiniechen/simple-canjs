@@ -44,7 +44,7 @@ Page({
 	},
 	onLoad:function(page){
 		//alert("load:"+page.name);
-		exports.Mask.show();
+		//exports.Mask.show();
 	},
 	doIt:function(){
 		

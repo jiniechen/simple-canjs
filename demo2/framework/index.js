@@ -46,14 +46,14 @@ requirejs(["boot!App","myFramework/MyExports"],function(AppObject,exports){
 	window.runApp=exports.Navigator.runApp;
 	window._Page=exports.tools.Page;
 	window.showPage=exports.Navigator.showPage;
-	window.swithPage=exports.Navigator.swithPage;
 	
-	// 没有自定义的onShow，则使用默认的事件
-	if (!AppObject.onShow){
-		AppObject.onShow = function(view) {
-			alert("空接口App.onShow，App没有进行初始化");
-		};
-	};
-	AppObject.laungh(AppObject.onShow);
+	$(function(){
+		var _app=getApp();
+		if (options)
+			can.each(options,function(value,key){
+				_app[key]=value;
+			});
+		_app.$laungh();
+	});
 });
 

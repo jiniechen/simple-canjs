@@ -117,7 +117,8 @@ define([ "myFramework/MyExports" ],function(exports) {
 			}
 			//在component remove时取消绑定
 			_self.removeHandler.push({name:_name,handler:_bindFunc});
-			_data.bind(_name, _bindFunc);
+			if (_data)
+				_data.bind(_name, _bindFunc);
 			el.value = _data.attr(_name);
 		};
 	};
@@ -153,7 +154,8 @@ define([ "myFramework/MyExports" ],function(exports) {
 					_self.error.attr("message",undefined);
 				}
 			};
-			_data.bind(_name, _bindFunc);
+			if (_data)
+				_data.bind(_name, _bindFunc);
 			if (!_self.removeHandler){
 				_self.removeHandler=[];
 			}
@@ -201,7 +203,8 @@ define([ "myFramework/MyExports" ],function(exports) {
 					_self.error.attr("message",undefined);
 				}
 			};
-			_data.bind(_name, _bindFunc);
+			if (_data)
+				_data.bind(_name, _bindFunc);
 			if (!_self.removeHandler){
 				_self.removeHandler=[];
 			}
@@ -226,7 +229,8 @@ define([ "myFramework/MyExports" ],function(exports) {
 							_vm.mobi.clear();
 					}
 				};
-				_data.bind(_parentName,_bindFunc2);
+				if (_data)
+					_data.bind(_parentName,_bindFunc2);
 				_self.removeHandler.push({name:_name,handler:_bindFunc2});
 			}
 			
@@ -260,7 +264,8 @@ define([ "myFramework/MyExports" ],function(exports) {
 					});
 				});
 			};
-			_data[_name].bind('length', _bindFunc);
+			if (_data&&_data[_name])
+				_data[_name].bind('length', _bindFunc);
 			if (!_self.removeHandler){
 				_self.removeHandler=[];
 			}
@@ -310,7 +315,8 @@ define([ "myFramework/MyExports" ],function(exports) {
 				if (newVal!=oldVal)
 					el.checked = _data.attr(_name) == el.getAttribute("value")?true:false;
 			};
-			_data.bind(_name, _bindFunc);
+			if (_data)
+				_data.bind(_name, _bindFunc);
 			if (!_self.removeHandler){
 				_self.removeHandler=[];
 			}
@@ -336,9 +342,10 @@ define([ "myFramework/MyExports" ],function(exports) {
 		var _self=this;
 		var _options = this._options||[0,1];
 		return function(el) {
-			_data.bind(_name,function(ev, newVal, oldVal){
-				el.checked=newVal==_options[1];
-			})
+			if (_data)
+				_data.bind(_name,function(ev, newVal, oldVal){
+					el.checked=newVal==_options[1];
+				});
 			el.checked = _data.attr(_name)==_options[1];
 			el.onclick=function(){
 				_data.attr(_name,_options[this.checked?1:0]);

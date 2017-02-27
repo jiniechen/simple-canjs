@@ -90,9 +90,11 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 					if (_self.viewModel.removeHandler){
 						can.each(_self.viewModel.removeHandler,function(obj,index){
 							if (obj.event){
-								_self.viewModel.data[obj.name].unbind(obj.event,obj.handler);
+								if (_self.viewModel.data&&_self.viewModel.data[obj.name])
+									_self.viewModel.data[obj.name].unbind(obj.event,obj.handler);
 							}else{
-								_self.viewModel.data.unbind(obj.name,obj.handler);
+								if (_self.viewModel.data&&_self.viewModel.data[obj.name])
+									_self.viewModel.data.unbind(obj.name,obj.handler);
 							}
 						})
 					}

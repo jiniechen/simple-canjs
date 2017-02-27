@@ -85,7 +85,7 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 							this.helpers);
 			*/
 			if (this.isStache){
-				this.data=_data;
+				this.data=can.isMapLike(_data)?_data:new can.Map(_data);
 				this._dom = new TemplateTools.Stache(this.template, {data:this.data,page:this},
 							this.helpers);
 			}else
@@ -154,17 +154,33 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 				if (_page) {
 					if (_page.attr("data-page") != this.name) {
 						_page.attr("data-page", this.name);
+						//_page.attr("data-pageObject", this);
+						can.data(_page,"pageObject",this);
 						this._appendTo(_page,data);
 					}
 				} else {
-
+					alert("错误：没有对应的页面节点<div id='page'>...");
 				}
 			}
 		};
+		this.update=function(data){
+			if (this._dom){
+				this._dom.remove();					
+				this._dom = undefined;
+				var _page = $("#page");
+				if (_page.attr("data-page") == this.name) {
+					_page.attr("data-page", "");
+					can.data(_page,"pageObject",undefined);
+				}
+			}
+			this.show(data);
+		};
+		
 		this.backPageHide = function() {
 			var _page = $("#page");
 			if (_page) {
 				_page.attr("data-page", "");
+				can.data(_page,"pageObject",undefined);
 			}
 			this._remove();
 		};

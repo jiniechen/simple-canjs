@@ -23,14 +23,28 @@ define(["myFramework/utils/Template"],function(TemplateTools) {
 		
 		this.laungh = function(cb) {
 			self = this;
+			if (self.onLaungh){
+				self.onLaungh();
+			}
 			var _view = new TemplateTools.Stache(this.template);
 			var _body = $("body");
-			_view.appendTo($("body"));
-			
+			_view.appendTo(_body);
 			$(function() {
 				cb(_view);
 			});
 		};
+		
+		this.$laungh =function(){
+			self = this;
+			if (self.onLaungh){
+				self.onLaungh();
+			}
+			var _view = new TemplateTools.Stache(self.template);
+			var _body = $("body");
+			_view.appendTo(_body);
+			if (self.onShow)
+				self.onShow(_view);
+		}
 		
 		//以下为App的一些工具方法
 		this.pushBackList=function(page){
