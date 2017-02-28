@@ -21,12 +21,12 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 		var _newPage = getPage(name);
 		if(_newPage==undefined){
 			Mask.show();
-			_showPage(name,data,true,function(_page){
+			_showPage(name,data,true,can.proxy(function(_page){
 				if (!_page.dialog)
 					if (_p)
 						_p.hide();
 				Mask.hide();
-			});
+			},{_p:_p});
 		}else{
 			Mask.show();
 			if (!_newPage.dialog) {
