@@ -102,16 +102,26 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 			alert("加载远程页面失败");
 		});
 	};
-
 	
-	exports.Navigator.getPages=getPages,
-	exports.Navigator.getPage = getPage,
-	exports.Navigator.getCurrentPage = getCurrentPage,
-	exports.Navigator.switchPage = navigateTo,
-	exports.Navigator.runApp = redirectTo
+	function ajax(url,_data){
+		return can.ajax({
+			url:url,
+			type:"POST",
+			contentType:"application/json", 
+			dataType : "json",
+			data : JSON.stringify(_data)
+		});
+	}
+	
+	exports.Navigator.getPages=getPages;
+	exports.Navigator.getPage = getPage;
+	exports.Navigator.getCurrentPage = getCurrentPage;
+	exports.Navigator.switchPage = navigateTo;
+	exports.Navigator.runApp = redirectTo;
 	exports.Navigator.showPage = function(name,data){
 		_showPage(name,data,false);
-	}
+	};
+	exports.Navigator.ajax=ajax;
 	
 	
 	return exports.Navigator;

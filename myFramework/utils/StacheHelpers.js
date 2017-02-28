@@ -90,7 +90,6 @@ define([ "myFramework/MyExports" ],function(exports) {
 							handler : _handler
 						});
 				}
-				window._page=_page;
 			};
 		}
 	};

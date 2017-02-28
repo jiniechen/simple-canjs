@@ -46,6 +46,7 @@ requirejs(["boot!App","myFramework/MyExports"],function(AppObject,exports){
 	window.runApp=exports.Navigator.runApp;
 	window._Page=exports.tools.Page;
 	window.showPage=exports.Navigator.showPage;
+	window.ajax=exports.Navigator.ajax;
 	
 	$(function(){
 		var _app=getApp();
