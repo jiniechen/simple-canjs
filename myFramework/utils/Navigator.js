@@ -21,12 +21,12 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 		var _newPage = getPage(name);
 		if(_newPage==undefined){
 			Mask.show();
-			_showPage(name,data,true,can.proxy(function(_page){
+			_showPage(name,data,true,function(_page){
 				if (!_page.dialog)
 					if (_p)
 						_p.hide();
 				Mask.hide();
-			},{_p:_p});
+			});
 		}else{
 			Mask.show();
 			if (!_newPage.dialog) {
@@ -95,9 +95,9 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 				_page.setHtml(text);
 			if (_stored)
 				Pages.push(_page);
-			_page.show(data);
 			if (callback)
 				callback(_page);
+			_page.show(data);
 		},function(){
 			alert("加载远程页面失败");
 		});

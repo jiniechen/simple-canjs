@@ -108,7 +108,7 @@ Page({
 		})
 	},
 	onCancelClick:function(){
-		exports.Mask.show();
+		switchPage("page2");
 	},
 	onToastClick:function(){
 		exports.Mask.toast("这是一个toast");

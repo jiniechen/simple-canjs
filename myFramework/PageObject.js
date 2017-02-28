@@ -154,7 +154,7 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 				if (_page) {
 					if (_page.attr("data-page") != this.name) {
 						_page.attr("data-page", this.name);
-						//_page.attr("data-pageObject", this);
+						_page.attr("data-page", this.name);
 						can.data(_page,"pageObject",this);
 						this._appendTo(_page,data);
 					}
