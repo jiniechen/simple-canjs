@@ -214,17 +214,25 @@ define([ "myFramework/MyExports" ],function(exports) {
 		};
 		return function(el) {
 			if(_self.selection){
-			
-				if(_self.selection.indexOf("'")==-1&&_self.selection.indexOf('"') == -1){
-					getSelection(_self,el);
-				}
+				can.each(_self.selection,function(val,key){
+					if(key == "url"){
+						_self.attr("selection",val);
+						getSelection(_self,el);
+					}else if(key == "page"){
+						_selection = _self.page[val];
+						if(can.isFunction(_selection))
+							_selection();
+						else
+							_selection;
+						_self.attr("selection",_selection);
+					}
+				});
 			}
 			var _bindFunc=function(ev, newVal, oldVal) {
 				if (newVal!=oldVal)
 					if (el.value!=newVal)
 						el.value=newVal;
 				if (_self.mobi){
-					//_self.mobi.init(el);
 					_self.mobi.refresh();
 	    			_self.mobi.setVal(_self.data.attr(_self.name),true);
 				}

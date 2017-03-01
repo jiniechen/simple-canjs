@@ -2,11 +2,12 @@ requirejs(["text!myFramework/ui/form/Dropdown.stache","myFramework/ui/WidgetFact
 	widgetFactory.widget("dropdown",tpl)
 	.config(function(config){
 		config.extendVM=function(vm,attrs,parentScope,el){
-			var _selection = $(el).data("selection");
-			vm.selection = _selection;
-			alert(_selection);
+			
 			var _parentName=$(el).data("parent");
 			vm.parentName = _parentName;
+			var _selection = $(el).data("selection");
+			_selection = (new Function("return"+_selection))();
+			vm.selection = _selection;
 			//级联随动
 			
 			/*var _options;
