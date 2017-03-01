@@ -1,8 +1,8 @@
 <div class="row has-padding mobi-input {{_align}} no-margin divider select" style="{{_hidden}} !important">
 	<span class="cell-4">{{label}}</span>
-	{{#if options}}
+	{{#if selection}}
 		<select class="cell-12 no-border " {{selectValue}} >
-			{{#each options}}
+			{{#each selection}}
 				<optgroup label={{value}}>  
 					{{#each opt}}
 			        	<option value={{key}}>{{txt}}</option>  

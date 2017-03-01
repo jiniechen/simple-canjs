@@ -181,15 +181,15 @@ define([ "myFramework/MyExports" ],function(exports) {
 		var _parentScope = this.parentScope;
         var _index=this.index;
 		var _self=this;
-		var getSelection = function(_self,el){
+		var getSelection = function(_self,el,url){
 			_select = _self.selection;
 			var re = can.ajax({
-	    		url:_select
+	    		url:url
 	    	});
 	    	re.then(function(ssuccess){
 	    		_select = (new Function("return"+ssuccess))();
-	    		_self.attr("options",_select.data);
-	    		el.value = _data.attr(_name);//初始化值
+	    		_self.attr("selection",_select.data);
+	    		el.value = _data.attr(_name);
 	    		if(_self.parentName){
 	    			_setParentOption(_self,el);
 				}else{
@@ -200,9 +200,9 @@ define([ "myFramework/MyExports" ],function(exports) {
 	    	});
 		};
 		var _setParentOption = function(_self,el){
-			_self.attr("parentOptions",_self.options);
+			_self.attr("parentSelection",_self.selection);
 			var _options = _data.attr(_self.parentName);
-			_self.attr("options",_self.parentOptions.attr(_options));
+			_self.attr("selection",_self.parentSelection.attr(_options));
 			el.value = _data.attr(_name);
 			refreshMobi(_self);
 		};
@@ -216,8 +216,9 @@ define([ "myFramework/MyExports" ],function(exports) {
 			if(_self.selection){
 				can.each(_self.selection,function(val,key){
 					if(key == "url"){
+						getSelection(_self,el,val);
+					}else if(key == "data"){
 						_self.attr("selection",val);
-						getSelection(_self,el);
 					}else if(key == "page"){
 						_selection = _self.page[val];
 						if(can.isFunction(_selection))
@@ -252,6 +253,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 				}
 			};
 			if (_data)
+
 				_data.bind(_name, _bindFunc);
 			if (!_self.removeHandler){
 				_self.removeHandler=[];
@@ -264,8 +266,9 @@ define([ "myFramework/MyExports" ],function(exports) {
 				var _bindFunc2=function(ev, newVal, oldVal) {
 					if (newVal!=oldVal){
 						var _vm=_self;
-						var _options=_vm.parentOptions[_vm.data.attr(_parentName)];
-						_vm.attr("options",_options);
+						var _options = _vm.attr("parentSelection");
+							_options = _options[_vm.data.attr(_parentName)]
+						_vm.attr("selection",_options);
 						var _firstValue=undefined;
 						can.each(_options,function(v,k){
 							if (_firstValue==undefined)
@@ -276,7 +279,6 @@ define([ "myFramework/MyExports" ],function(exports) {
 						if (_vm.mobi){
 							_self.mobi.refresh();
 	    					_self.mobi.setVal(_self.data.attr(_self.name),true);
-							//_vm.mobi.clear();
 						}
 					}
 				};

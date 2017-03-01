@@ -13,7 +13,6 @@ requirejs(["text!myFramework/ui/form/Groupopt.stache","myFramework/ui/WidgetFact
         		theme: 'mobiscroll',  
 		        lang: 'zh',           
 		        display: 'bottom',
-		        dateFormat:"yy-mm-dd ",
 			    group: true,  
 		        
         	});
