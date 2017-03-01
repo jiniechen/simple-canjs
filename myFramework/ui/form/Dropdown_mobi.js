@@ -5,6 +5,8 @@ requirejs(["text!myFramework/ui/form/Dropdown_mobi.stache","myFramework/ui/Widge
 			//级联随动
 			var _parentName=$(el).data("parent");
 			vm.parentName = _parentName;
+			var _selection = $(el).data("selection");
+			vm.selection=_selection;
 			/*var _options;
 			if (_parentName){
 				if (vm.data[_parentName]){
