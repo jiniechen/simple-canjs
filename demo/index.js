@@ -47,6 +47,7 @@ requirejs(["boot!App","myFramework/MyExports"],function(AppObject,exports){
 	window._Page=exports.tools.Page;
 	window.showPage=exports.Navigator.showPage;
 	window.swithPage=exports.Navigator.swithPage;
+	window.ajax=exports.Navigator.ajax;
 	
 	// 没有自定义的onShow，则使用默认的事件
 	if (!AppObject.onShow){

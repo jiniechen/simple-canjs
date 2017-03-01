@@ -153,10 +153,23 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 			} else {
 				if (_page) {
 					if (_page.attr("data-page") != this.name) {
-						_page.attr("data-page", this.name);
-						//_page.attr("data-pageObject", this);
-						can.data(_page,"pageObject",this);
-						this._appendTo(_page,data);
+						var _self=this;
+						if ((data!=null)&&(can.isDeferred(data))){
+								data.then(function(_data){
+										can.data(_page,"pageObject",_self);
+										_page.attr("data-page", _self.name);
+										_page.attr("data-page", _self.name);
+										_self._appendTo(_page,_data);
+									},
+									function(){
+										alert("加载页面失败!");
+								});
+						}else{
+							can.data(_page,"pageObject",_self);
+							_page.attr("data-page", _self.name);
+							_page.attr("data-page", _self.name);
+							_self._appendTo(_page,data);
+						}
 					}
 				} else {
 					alert("错误：没有对应的页面节点<div id='page'>...");
