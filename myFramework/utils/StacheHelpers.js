@@ -134,7 +134,10 @@ define([ "myFramework/MyExports" ],function(exports) {
 		var _parentScope = this.parentScope;
         var _index=this.index;
         var _context=this.context;
-		var _self=this;
+        var _options =  this.options;
+        var _self = this;
+     
+		
 		return function(el) {
 			var _bindFunc=function(ev, newVal, oldVal) {
 				if (newVal!=oldVal)
@@ -179,14 +182,52 @@ define([ "myFramework/MyExports" ],function(exports) {
 		var _parentScope = this.parentScope;
         var _index=this.index;
 		var _self=this;
+		var getSelection = function(_self,el){
+			_select = _self.selection;
+			var re = can.ajax({
+	    		url:_select
+	    	});
+	    	re.then(function(ssuccess){
+	    		_select = (new Function("return"+ssuccess))();
+	    		_self.attr("options",_select.data);
+	    		el.value = _data.attr(_name);//初始化值
+	    		if(_self.parentName){
+	    			_setParentOption(_self,el);
+				}else{
+					refreshMobi(_self);
+				}
+	    	},function(reason){
+	    		exports.Mask.toast(reason);
+	    	});
+		};
+		var _setParentOption = function(_self,el){
+			_self.attr("parentOptions",_self.options);
+			var _options = _data.attr(_self.parentName);
+			_self.attr("options",_self.parentOptions.attr(_options));
+			el.value = _data.attr(_name);
+			refreshMobi(_self);
+		};
+		var refreshMobi = function(_self){
+			if(_self.mobi){
+				_self.mobi.refresh();
+				_self.mobi.setVal(_self.data.attr(_self.name),true);
+			}
+		};
 		return function(el) {
+			if(_self.selection){
+			
+				if(_self.selection.indexOf("'")==-1&&_self.selection.indexOf('"') == -1){
+					getSelection(_self,el);
+				}
+			}
 			var _bindFunc=function(ev, newVal, oldVal) {
 				if (newVal!=oldVal)
 					if (el.value!=newVal)
 						el.value=newVal;
 				if (_self.mobi){
-					//_self.mobi.clear();
-					_self.mobi.init(el);
+					//_self.mobi.init(el);
+					_self.mobi.refresh();
+	    			_self.mobi.setVal(_self.data.attr(_self.name),true);
 				}
 				var _error = _root.attr("data").errors(
 						getFullPath(_self,_self.attr("parentScope")),
@@ -225,8 +266,11 @@ define([ "myFramework/MyExports" ],function(exports) {
 						});
 						if (_firstValue)
 							_vm.data.attr(_vm.name,_firstValue);
-						if (_vm.mobi)
-							_vm.mobi.clear();
+						if (_vm.mobi){
+							_self.mobi.refresh();
+	    					_self.mobi.setVal(_self.data.attr(_self.name),true);
+							//_vm.mobi.clear();
+						}
 					}
 				};
 				if (_data)
@@ -352,6 +396,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 			};
 		};
 	};
+	
 	//todo--考虑数据双向绑定时，切换页面需要取消数据的绑定。
 	/*function scrollValue(){
 		var _data = this.data;

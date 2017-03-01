@@ -7,7 +7,7 @@
 				{{/each}}
 			</select>
 		{{else}}
-			<select  class="cell-12 no-border" >
+			<select  class="cell-8 no-border" >
 				<option >Loading text</options>
 			</select>
 	{{/if}}

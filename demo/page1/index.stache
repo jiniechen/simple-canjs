@@ -38,27 +38,19 @@
 	<multitext tip="请输入文本" name="direction"  row="4"/>
 </view>
 
-
-
 <view title="下拉选择示例" 	>		
 	<dropdown  name="citys" id="citys" label="城市选择控件" align="right"
-		 data-options='{深圳:"sz" ,珠海:"zh"}'/>
+		  selection="ajaxDone3.html" />
 	<dropdown  label="城市选择控件" name="area" id="area" align="right"
-		data-parent="citys" data-options='{
-			zh:{香洲:"xz",金湾:"jw"},
-   	 		sz:{南山:"ns",福田:"ft",罗湖:"lh"}
-       	}' />
+		  data-parent="citys" selection="ajaxDone4.html"/>
 </view>
 
 
 <view title="下拉选择示例" 	>	
-	<dropdown_mobi  label="城市选择" name="chose1"  id="new"
-		data-options='{深圳:"sz" ,珠海:"zh"}'/>
+	<dropdown_mobi  label="城市选择" name="chose1"  id="chose1"
+		 selection="ajaxDone3.html" />
 	<dropdown_mobi  label="城市选择" name="chose2"  id="chose2" 
-		data-parent="chose1" data-options='{
-			zh:{香洲:"xz",金湾:"jw"},
-   	 		sz:{南山:"ns",福田:"ft",罗湖:"lh"}
-       	}' />
+		data-parent="chose1"  selection="ajaxDone4.html"/>
 </view>
 
 <view title="grounp option示例" >	
@@ -67,11 +59,11 @@
     		{value:"USA",opt:[{key:"01",txt:"洛杉矶"},{key:"02",txt:"纽约"}]},
     		{value:"China",opt:[{key:"03",txt:"深圳"},{key:"04",txt:"香港"}]}
     	]'
-	/>
+	 selection="ajaxDone5.html" />
 </view>
 <view title="表格示例">
 	<listview context="detail" id="list"
-		data-titles='["field","姓名","性别"]'>
+		data-titles='["field","姓名","性别"]' >
 	</listview>
 </view>
 
