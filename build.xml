@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="simple-canjs" default="dest" basedir=".">
+	<property name="project.home" value="." />
+	<property name="target.dir" value="${project.home}/target" />
+	<property name="target.build" value="${target.dir}/${ant.project.name}" />
+	<property name="target.build.res" value="${target.build}/META-INF/resources" />
+	<description>将tpframework资源打包成jar包</description>
+	<tstamp></tstamp>
+	<target name="init">
+		<delete dir="${target.dir}" />
+		<mkdir dir="${target.build.res}" />
+	</target>
+	<target name="build" depends="init">
+		<copy file="${project.home}/demo2/framework/tpframework.js" todir="${target.build.res}" overwrite="true"/>
+		<copy todir="${target.build.res}/css" overwrite="true">
+			<fileset dir="${project.home}/css" >
+			</fileset>
+		</copy>
+		<copy todir="${target.build.res}/fonts" overwrite="true">
+			<fileset dir="${project.home}/fonts" >
+			</fileset>
+		</copy>
+	</target>
+	<target name="dest" depends="build">
+		<jar destfile="${target.dir}/${ant.project.name}-${DSTAMP}.jar">
+			<manifest>
+				<attribute name="Build-Date" value="${DSTAMP}"></attribute>
+			</manifest>
+		</jar>
+	</target>
+</project>

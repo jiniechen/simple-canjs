@@ -1,69 +1,28 @@
-requirejs(["text!myFramework/ui/form/Groupopt.stache","myFramework/utils/StacheHelpers"],function(tpl,stacheHelpers){
-	can.Component.extend({
-		tag:"groupopt",
-		template:can.stache(tpl),
-		helpers:stacheHelpers,
-		viewModel:function(attrs,parentScope,el){
-			var _optionsJson=$(el).data("options");
-			var _options={};
-			if (_optionsJson){
-				var func=new Function("return "+_optionsJson+";");
-				_options=func();
-			}
-			//获取page对象的viewModel,组合组件从上层组件获取root,顶层组件的parentScope为root
-			var _root=parentScope.attr("root")==undefined?parentScope:parentScope.attr("root");
-			//获取页面对象
-			var _page=_root.attr("page");
-			//组件可以通过属性data重设数据值对象
-			var _contextName=attrs.context||"";
-			var _data=can.getObject(_contextName,parentScope.attr("data")||_root.attr("data"));
-			var txt_align = attrs.align;
-			var _align = txt_align == undefined?"":(txt_align == "right" ? "mobi-right" :"mobi-center");
-			return {
-				id:el.getAttribute("id"),
-				contextName:_contextName,
-				name:undefined,
-				_options:_options,
-				_value:"",
-				label:"",
-				_align:_align,
-				key:"",
-				page:_page,
-				data:_data,
-				root:_root,
-				_myParent:parentScope,
-				error:new can.Map({
-					flag:false,
-					message:undefined
-				})
-			}
-		},
-		events: {
-
-	        inserted: function(el, ev) {
-	    				  	
-	        	
-	       		
-
-			    var instance = mobiscroll.select(el.find("select"),{
-
-	        		theme: 'mobiscroll',  
-			        lang: 'zh',           
-			        display: 'bottom',
-			        dateFormat:"yy-mm-dd ",
-			        //label: 'City',  
-				    group: true,  
-				    //groupLabel: 'Country'
-			        
-	        	});
-				
-			    //el.viewModel().mobi = instance;
-
-			   
-	        	
-	        }
+requirejs(["text!myFramework/ui/form/Groupopt.stache","myFramework/ui/WidgetFactory"],function(tpl,widgetFactory){
+	widgetFactory.widget("groupopt",tpl)
+	.config(function(config){
+		config.extendVM=function(vm,attrs,parentScope,el){
+			var _selection = $(el).data("selection");
+			_selection = (new Function("return"+_selection))();
+			vm.selection = _selection;
+		}
+	})
+	.events(function(events){
+		events.inserted=function(el, ev) {
+			var instance = mobiscroll.select(el.find("select"),{
+        		theme: 'mobiscroll',  
+		        lang: 'zh',           
+		        display: 'bottom',
+			    group: true,  
+		        
+        	});
+		    el.viewModel().mobi = instance;      	
 	    }
-		
-		
+	})
+	.build()
+	.plugin(function(_widget){
+		_widget.align=function(value){
+			this.vm.attr("align",value== undefined?"left":(value == "right" ? "flex-end" :"center"));
+		};
 	});
 });

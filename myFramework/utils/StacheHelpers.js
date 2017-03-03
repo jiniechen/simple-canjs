@@ -133,7 +133,10 @@ define([ "myFramework/MyExports" ],function(exports) {
 		var _parentScope = this.parentScope;
         var _index=this.index;
         var _context=this.context;
-		var _self=this;
+        var _options =  this.options;
+        var _self = this;
+     
+		
 		return function(el) {
 			var _bindFunc=function(ev, newVal, oldVal) {
 				if (newVal!=oldVal)
@@ -178,14 +181,61 @@ define([ "myFramework/MyExports" ],function(exports) {
 		var _parentScope = this.parentScope;
         var _index=this.index;
 		var _self=this;
+		var getSelection = function(_self,el,url){
+			_select = _self.selection;
+			var re = can.ajax({
+	    		url:url
+	    	});
+	    	re.then(function(ssuccess){
+	    		_select = (new Function("return"+ssuccess))();
+	    		_self.attr("selection",_select.data);
+	    		el.value = _data.attr(_name);
+	    		if(_self.parentName){
+	    			_setParentOption(_self,el);
+				}else{
+					refreshMobi(_self);
+				}
+	    	},function(reason){
+	    		exports.Mask.toast(reason);
+	    	});
+		};
+		var _setParentOption = function(_self,el){
+			_self.attr("parentSelection",_self.selection);
+			var _options = _data.attr(_self.parentName);
+			_self.attr("selection",_self.parentSelection.attr(_options));
+			el.value = _data.attr(_name);
+			refreshMobi(_self);
+		};
+		var refreshMobi = function(_self){
+			if(_self.mobi){
+				_self.mobi.refresh();
+				_self.mobi.setVal(_self.data.attr(_self.name),true);
+			}
+		};
 		return function(el) {
+			if(_self.selection){
+				can.each(_self.selection,function(val,key){
+					if(key == "url"){
+						getSelection(_self,el,val);
+					}else if(key == "data"){
+						_self.attr("selection",val);
+					}else if(key == "page"){
+						_selection = _self.page[val];
+						if(can.isFunction(_selection))
+							_selection();
+						else
+							_selection;
+						_self.attr("selection",_selection);
+					}
+				});
+			}
 			var _bindFunc=function(ev, newVal, oldVal) {
 				if (newVal!=oldVal)
 					if (el.value!=newVal)
 						el.value=newVal;
 				if (_self.mobi){
-					//_self.mobi.clear();
-					_self.mobi.init(el);
+					_self.mobi.refresh();
+	    			_self.mobi.setVal(_self.data.attr(_self.name),true);
 				}
 				var _error = _root.attr("data").errors(
 						getFullPath(_self,_self.attr("parentScope")),
@@ -203,6 +253,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 				}
 			};
 			if (_data)
+
 				_data.bind(_name, _bindFunc);
 			if (!_self.removeHandler){
 				_self.removeHandler=[];
@@ -215,8 +266,9 @@ define([ "myFramework/MyExports" ],function(exports) {
 				var _bindFunc2=function(ev, newVal, oldVal) {
 					if (newVal!=oldVal){
 						var _vm=_self;
-						var _options=_vm.parentOptions[_vm.data.attr(_parentName)];
-						_vm.attr("options",_options);
+						var _options = _vm.attr("parentSelection");
+							_options = _options[_vm.data.attr(_parentName)]
+						_vm.attr("selection",_options);
 						var _firstValue=undefined;
 						can.each(_options,function(v,k){
 							if (_firstValue==undefined)
@@ -224,8 +276,10 @@ define([ "myFramework/MyExports" ],function(exports) {
 						});
 						if (_firstValue)
 							_vm.data.attr(_vm.name,_firstValue);
-						if (_vm.mobi)
-							_vm.mobi.clear();
+						if (_vm.mobi){
+							_self.mobi.refresh();
+	    					_self.mobi.setVal(_self.data.attr(_self.name),true);
+						}
 					}
 				};
 				if (_data)
@@ -351,6 +405,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 			};
 		};
 	};
+	
 	//todo--考虑数据双向绑定时，切换页面需要取消数据的绑定。
 	/*function scrollValue(){
 		var _data = this.data;
