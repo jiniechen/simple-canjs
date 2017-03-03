@@ -103,14 +103,36 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 		});
 	};
 	
-	function ajax(url,_data){
-		return can.ajax({
+	function ajax(url,_data,callback){
+		var _sendData=_data;
+		if (can.isMapLike(_sendData))
+			_sendData=_sendData.serialize();
+		var _deferred=can.ajax({
 			url:url,
 			type:"POST",
 			contentType:"application/json", 
 			dataType : "json",
-			data : JSON.stringify(_data)
+			data : JSON.stringify(_sendData)
 		});
+		
+		if (callback){
+			var _self=this;
+			_deferred.then(function(_data){
+					callback.call(_self,_data);
+				},function(){
+					alert("远程调用 "+url+" 失败..");
+			});
+		}else
+			return _deferred;
+	}
+	
+	function remote(url){
+		return new function(url){
+			this.url=url;
+			this.post=function(_data,callback){
+				ajax(this.url,_data,callback);
+			};
+		}
 	}
 	
 	exports.Navigator.getPages=getPages;

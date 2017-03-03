@@ -38,7 +38,7 @@ requirejs(["boot!App","myFramework/MyExports"],function(AppObject,exports){
 	window.Pages=exports.Pages;
 	window.getPage=exports.Navigator.getPage;
 	window.getApp=exports.tools.App.getApp;
-	window.Remote=exports.tools.Remote;
+	window.remote=exports.Navigator.remote;
 	window.Mask=exports.Mask;
 	window.Navigator=exports.Navigator;
 	window.getCurrentPage=exports.Navigator.getCurrentPage;
