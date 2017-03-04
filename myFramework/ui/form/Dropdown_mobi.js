@@ -21,17 +21,7 @@ requirejs(["text!myFramework/ui/form/Dropdown_mobi.stache","myFramework/ui/Widge
 					vm.selection = _selection;
 				}
 			}
-			/*if(_parentName){
 
-				if(vm.data[_parentName]){
-					_selection = vm.selection[vm.data[_parentName]];
-				}else{
-					_selection = new can.List([]);
-				}
-				vm.parentName = _parentName;
-				vm.parentSelection = vm.selection;
-				vm.selection = _selection;
-			}*/
 			
 			/*var _options;
 			if (_parentName){

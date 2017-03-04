@@ -17,14 +17,14 @@ define(["text"],function(textLoader) {
 		});
 	};
 	function _loadMyFramework(req,config,cb){
-		req(["myFramework/MyExports","myFramework/data/Remote","myFramework/AppObject","myFramework/PageObject","text!myFramework/errorsDialog.stache"],
-			function(exports,Remote,App,Page,tpl){
+		req(["myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","text!myFramework/errorsDialog.stache"],
+			function(exports,App,Page,tpl){
 			if (config.isBuild){
 				cb();
 			}else{	
 				exports.tools.App=App;
 				exports.tools.Page=Page;
-				exports.tools.Remote=Remote;
+				//exports.tools.Remote=Remote;
 				exports.tools.validate = function(data,callback){
 					var errors  = data.errors();
 					if(errors!=undefined){
@@ -106,10 +106,10 @@ define(["text"],function(textLoader) {
 		},
 		write:function(plugName,moduleName,write){
 			write(
-				'define("' + plugName + '!' + moduleName + '",'+'["mobiscroll","myFramework/data/Remote","myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","app!App","text!App.stache","text!myFramework/errorsDialog.stache"],function(mobiscroll,Remote,exports,_APP,Page,options,tpl,errorsDialogTpl){'+
+				'define("' + plugName + '!' + moduleName + '",'+'["mobiscroll","myFramework/MyExports","myFramework/AppObject","myFramework/PageObject","app!App","text!App.stache","text!myFramework/errorsDialog.stache"],function(mobiscroll,exports,_APP,Page,options,tpl,errorsDialogTpl){'+
 					'exports.tools.App=_APP;'+
 					'exports.tools.Page=Page;'+
-					'exports.tools.Remote=Remote;'+
+					//'exports.tools.Remote=Remote;'+
 					'exports.tools.validate = function(data,callback){'+
 						'var errors  = data.errors();'+
 						'if(errors!=undefined){'+

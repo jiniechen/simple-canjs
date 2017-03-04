@@ -15,7 +15,6 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 	}
 
 	function navigateTo(name,data) {
-		debugger;
 		var _p = getCurrentPage();
 		if (_p && _p.name == name)
 			return;
@@ -61,8 +60,16 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 	}
 	
 	function _showPage(__page,data,_stored,callback){
-		if (getPage(__page)){
-			getPage(__page).show(data);
+		var iPos=__page.indexOf("?");
+		var _param;
+		if (iPos>0){
+			_param=can.deparam(__page.substring(iPos+1));
+			__page=__page.substring(0,iPos);
+		}
+		var _pageObject=getPage(__page);
+		if (_pageObject){
+			_pageObject.param=_param;
+			_pageObject.show(data);
 		}
 		var _isStache=endWith(__page,".stache");
 		var page=__page;
@@ -89,6 +96,7 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 			_pageFunc(function(options){
 				_page=_Page(options);
 			});
+			_page.param=_param;
 			_page.name=__page;
 			if (_isStache)
 				_page.setStache(text);
@@ -104,14 +112,80 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 		});
 	};
 	
-	function ajax(url,_data){
-		return can.ajax({
+	function ajax(url,_data,callback){
+		var _sendData=_data;
+		if (can.isMapLike(_sendData))
+			_sendData=_sendData.serialize();
+		if (_sendData)
+			_sendData=JSON.stringify(_sendData);
+		var _deferred=can.ajax({
 			url:url,
 			type:"POST",
 			contentType:"application/json", 
 			dataType : "json",
-			data : JSON.stringify(_data)
+			data : _sendData
 		});
+		
+		if (callback){
+			var _self=this;
+			_deferred.then(function(_data){
+					callback.call(_self,_data);
+				},function(){
+					alert("远程调用 "+url+" 失败..");
+			});
+		}else
+			return _deferred;
+	}
+	
+	function remote(url){
+		return new function(_url){
+			this.url=_url;
+			this.post=function(_data,callback){
+				var _sendData=_data;
+				if (can.isMapLike(_sendData))
+					_sendData=_sendData.serialize();
+				if (_sendData)
+					_sendData=JSON.stringify(_sendData);
+				else
+					_sendData=JSON.stringify({});
+				var _deferred=can.ajax({
+					url:this.url,
+					type:"POST",
+					contentType:"application/json", 
+					dataType : "json",
+					data : _sendData
+				});
+				
+				if (callback){
+					var _self=this;
+					_deferred.then(function(_data){
+							callback.call(_self,_data);
+						},function(){
+							alert("远程调用 "+url+" 失败..");
+					});
+				}else
+					return _deferred;
+			};
+			this.get=function(callback){
+				window._self=this;
+				var _deferred=can.ajax({
+					url:this.url,
+					type:"GET",
+					contentType:"application/json", 
+					dataType : "json"
+				});
+				
+				if (callback){
+					var _self=this;
+					_deferred.then(function(_data){
+							callback.call(_self,_data);
+						},function(){
+							alert("远程调用 "+url+" 失败..");
+					});
+				}else
+					return _deferred;
+			};
+		}(url);
 	}
 	
 	exports.Navigator.getPages=getPages;
@@ -123,7 +197,7 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 		_showPage(name,data,false);
 	};
 	exports.Navigator.ajax=ajax;
-	
+	exports.Navigator.remote=remote;
 	
 	return exports.Navigator;
 });

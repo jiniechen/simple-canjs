@@ -4,7 +4,7 @@ requirejs(["text!myFramework/ui/form/Dropdown.stache","myFramework/ui/WidgetFact
 		config.extendVM=function(vm,attrs,parentScope,el){
 			var _selection = $(el).data("selection");
 			var flag = _selection.indexOf("page") >-1? true :false;
-				_selection  = (new Function("return"+_selection))();
+				_selection  = (new Function("return "+_selection))();
 				vm.selection = _selection;
 			var _parentName=$(el).data("parent");
 			vm.parentName = _parentName;
@@ -20,6 +20,19 @@ requirejs(["text!myFramework/ui/form/Dropdown.stache","myFramework/ui/WidgetFact
 					vm.selection = _selection;
 				}
 			}
+			
+			/*var _options;
+			if (_parentName){
+				if (vm.data[_parentName]){
+					_options=vm.options[vm.data[_parentName]];
+				}else
+					_options=new can.List([]);
+				vm.parentName=_parentName;
+				vm.parentOptions=vm.options;
+				vm.options=_options;
+			}else{
+				vm.parentOptions={};
+			}*/
 		}
 	})
 	.build()
