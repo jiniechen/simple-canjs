@@ -11,7 +11,7 @@ requirejs(["text!myFramework/ui/Link.stache","myFramework/ui/WidgetFactory"],fun
 		_events["a click"]=function(){
 			var vm=this.viewModel;
 			if (vm.linkto)
-				switchPage(vm.linkto);
+				switchPage(vm.linkto,undefined,true);
 		}
 	})
 	.build()

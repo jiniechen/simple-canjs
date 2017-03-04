@@ -15,10 +15,20 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 	}
 
 	function navigateTo(name,data) {
+		var __page=name;
+		var iPos=__page.indexOf("?");
+		var _param;
+		if (iPos>0){
+			_param=can.deparam(__page.substring(iPos+1));
+			__page=__page.substring(0,iPos);
+		}
 		var _p = getCurrentPage();
-		if (_p && _p.name == name)
+		if (_p && _p.name == __page){
+			_p.param=_param;
+			_p.update(data);
 			return;
-		var _newPage = getPage(name);
+		}
+		var _newPage = getPage(__page);
 		if(_newPage==undefined){
 			Mask.show();
 			_showPage(name,data,true,function(_page){
@@ -33,6 +43,7 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 				if (_p)
 					_p.hide();
 			};
+			_newPage.param=_param;
 			_newPage.show(data);
 			Mask.hide();
 		}
@@ -70,6 +81,7 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 		if (_pageObject){
 			_pageObject.param=_param;
 			_pageObject.show(data);
+			return;
 		}
 		var _isStache=endWith(__page,".stache");
 		var page=__page;
@@ -91,22 +103,26 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 			dataType : "text/plain"
 		});
 		can.when(pageDeferred,jsDeferred).then(function(text,js){
-			var _pageFunc=new Function("Page",js);
-			var _page;
-			_pageFunc(function(options){
-				_page=_Page(options);
-			});
-			_page.param=_param;
-			_page.name=__page;
-			if (_isStache)
-				_page.setStache(text);
-			else 
-				_page.setHtml(text);
-			if (_stored)
-				Pages.push(_page);
-			if (callback)
-				callback(_page);
-			_page.show(data);
+			try{
+				var _pageFunc=new Function("Page",js);
+				var _page;
+				_pageFunc(function(options){
+					_page=_Page(options);
+				});
+				_page.param=_param;
+				_page.name=__page;
+				if (_isStache)
+					_page.setStache(text);
+				else 
+					_page.setHtml(text);
+				if (_stored)
+					Pages.push(_page);
+				if (callback)
+					callback(_page);
+				_page.show(data);
+			}catch(err){
+				alert(err.message);
+			}
 		},function(){
 			alert("加载远程页面失败");
 		});
@@ -167,7 +183,6 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 					return _deferred;
 			};
 			this.get=function(callback){
-				window._self=this;
 				var _deferred=can.ajax({
 					url:this.url,
 					type:"GET",

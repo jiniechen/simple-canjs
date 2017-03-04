@@ -66,11 +66,10 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 			if (__data)
 				_data=__data;
 			if (_data==undefined){
-				if (this.data)
-					_data=this.data;
-				else if (this.onData){
+				if (this.onData){
 					_data=this.onData();
-				}
+				}else if (this.data)
+					_data=this.data;
 			}
 			if (_data==undefined)
 				_data={};
@@ -84,20 +83,33 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 				this._dom = new TemplateTools.Stache(this.template, {data:this.viewModel,page:this},
 							this.helpers);
 			*/
-			if (this.isStache){
-				this.data=can.isMapLike(_data)?_data:new can.Map(_data);
-				this._dom = new TemplateTools.Stache(this.template, {data:this.data,page:this},
-							this.helpers);
-			}else
-				this._dom=new TemplateTools.Html(this.template);
-			if (!can.isEmptyObject(this.events))
-				setControl(this._dom, this.events);
-			if (this.onLoad) {
-				this.onLoad(this);
+			var __render=function(_self,___data){
+				if (_self.isStache){
+					_self.data=can.isMapLike(___data)?___data:new can.Map(___data);
+					_self._dom = new TemplateTools.Stache(_self.template, {data:_self.data,page:_self},
+						_self.helpers);
+				}else
+					_self._dom=new TemplateTools.Html(_self.template);
+				if (!can.isEmptyObject(_self.events))
+					setControl(_self._dom, _self.events);
+				if (_self.onLoad) {
+					_self.onLoad(_self);
+				}
+				_self._dom.appendTo($el);
+				if (_self.onShow)
+					_self.onShow(_self);
 			}
-			this._dom.appendTo($el);
-			if (this.onShow)
-				this.onShow(this);
+			var self=this;
+			if (can.isDeferred(_data)){
+				_data.then(function(___data){
+					__render(self,___data);
+				},function(){
+					alert("数据调用错误！");
+				});
+			}
+			else{
+				__render(self,_data);
+			}
 		}
 
 		this._remove = function() {
@@ -144,6 +156,7 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 
 		this.show = function(data) {
 			var _page = $("#page");
+			var _self=this;
 			if (this.dialog) {
 				this._appendTo($("body"),data);
 				//删除滚动条
@@ -153,23 +166,10 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 			} else {
 				if (_page) {
 					if (_page.attr("data-page") != this.name) {
-						var _self=this;
-						if ((data!=null)&&(can.isDeferred(data))){
-								data.then(function(_data){
-										can.data(_page,"pageObject",_self);
-										_page.attr("data-page", _self.name);
-										_page.attr("data-page", _self.name);
-										_self._appendTo(_page,_data);
-									},
-									function(){
-										alert("加载页面失败!");
-								});
-						}else{
-							can.data(_page,"pageObject",_self);
-							_page.attr("data-page", _self.name);
-							_page.attr("data-page", _self.name);
-							_self._appendTo(_page,data);
-						}
+						can.data(_page,"pageObject",_self);
+						_page.attr("data-page", _self.name);
+						_page.attr("data-page", _self.name);
+						_self._appendTo(_page,data);
 					}
 				} else {
 					alert("错误：没有对应的页面节点<div id='page'>...");
