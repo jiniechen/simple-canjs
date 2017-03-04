@@ -1,7 +1,12 @@
 requirejs(["text!myFramework/ui/form/Checkbox.stache","myFramework/ui/WidgetFactory"],function(tpl,widgetFactory){
 	widgetFactory.widget("checkbox",tpl)
 	.config(function(config){
-		
+		config.extendVM=function(vm,attrs,parentScope,el){
+			
+			var _selection = $(el).data("selection");
+			_selection  = (new Function("return"+_selection))();
+			vm.selection = _selection;	          
+		}
 	})
 	.build()
 	.plugin(function(_widget){

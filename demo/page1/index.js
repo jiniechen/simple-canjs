@@ -37,12 +37,12 @@ Page({
 			direction:"",
 		    email:"444740823@qq.com",
 		    chose1:"zh",
-		    chose2:"xz",
+		    chose2:"jw",
 		    card:"02",
-		    citys:"sz",
-		    area:"ns",
-		   	radio:"blue",
-		    ch:["apple"],
+		    citys:"zh",
+		    area:"jw",
+		   	radio:"apple",
+		    ch:["apple","banana"],
 			detail:[
 				{id:"001",name:"计算机基础",
 					time:"2017"
@@ -67,6 +67,47 @@ Page({
     },
     	onClick:function(){
 		alert("OK");
+	},
+	citys:function () {
+		var result = can.ajax({
+			url:"ajaxDone3.html"
+		});
+		var result = {
+			深圳3:'sz',
+			珠海3:'zh'
+		}
+		return result;
+	},
+	/*citys:{
+		深圳4:'sz',
+		珠海4:'zh'
+	},*/
+	// area:function () {
+	// 	/*var result = can.ajax({
+	// 		url:"ajaxDone4.html"
+	// 	});*/
+	// 	var result = {
+	// 		zh:{香洲3:"xz",金湾3:"jw"},
+ //   	 		sz:{南山3:"ns",福田3:"ft",罗湖3:"lh"}
+	// 	}
+	// 	return result;
+	// },
+	area:{
+		zh:{香洲4:"xz",金湾4:"jw"},
+   	 	sz:{南山4:"ns",福田4:"ft",罗湖4:"lh"}
+	},
+	card:function () {
+		var result = can.ajax({
+			url:"ajaxDone5.html"
+		});
+		return result;
+	},
+	fruits:function () {
+		var result = can.ajax({
+			url:"ajaxDone6.html"
+		});
+	
+		return result;
 	},
 
 	onValidateValue:function(name,value){

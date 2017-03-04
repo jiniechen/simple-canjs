@@ -1,4 +1,4 @@
-define([ "myFramework/MyExports" ],function(exports) {
+define([ "myFramework/MyExports","myFramework/ui/SelectFactory" ],function(exports,selectFactory) {
 	
 	function camelString(_name) {
 		var result = "";
@@ -93,7 +93,37 @@ define([ "myFramework/MyExports" ],function(exports) {
 			};
 		}
 	};
-	
+	/*function getSelection(_self,el,url){
+		var _select = _self.selection;
+		var re = can.ajax({
+    		url:url
+    	});
+    	re.then(function(ssuccess){
+    		_select = (new Function("return"+ssuccess))();
+    		_self.attr("selection",_select.data);
+    		el.value = _self.data.attr(_self.name);
+    		if(_self.parentName){
+    			_setParentOption(_self,el);
+			}else{
+				refreshMobi(_self);
+			}
+    	},function(reason){
+    		exports.Mask.toast(reason);
+    	});
+	};
+	function _setParentOption(_self,el){
+		_self.attr("parentSelection",_self.selection);
+		var _options = _self.data.attr(_self.parentName);
+		_self.attr("selection",_self.parentSelection.attr(_options));
+		el.value = _self.data.attr(_self.name);
+		refreshMobi(_self);
+	};
+	function refreshMobi(_self){
+		if(_self.mobi){
+			_self.mobi.refresh();
+			_self.mobi.setVal(_self.data.attr(_self.name),true);
+		}
+	};*/
 	//值绑定
 	function readOnlyValue(){
 		var _data = this.data;
@@ -168,8 +198,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 			};
 			el.value = _data.attr(_name);
 		};
-	};
-	
+	}; 
 	function selectValue(){
 		var _data = this.data;
 		var _page = this.page;
@@ -181,54 +210,11 @@ define([ "myFramework/MyExports" ],function(exports) {
 		var _parentScope = this.parentScope;
         var _index=this.index;
 		var _self=this;
-		var getSelection = function(_self,el,url){
-			_select = _self.selection;
-			var re = can.ajax({
-	    		url:url
-	    	});
-	    	re.then(function(ssuccess){
-	    		_select = (new Function("return"+ssuccess))();
-	    		_self.attr("selection",_select.data);
-	    		el.value = _data.attr(_name);
-	    		if(_self.parentName){
-	    			_setParentOption(_self,el);
-				}else{
-					refreshMobi(_self);
-				}
-	    	},function(reason){
-	    		exports.Mask.toast(reason);
-	    	});
-		};
-		var _setParentOption = function(_self,el){
-			_self.attr("parentSelection",_self.selection);
-			var _options = _data.attr(_self.parentName);
-			_self.attr("selection",_self.parentSelection.attr(_options));
-			el.value = _data.attr(_name);
-			refreshMobi(_self);
-		};
-		var refreshMobi = function(_self){
-			if(_self.mobi){
-				_self.mobi.refresh();
-				_self.mobi.setVal(_self.data.attr(_self.name),true);
-			}
-		};
+	
 		return function(el) {
-			if(_self.selection){
-				can.each(_self.selection,function(val,key){
-					if(key == "url"){
-						getSelection(_self,el,val);
-					}else if(key == "data"){
-						_self.attr("selection",val);
-					}else if(key == "page"){
-						_selection = _self.page[val];
-						if(can.isFunction(_selection))
-							_selection();
-						else
-							_selection;
-						_self.attr("selection",_selection);
-					}
-				});
-			}
+
+			selectFactory.selectWidget(_self,el)._getSelectionType(_self);
+			
 			var _bindFunc=function(ev, newVal, oldVal) {
 				if (newVal!=oldVal)
 					if (el.value!=newVal)
@@ -306,6 +292,7 @@ define([ "myFramework/MyExports" ],function(exports) {
         var _index=this.index;
 		var _self=this;
 		return function(el) {
+			selectFactory.selectWidget(_self,el)._getSelectionType(_self);
 			var _checkValue=$(el).data("value");
 			var _bindFunc=function(ev, removedElements, index) {
 				var _inputs=$(el).parent().parent().find("input");
@@ -335,7 +322,7 @@ define([ "myFramework/MyExports" ],function(exports) {
 					});
 				}
 				if (el.checked)
-					if (_index=-1)
+					if (_index=-1)//说明是最新勾选的
 						_list.push(_checkValue);
 				if (!el.checked)
 					_list.splice(_index,1);
@@ -364,6 +351,8 @@ define([ "myFramework/MyExports" ],function(exports) {
         var _index=this.index;
 		var _self=this;
 		return function(el) {
+		selectFactory.selectWidget(_self,el)._getSelectionType(_self);
+
 			var _bindFunc=function(ev, newVal, oldVal) {
 				if (newVal!=oldVal)
 					el.checked = _data.attr(_name) == el.getAttribute("value")?true:false;

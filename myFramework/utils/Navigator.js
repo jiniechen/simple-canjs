@@ -15,6 +15,7 @@ define(["myFramework/MyExports","myFramework/ui/popup/Mask"], function(exports,M
 	}
 
 	function navigateTo(name,data) {
+		debugger;
 		var _p = getCurrentPage();
 		if (_p && _p.name == name)
 			return;

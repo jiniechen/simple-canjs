@@ -2,26 +2,24 @@ requirejs(["text!myFramework/ui/form/Dropdown.stache","myFramework/ui/WidgetFact
 	widgetFactory.widget("dropdown",tpl)
 	.config(function(config){
 		config.extendVM=function(vm,attrs,parentScope,el){
-			
+			var _selection = $(el).data("selection");
+			var flag = _selection.indexOf("page") >-1? true :false;
+				_selection  = (new Function("return"+_selection))();
+				vm.selection = _selection;
 			var _parentName=$(el).data("parent");
 			vm.parentName = _parentName;
-			var _selection = $(el).data("selection");
-			_selection = (new Function("return"+_selection))();
-			vm.selection = _selection;
-			//级联随动
-			
-			/*var _options;
-			if (_parentName){
-				if (vm.data[_parentName]){
-					_options=vm.options[vm.data[_parentName]];
-				}else
-					_options=new can.List([]);
-				vm.parentName=_parentName;
-				vm.parentOptions=vm.options;
-				vm.options=_options;
-			}else{
-				vm.parentOptions={};
-			}*/
+			if(!flag){
+				if(_parentName){
+					if(vm.data[_parentName]){
+						_selection = vm.selection[vm.data[_parentName]];
+					}else{
+						_selection = new can.List([]);
+					}
+					vm.parentName = _parentName;
+					vm.parentSelection = vm.selection;
+					vm.selection = _selection;
+				}
+			}
 		}
 	})
 	.build()

@@ -1,19 +1,33 @@
+
 <view title="搜索框示例">
 		<search tip="请输入您所要查询的关键字" name="search"/>
 </view>
-
-<view title="单选示例1" >		
-	<radio  id="r1" name="radio"  data-options='{红色:"red",蓝色:"blue"}' />
-</view>
-
-<view title="单选示例2" 	>		
-	<radio   name="radio" data-options='{红色:"red",蓝色:"blue"}' />
-</view>
 <view title="多选示例" 	>		
-	<checkbox id="ch1"  name="ch" data-options='{苹果:"apple",香蕉:"banana"}'  />
+	<checkbox id="check"  name="ch"   data-selection='{page:"fruits"}' />
 </view>
-<view title="多选示例" 	>		
-	<checkbox   name="ch"   data-options='{苹果:"apple",香蕉:"banana"}' />
+
+<view title = "单选示例">
+	<radio  id="r1" name="radio"  data-selection='{page:"fruits"}' />
+</view>
+<view title="下拉选择示例" 	>		
+	<dropdown  name="citys"  label="城市选择控件" align="right" id="citys"
+		  data-selection='{深圳2:"sz",珠海2:"zh"}' />
+	<dropdown  label="城市选择控件" name="area"  align="right"
+		  data-parent="citys" data-selection='{zh:{香洲2:"xz",金湾2:"jw"},
+   	 		sz:{南山2:"ns",福田2:"ft",罗湖2:"lh"}}' />
+</view>
+
+<view title="下拉选择示例" 	>	
+	<dropdown_mobi  label="城市选择" name="chose1"  id="chose1"
+		 data-selection="{page:'citys'}" />
+	<dropdown_mobi  label="城市选择" name="chose2"  id="chose2" 
+		data-parent="chose1"  data-selection='{page:"area"}'  />
+</view>
+
+<view title="grounp option示例" >	
+	<groupopt  name="card"  id="gp" label="地址" 
+		data-selection='{page:"card"}'
+	 />
 </view>
 
 <view title="我的信息" id="toast">
@@ -38,29 +52,7 @@
 	<multitext tip="请输入文本" name="direction"  row="4"/>
 </view>
 
-<view title="下拉选择示例" 	>		
-	<dropdown  name="citys" id="citys" label="城市选择控件" align="right"
-		  data-selection="{url:'ajaxDone3.html'}" />
-	<dropdown  label="城市选择控件" name="area" id="area" align="right"
-		  data-parent="citys" data-selection="{url:'ajaxDone4.html'}"/>
-</view>
 
-
-<view title="下拉选择示例" 	>	
-	<dropdown_mobi  label="城市选择" name="chose1"  id="chose1"
-		  data-selection="{url:'ajaxDone3.html'}" />
-	<dropdown_mobi  label="城市选择" name="chose2"  id="chose2" 
-		  data-parent="chose1" data-selection="{url:'ajaxDone4.html'}"/>
-</view>
-
-<view title="grounp option示例" >	
-	<groupopt  name="card"  id="gp" label="地址" 
-		data-selection='[
-    		{value:"USA",opt:[{key:"01",txt:"洛杉矶"},{key:"02",txt:"纽约"}]},
-    		{value:"China",opt:[{key:"03",txt:"深圳"},{key:"04",txt:"香港"}]}
-    	]'
-	 />
-</view>
 <view title="表格示例">
 	<listview context="detail" id="list"
 		data-titles='["field","姓名","性别"]' >
@@ -72,5 +64,6 @@
 <command text="取消"  type="gray"/>
 <command name="sure" text="确认"  size="big" type="success"/>
 <command text="确认"  size="big" type="darkgray" id="cancel"/>
+
 
 
