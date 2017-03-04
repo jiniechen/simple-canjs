@@ -3,7 +3,7 @@ requirejs(["text!myFramework/ui/form/Radio.stache","myFramework/ui/WidgetFactory
 		.config(function(config){
 			config.extendVM = function(vm,attr,parentScope,el){
 				var _selection = $(el).data("selection");
-				_selection  = (new Function("return"+_selection))();
+				_selection  = (new Function("return "+_selection))();
 				vm.selection = _selection;
 			}
 		})

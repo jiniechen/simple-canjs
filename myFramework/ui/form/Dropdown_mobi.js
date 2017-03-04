@@ -4,7 +4,7 @@ requirejs(["text!myFramework/ui/form/Dropdown_mobi.stache","myFramework/ui/Widge
 		config.extendVM=function(vm,attrs,parentScope,el){
 			var _selection = $(el).data("selection");
 			var flag = _selection.indexOf("page") >-1? true :false;
-			_selection  = (new Function("return"+_selection))();
+			_selection  = (new Function("return "+_selection))();
 			vm.selection = _selection;
 			//级联随动
 			var _parentName=$(el).data("parent");

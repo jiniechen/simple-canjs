@@ -34,7 +34,7 @@ define([],function () {
 								var result = _self.page[val]();
 								if(can.isDeferred(result)){
 									result.then(function(ssuccess){
-										var _selection =  (new Function("return" +ssuccess))();
+										var _selection =  (new Function("return " +ssuccess))();
 											_selection = _selection.data;
 											_self.attr("selection",_selection);
 										if(_self.parentName){
