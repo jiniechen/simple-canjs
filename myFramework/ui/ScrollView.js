@@ -12,11 +12,11 @@ var _getConfig = function(_self){
     }
     return _config;
 };
-var _getResultDate = function(re,vm){
+var _getResultData = function(re,vm){
 	vm.attr("mask",true);
 	if(can.isDeferred(re)){
-		re.then(function(success){
-			var _jsonData = (new Function("return " + success))();
+		re.then(function(_jsonData){
+			//var _jsonData = (new Function("return " + success))();
 			if(_jsonData.count){
 				vm.attr("count",_jsonData.count);
 				if(vm.attr("currentPage") == 1)
@@ -24,7 +24,9 @@ var _getResultDate = function(re,vm){
 			}
 			if(_jsonData.data){
 				vm.attr("data", _jsonData.data);
-				vm.attr("mask",false);
+				//vm.attr("mask",false);
+			}else{
+				vm.attr("data", _jsonData);
 			}
 		},function(fail){
 			exports.Mask.toast(fail.message);
@@ -33,20 +35,17 @@ var _getResultDate = function(re,vm){
 		var success = can.ajax({
 			url:re,
 		});
-		_getResultDate(success,vm);
+		_getResultData(success,vm);
 	}else if(typeof re == "object"){
-		can.each(re,function(val,key){
-			var _count;
-			key == "count" ? _count = val : _data = val;
-			if(_count){
-				vm.attr("count",_count);
-			}
-			if(_data){
-				vm.attr("data", _data);
-				vm.attr("mask",false);
-			}
-		});
+		if (re.count){
+			vm.attr("count",re.count);
+		}
+		if (re.data){
+			vm.attr("data",re.data);
+		}else
+			vm.attr("data",re);
 	}
+	vm.attr("mask",false);
 };
 var _undateAttrs = function(pageNumber,vm){
 	vm.attr("currentPage",pageNumber);
@@ -79,7 +78,7 @@ can.Component.extend({
 				var page = config.viewModel.page;
 				if(page["on"+config.funcName+"Data"]){
 					var re = page["on"+config.funcName+"Data"]();
-					_getResultDate(re,vm);
+					_getResultData(re,vm);
 				}
 			},
 			"#prePage click" :function(){
@@ -91,7 +90,7 @@ can.Component.extend({
 					var page = config.viewModel.page;
 					if(page["on"+config.funcName+"Click"]){
 						var re = page["on"+config.funcName+"Click"](config.currentPage);
-						_getResultDate(re,config.viewModel);
+						_getResultData(re,config.viewModel);
 						_undateAttrs(config.currentPage,config.viewModel);
 
 					}
@@ -106,7 +105,7 @@ can.Component.extend({
 					var page = config.viewModel.page;
 					if(page["on"+config.funcName+"Click"]){
 						var re = page["on"+config.funcName+"Click"](config.currentPage);
-						_getResultDate(re,config.viewModel);
+						_getResultData(re,config.viewModel);
 						_undateAttrs(config.currentPage,config.viewModel);
 					}
 				}

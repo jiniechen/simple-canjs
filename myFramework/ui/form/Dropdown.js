@@ -6,7 +6,7 @@ requirejs(["text!myFramework/ui/form/Dropdown.stache","myFramework/ui/WidgetFact
 			var _parentName=$(el).data("parent");
 			vm.parentName = _parentName;
 			var _selection = $(el).data("selection");
-			_selection = (new Function("return"+_selection))();
+			_selection = (new Function("return "+_selection))();
 			vm.selection = _selection;
 			//级联随动
 			
