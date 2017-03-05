@@ -72,10 +72,10 @@ Page({
 		var result = can.ajax({
 			url:"ajaxDone3.html"
 		});
-		var result = {
+		/*var result = {
 			深圳3:'sz',
 			珠海3:'zh'
-		}
+		}*/
 		return result;
 	},
 	/*citys:{
@@ -103,13 +103,19 @@ Page({
 		return result;
 	},
 	fruits:function () {
-		var result = can.ajax({
+		/*var result = can.ajax({
 			url:"ajaxDone6.html"
-		});
-	
+		});*/
+		var result = {
+			苹果object:"apple",
+			香蕉object:"banana"
+		}
 		return result;
 	},
-
+	/*fruits:{
+		苹果2:"apple",
+		香蕉2:"banana"
+	},*/
 	onValidateValue:function(name,value){
 		if (name=="field1"&&value!="123456")
 			return "xxewwer";

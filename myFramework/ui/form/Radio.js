@@ -4,7 +4,22 @@ requirejs(["text!myFramework/ui/form/Radio.stache","myFramework/ui/WidgetFactory
 			config.extendVM = function(vm,attr,parentScope,el){
 				var _selection = $(el).data("selection");
 				_selection  = (new Function("return "+_selection))();
-				vm.selection = _selection;
+				can.each(_selection,function(val,key){
+					if(key == "page"){
+						if(vm.page[val]){
+							if(can.isFunction(vm.page[val])){
+								var result = vm.page[val]();
+								if(!can.isDeferred(result)){
+									vm.selection = result;
+								}
+							}else{
+								vm.selection = vm.page[val];
+							}
+						}
+					}else{
+						vm.selection = _selection;
+					}
+				})       
 			}
 		})
 		.build()
