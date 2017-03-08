@@ -1,0 +1,15 @@
+<div class="card1">
+	<div class="card-style1">
+		{{#if img}}
+			<div class="card-img">
+				<img src="/pic/tp.png">
+			</div>
+		{{/if}}
+		<div class="card-style1-cell">
+			<span class="card-title">{{title}}</span>
+			<span class="card-content">{{content}}</span>
+			<span class="card-time>{{time}}</span>
+		</div>
+	</div>
+	<content/>
+</div>

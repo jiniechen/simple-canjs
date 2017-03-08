@@ -1,5 +1,5 @@
 <div  style='height:{{height}}px;overflow:auto' class="relative">
-	<section class="section">
+	<section>
 		<content/>
 		<div class="loading-more">
 			<span class="loading-more-page {{preClass}}" id="prePage">上一页</span>

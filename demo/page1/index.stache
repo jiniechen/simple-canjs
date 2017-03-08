@@ -3,11 +3,14 @@
 		<search tip="请输入您所要查询的关键字" name="search"/>
 </view>
 <view title="多选示例" 	>		
-	<checkbox id="check"  name="ch"   data-selection='{page:"fruits"}' />
+	<checkbox id="check"  name="ch"   data-selection='page.fruits' />
 </view>
 
 <view title = "单选示例">
-	<radio  id="r1" name="radio"  data-selection='{page:"fruits"}' />
+	<radio  id="r1" name="radio"  data-selection='page.fruits' />
+</view>
+<view title = "单选示例">
+	<radio  id="r1" name="radio"  data-selection='[{label:"苹果",value:"apple"},{label:"香蕉",value:"banana"}]' />
 </view>
 <view title="下拉选择示例" 	>		
 	<dropdown  name="citys"  label="城市选择控件" align="right" id="citys"
@@ -30,6 +33,14 @@
 	 />
 </view>
 
+<view title="grounp option示例" >	
+	<groupopt  name="card"  id="gp" label="地址" 
+		data-selection='[
+    		{value:"USA2",opt:[{key:"01",txt:"洛杉矶2"},{key:"02",txt:"纽约9"}]},
+    		{value:"China2",opt:[{key:"03",txt:"深圳2"},{key:"04",txt:"香港2"}]}
+    	]'
+	 />
+</view>
 <view title="我的信息" id="toast">
 	<text name="field1" label="姓名" />
 	<switch id ="sw2" name="field2" label="出生日期" data-options='["错","对"]'  />

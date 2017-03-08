@@ -572,7 +572,6 @@ ol,
 blockquote,
 pre,
 table,
-img,
 video,
 iframe,
 object,
@@ -5117,7 +5116,7 @@ select+input{
     color: #000;
 }
 .mobi-input input{
-	width:60%;
+    width:60%;
 }
 .mobi-right input{
     //justify-content:flex-end !important;
@@ -5177,4 +5176,103 @@ select+input{
     bottom: 0;
     background: rgba(0,0,0,0.5);
 }
+.card1{
+    background:#fff;
+    margin-bottom:5px;
+}
+.card-style1{
+    position: relative;
+    border-bottom: 1px solid #ececec;
+    padding-left:15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background:#fff;
+    display: flex;
+    justify-content:flex-start;
+    align-items:center;
+}
+.card-style1-cell{
+    display: flex;
+    flex-direction:column;
+  //  align-items: flex-start;
+    font-size: 12px;
+    color: #666;
+    margin-left: 10px;
+    overflow: hidden;
 
+}
+.card-style1-cell>.card-title{
+    font-size: 14px;
+    color: #000;
+}
+.card-style1>.card-img{
+    height: 46px;
+    width: 46px;
+}
+.card-style1>.card-img>img{
+    height:100%;
+    widht:100%;
+}
+.card-style1-cell>.card-content{
+    margin-top: 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.card-style1-cell>.card-time{
+    position: absolute;
+    right: 15px;
+}
+.card2{
+    border-radius: 5px;
+    background: #fff;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.card-style2{
+    margin-top: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: hidden;
+    border-bottom: 1px solid #ececec;
+}
+.card-style2>.card-title{
+    font-size: 14px;
+    color: #000;
+}
+.card-style2>.card-time{
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+}
+.card-style2>.card-img{
+    margin-top: 5px;
+    height: 140px;
+    width: 100%;
+}
+.card-style2>.card-img>img{
+    height: 100%;
+    width: 100%;
+}
+.card-style2>.card-detail{
+    margin-top: 5px;
+    color: #666;
+    font-size: 12px;
+    overflow: hidden;
+    text-align: justify;
+}
+.link-page{
+    position: relative;
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size:12px;
+}
+.link-page>.icon-chevron-right{
+    position: absolute;
+    right: 15px;
+}

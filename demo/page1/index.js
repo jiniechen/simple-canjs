@@ -41,7 +41,7 @@ Page({
 		    card:"02",
 		    citys:"zh",
 		    area:"jw",
-		   	radio:"apple",
+		   	radio:"banana",
 		    ch:["apple","banana"],
 			detail:[
 				{id:"001",name:"计算机基础",
@@ -102,16 +102,11 @@ Page({
 		});
 		return result;
 	},
-	fruits:function () {
-		/*var result = can.ajax({
-			url:"ajaxDone6.html"
-		});*/
-		var result = {
-			苹果object:"apple",
-			香蕉object:"banana"
-		}
-		return result;
-	},
+	
+	fruits:[
+		{label:"苹果",value:"apple"},
+		{label:"香蕉",value:"banana"}
+	],
 	/*fruits:{
 		苹果2:"apple",
 		香蕉2:"banana"

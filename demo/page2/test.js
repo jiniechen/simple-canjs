@@ -1,6 +1,6 @@
 Page({
 	onData:function(){
-		return Remote.Student.new({	
+	/*	return Remote.Student.new({	
 
 			detail:[
 				{id:"001",name:"计算机基础",
@@ -28,7 +28,7 @@ Page({
 					time:"2017"
 				}
 			]
-		});
+		});*/
 	},
 
 	dialog:true,
@@ -59,10 +59,10 @@ Page({
 	
 	},
 	onScrollData:function() {
-		return "ajaxDone1.html";
-		/*var jsonData = can.ajax({
+		//return "ajaxDone1.html";
+		var jsonData = can.ajax({
 			url:"ajaxDone1.html"
 		});
-		return jsonData;*/
+		return jsonData;
 	}
 }); 
