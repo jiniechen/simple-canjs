@@ -32,6 +32,7 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 	;
 
 	function PageObject(options) {
+		
 		this._dom = undefined;
 		this.template = "";
 
@@ -102,7 +103,15 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 			var self=this;
 			if (can.isDeferred(_data)){
 				_data.then(function(___data){
-					__render(self,___data);
+					if (___data.status=="SUCC")
+						__render(self,___data.data);
+					else{
+						var _errors="";
+						can.each(___data.errors,function(v,k){
+							_errors=_errors+v.errMsg;
+						});
+						alert(_errors);
+					}
 				},function(){
 					alert("数据调用错误！");
 				});
@@ -131,6 +140,7 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 		}
 
 		this.setStache = function(template) {
+		
 			this.template = this.dialog ? "<dialog>" + template
 					+ "</dialog>" : template;
 			this._dom = undefined;
