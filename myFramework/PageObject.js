@@ -58,7 +58,7 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 			if (event.handler) {
 				var $el = $(event.el);
 				$el.off(event.handler);
-				$el.on(event.type, can.proxy(event.handler,{page:_self,el:$el,viewModel:event.viewModel}));
+				$el.on(event.type, can.proxy(event.handler,{page:_self,el:$el,cmp:window[event.viewModel._cName.toLowerCase()](event.viewModel)}));
 			}
 		}
 
@@ -111,6 +111,7 @@ define(["myFramework/utils/Template","myFramework/AppObject","myFramework/ui/Dia
 							_errors=_errors+v.errMsg;
 						});
 						alert(_errors);
+						__render(self,self.data);
 					}
 				},function(){
 					alert("数据调用错误！");
