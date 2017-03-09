@@ -56,7 +56,7 @@
 </view>
 
 <view title="时间控件示例">
-	<date label="投保时间" name="startDate" tip="__年__月__日"  start="2017-10-01 " end="2018-10-01" id="tt" />	
+	<date label="投保时间" name="startDate" tip="__年__月__日"  start="2017-10-01 09:42" end="2018-10-01" datetime = "true" />	
 </view>
 
 <view title="多行文本输入示例">
