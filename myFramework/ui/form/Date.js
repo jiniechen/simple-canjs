@@ -1,10 +1,11 @@
 requirejs(["text!myFramework/ui/form/Date.stache","myFramework/ui/WidgetFactory"],function(tpl,widgetFactory){
 	widgetFactory.widget("date",tpl)
 	.config(function(config){
-		
 	})
 	.events(function(events){
 		events.inserted=function(el, ev) {
+			var type = this.viewModel.datetime
+			type = type == "true" ? "datetime" : "date";
     		//获取标签上的起止时间
         	var stratDate = this.viewModel.start.trim(),
        		endDate = this.viewModel.end.trim();
@@ -21,16 +22,13 @@ requirejs(["text!myFramework/ui/form/Date.stache","myFramework/ui/WidgetFactory"
 		        min: minDate,        
 		        max: maxDate 
 		  	}
-		    if(stratDate.indexOf(":") != -1||endDate.indexOf(":") != -1){
-		    	var instance = mobiscroll.datetime(el.find(".date"), config);
-		    }else{
-		    	var instance = mobiscroll.date(el.find(".date"), config);
-		    }
+		 	var instance = mobiscroll[type](el.find(".date"), config);
         }
 	})
 	.build(function(vm){
 		vm.start="";
 		vm.end="";
+		
 	})
 	.plugin(function(_widget){
 		_widget.align=function(value){
