@@ -133,16 +133,11 @@ Page({
 
 		
 		//MF.Mask.toast("报错了,我来看看样式");
-	
-
 	},
 	onClick:function(){
 		//MF.getCurrentPage().viewModel.data.attr("field1","123456");
 	},
-	onSureClick:function(){
-		//Mask.toast("恭喜您,提交成功");
-		//debugger;
-		window._self =this;
+	onSureClick:function(){		
 		var data = this.onData();
 		
 		exports.tools.validate(data,function(){
@@ -150,9 +145,14 @@ Page({
 		})
 	},
 	onCancelClick:function(){
+		console.log(this);
 		exports.Mask.show();
 	},
 	onToastClick:function(){
+		console.log(this);
 		exports.Mask.toast("这是一个toast");
+	},
+	onChose1Changed:function(){
+		console.log(this);
 	}
 });

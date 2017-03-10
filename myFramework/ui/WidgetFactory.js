@@ -120,10 +120,17 @@ define(["myFramework/utils/StacheHelpers"],function(_helpers){
 					var _callback=callback;
 					var _result=function(el){
 						if (el){
-							return new function(el){
-								this.vm=$(el).viewModel();
-								_callback(this);
-							}(el);
+							if(can.isMapLike(el)){
+								return new function(el){
+									this.vm = el;
+									_callback(this);
+								}(el)
+							}else{
+								return new function(el){
+									this.vm=$(el).viewModel();
+									_callback(this);
+								}(el);
+							}
 						}else{
 							return new function(){
 								this.vm=$(_tag).viewModel();

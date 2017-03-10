@@ -66,6 +66,25 @@ requirejs(["text!myFramework/ui/form/Dropdown_mobi.stache","myFramework/ui/Widge
 		_widget.align=function(value){
 			this.vm.attr("align",value== undefined?"left":(value == "right" ? "flex-end" :"center"));
 		};
+		_widget.setSelection = function(def){
+			var _self = this;
+			var vm = _self.vm;
+			if(def){
+				if(can.isDeferred(def)){
+					def.then(function(success){
+						var _selection = (new Function("return"+success))();
+						_selection = _selection.data;
+						vm.attr("selection",_selection);
+						if(vm.mobi){
+							vm.mobi.init();
+							vm.mobi.setVal(vm.data.attr(vm.name),true);
+						}
+					},function(reason){
+						exports.Mask.toast(reason);
+					})
+				}
+			}
+		};
 	});
 });
 

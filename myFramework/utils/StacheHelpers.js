@@ -253,8 +253,10 @@ define([ "myFramework/MyExports","myFramework/ui/SelectFactory" ],function(expor
 				var _eventName=camelString(getFullPath(_self,_self.attr("parentScope"))).replace(new RegExp("\\.","gm"),"");
 				_eventName="on"+_eventName+"Changed";
 				var _pe=_page[_eventName];
-				if (_pe)
-					_pe(_name,newVal,_self,_data);
+				if (_pe){
+					_pe.call({name:_name,val:newVal,cmp:window[_self._cName.toLowerCase()](),data:_data,page:_page});
+					
+				}
 			};
 			if (_data)
 				_data.bind(_name, _bindFunc);
